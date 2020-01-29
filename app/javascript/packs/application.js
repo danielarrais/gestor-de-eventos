@@ -12,3 +12,6 @@ import '@fortawesome/fontawesome-free/js/all';
 
 // Argon design
 import 'argon-design-system-free/assets/js/argon.min'
+
+// Mensagens de alerta
+global.toastr = require('toastr');
