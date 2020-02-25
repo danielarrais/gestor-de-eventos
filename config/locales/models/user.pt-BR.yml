@@ -1,0 +1,10 @@
+'pt-BR':
+  activerecord:
+    models:
+      user: 'Usuário'
+    attributes:
+      user:
+        email: "Email"
+        name: "Nome"
+        remember_me: "Lembrar senha"
+      # will translate User attribute "login" as "Handle"
