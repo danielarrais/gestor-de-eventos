@@ -1,3 +1,14 @@
-@import "../scss/argon-design-system";
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
+
+@import "../css/nucleo-icons";
+@import "../css/nucleo-svg";
+
 @import "~@fortawesome/fontawesome-free";
-@import '~toastr';
+@import "../css/nucleo-svg";
+
+@import "../scss/argon-design-system";
+
+#logo {
+  font-size: 18pt;
+  font-weight: bold;
+}
