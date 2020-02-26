@@ -14,6 +14,19 @@ module Cert
     config.i18n.default_locale = 'pt-BR'
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**/*.{rb,yml}').to_s]
 
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+        :user_name => '26cb2d6ea451fd',
+        :password => '9bc0df1629946e',
+        :address => 'smtp.mailtrap.io',
+        :domain => 'smtp.mailtrap.io',
+        :port => '2525',
+        :authentication => :cram_md5
+    }
+
+    config.to_prepare do
+      Devise::Mailer.layout 'mailer' # simple.haml or simple.erb
+    end
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
