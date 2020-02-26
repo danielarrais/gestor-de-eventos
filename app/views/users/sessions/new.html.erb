@@ -15,6 +15,7 @@
           <small>Ou entre com suas credênciais</small>
         </div>
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <%= render "users/shared/error_messages", resource: resource %>
           <div class="form-group mb-3">
             <div class="input-group input-group-alternative">
               <div class="input-group-prepend">

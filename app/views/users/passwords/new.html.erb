@@ -1,16 +1,35 @@
-<h2>Forgot your password?</h2>
-
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<div class="wrapper">
+  <div class="page-header">
+    <div class="page-header-image"></div>
+    <div class="container">
+      <div class="col-lg-5 col-md-8 mx-auto">
+        <div class="card bg-secondary shadow border-0">
+          <div class="card-header">
+            <img class="card-img" src="<%= asset_path('ill/bg5-1.svg') %>" alt="Card image">
+            <h4 class="card-title text-center">Redefinir senha</h4>
+          </div>
+          <div class="card-body px-lg-5 py-lg-5">
+            <div class="text-center text-muted mb-4">
+              <small>Informe um endereço de e-mail da sua conta para receber as intruções de redefinição da
+                senha</small>
+            </div>
+            <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :post}) do |f| %>
+              <%= render "users/shared/error_messages", resource: resource %>
+              <div class="form-group mb-3">
+                <div class="input-group input-group-alternative">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                  </div>
+                  <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', placeholder: 'Email' %>
+                </div>
+              </div>
+              <div class="text-center">
+                <%= f.submit "Enviar instruções", class: 'btn btn-primary my-4' %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
