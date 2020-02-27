@@ -6,5 +6,6 @@
       user:
         email: "Email"
         name: "Nome"
+        password: 'Senha'
         remember_me: "Lembrar senha"
       # will translate User attribute "login" as "Handle"
