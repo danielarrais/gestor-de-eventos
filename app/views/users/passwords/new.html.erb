@@ -10,8 +10,8 @@
           </div>
           <div class="card-body px-lg-5 py-lg-5">
             <div class="text-center text-muted mb-4">
-              <small>Informe um endereço de e-mail da sua conta para receber as intruções de redefinição da
-                senha</small>
+              <small>Informe o endereço de e-mail da sua conta para que possamos enviar as intruções de redefinição da
+                sua senha</small>
             </div>
             <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :post}) do |f| %>
               <%= render "users/shared/error_messages", resource: resource %>

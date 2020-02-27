@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt">
 <head>
   <title>Cert</title>
   <%= csrf_meta_tags %>
@@ -10,61 +10,72 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-default p-1">
-  <div class="container">
-    <a id="logo" class="navbar-brand mt-0 ml-2" href="#">CERT</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-primary" aria-controls="navbar-primary" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbar-primary">
-      <div class="navbar-collapse-header">
-        <div class="row">
-          <div class="col-6 collapse-brand">
-            <a href="index.html">
-              <span id="logo" style="font-size: 20pt">CERT</span>
-            </a>
-          </div>
-          <div class="col-6 collapse-close">
-            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-primary" aria-controls="navbar-primary" aria-expanded="false" aria-label="Toggle navigation">
-              <span></span>
-              <span></span>
-            </button>
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-default p-1">
+    <div class="container">
+      <a id="logo" class="navbar-brand mt-0 ml-2" href="#">CERT</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-primary" aria-controls="navbar-primary" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar-primary">
+        <div class="navbar-collapse-header">
+          <div class="row">
+            <div class="col-6 collapse-brand">
+              <a href="index.html">
+                <span id="logo" style="font-size: 20pt">CERT</span>
+              </a>
+            </div>
+            <div class="col-6 collapse-close">
+              <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-primary" aria-controls="navbar-primary" aria-expanded="false" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+              </button>
+            </div>
           </div>
         </div>
+        <ul class="navbar-nav ml-lg-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Eventos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Certificados</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link" href="#" id="navbar-primary_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sistema</a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-primary_dropdown_1">
+              <%= link_to users_path, method: :get, class: 'dropdown-item' do %>Usuários<% end %>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link nav-link-icon" href="#" id="navbar-success_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <b><i class="fas fa-user-circle"></i> <%= current_user.name if current_user.present? %></b>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-success_dropdown_1">
+              <a class="dropdown-item" href="#">Configurações</a>
+              <a class="dropdown-item" href="#">Conta</a>
+              <div class="dropdown-divider"></div>
+              <%= link_to destroy_user_session_path, method: :delete, class: 'dropdown-item' do %>Sair<% end %>
+            </div>
+          </li>
+        </ul>
       </div>
-      <ul class="navbar-nav ml-lg-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Eventos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Certificados</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link" href="#" id="navbar-primary_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sistema</a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-primary_dropdown_1">
-            <a class="dropdown-item" href="#">Usuários</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link nav-link-icon" href="#" id="navbar-success_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <b><i class="fas fa-user-circle"></i> <%= current_user.name if current_user.present? %></b>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-success_dropdown_1">
-            <a class="dropdown-item" href="#">Configurações</a>
-            <a class="dropdown-item" href="#">Conta</a>
-            <div class="dropdown-divider"></div>
-            <%= link_to destroy_user_session_path, method: :delete, class: 'dropdown-item' do %>Sair<% end %>
-          </div>
-        </li>
-      </ul>
     </div>
-  </div>
-</nav>
+  </nav>
+  <nav aria-label="breadcrumb" role="navigation">
+    <ol class="breadcrumb container">
+        <li class="breadcrumb-item active" aria-current="page">Home</li>
+        <li class="breadcrumb-item active" aria-current="page">Usuários</li>
+        <li class="breadcrumb-item active" aria-current="page">Listagem</li>
+    </ol>
+  </nav>
+</header>
 <main>
-  <%= yield %>
+  <div class="container">
+    <%= yield %>
+  </div>
 </main>
 </body>
 </html>

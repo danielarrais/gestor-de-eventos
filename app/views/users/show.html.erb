@@ -1,0 +1,56 @@
+<div class="ct-page-title">
+  <h1 class="ct-title" id="content">Visualizar Usuário</h1>
+</div>
+
+<div class="row">
+  <div class="col-md-3">
+    <div class="form-group">
+      <%= label_tag :name, 'Nome' %>
+      <%= label_tag :name, @user.name, autofocus: true, class: 'form-control', placeholder: 'Ex. Daniel'%>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <%= label_tag :surname, 'Sobrenome' %>
+      <%= label_tag :surname, @user.surname, class: 'form-control', placeholder: 'Ex.: Arrais de Carvalho'%>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="form-group">
+      <%= label_tag :date_of_birth, 'Data de nascimento' %>
+      <%= label_tag :date_of_birth, @user.date_of_birth.strftime('%d/%m/%Y'), class: 'form-control'%>
+    </div>
+  </div>
+
+  <div class="col-md-2">
+    <div class="form-group">
+      <%= label_tag :registration, 'Matrícula' %>
+      <%= label_tag :registration, @user.registration, class: 'form-control'%>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <%= label_tag :cpf, 'CPF' %>
+      <%= label_tag :cpf, @user.cpf, class: 'form-control cpf-mask'%>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <div class="form-group">
+      <%= label_tag :email, 'Email' %>
+      <%= label_tag :email, @user.email, class: 'form-control'%>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <%= label_tag :cellphone, 'Celular' %>
+      <%= label_tag :cellphone, @user.cellphone, class: 'form-control cellphone-mask'%>
+    </div>
+  </div>
+</div>
+<div>
+  <h5>Perfis de acesso</h5>
+</div>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
