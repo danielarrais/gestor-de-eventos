@@ -1,0 +1,26 @@
+.table thead th {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.table th, .table td {
+  padding: 0.8rem;
+}
+
+.table tbody tr td {
+  font-size: 0.9rem;
+}
+
+.breadcrumb {
+  background: none;
+  font-size: 0.82rem;
+}
+
+.page-header > .container, .page-header > .container-fluid {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.page-header {
+  min-height: calc(100vh - 43.6833px - 56px);
+}
