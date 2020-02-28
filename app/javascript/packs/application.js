@@ -4,13 +4,14 @@ require('@rails/activestorage').start();
 require('channels');
 
 import 'jquery'
+
 import '../js/core/popper.min.js'
 import '../js/core/bootstrap.min.js'
 import '../js/plugins/perfect-scrollbar.jquery.min.js'
 import '../js/plugins/bootstrap-switch.js'
 import '../js/plugins/nouislider.min.js'
 import '../js/plugins/glide.js'
-import '../js/plugins/choices.min.js'
+import 'choices.js'
 import '../js/plugins/bootstrap-switch.js'
 import 'flatpickr'
 import '../js/plugins/headroom.min.js'
