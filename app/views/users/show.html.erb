@@ -6,51 +6,52 @@
   <div class="col-md-3">
     <div class="form-group">
       <%= label_tag :name, 'Nome' %>
-      <%= label_tag :name, @user.name, autofocus: true, class: 'form-control', placeholder: 'Ex. Daniel'%>
+      <%= label_tag :name, @user.name, autofocus: true, class: 'form-control' %>
     </div>
   </div>
   <div class="col-md-4">
     <div class="form-group">
       <%= label_tag :surname, 'Sobrenome' %>
-      <%= label_tag :surname, @user.surname, class: 'form-control', placeholder: 'Ex.: Arrais de Carvalho'%>
+      <%= label_tag :surname, @user.surname, class: 'form-control' %>
     </div>
   </div>
 
   <div class="col-md-3">
     <div class="form-group">
       <%= label_tag :date_of_birth, 'Data de nascimento' %>
-      <%= label_tag :date_of_birth, @user.date_of_birth.strftime('%d/%m/%Y'), class: 'form-control'%>
+      <%= label_tag :date_of_birth, @user.date_of_birth.strftime('%d/%m/%Y'), class: 'form-control' %>
     </div>
   </div>
 
   <div class="col-md-2">
     <div class="form-group">
       <%= label_tag :registration, 'Matrícula' %>
-      <%= label_tag :registration, @user.registration, class: 'form-control'%>
+      <%= label_tag :registration, @user.registration, class: 'form-control' %>
     </div>
   </div>
   <div class="col-md-3">
     <div class="form-group">
       <%= label_tag :cpf, 'CPF' %>
-      <%= label_tag :cpf, @user.cpf, class: 'form-control cpf-mask'%>
+      <%= label_tag :cpf, @user.cpf, class: 'form-control cpf-mask' %>
     </div>
   </div>
   <div class="col-md-5">
     <div class="form-group">
       <%= label_tag :email, 'Email' %>
-      <%= label_tag :email, @user.email, class: 'form-control'%>
+      <%= label_tag :email, @user.email, class: 'form-control' %>
     </div>
   </div>
   <div class="col-md-4">
     <div class="form-group">
       <%= label_tag :cellphone, 'Celular' %>
-      <%= label_tag :cellphone, @user.cellphone, class: 'form-control cellphone-mask'%>
+      <%= label_tag :cellphone, @user.cellphone, class: 'form-control cellphone-mask' %>
     </div>
   </div>
 </div>
-<div>
-  <h5>Perfis de acesso</h5>
-</div>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<div class="float-right">
+  <%= link_to '<span><i class="fa fa-arrow-left mr-1"></i>Voltar</span>'.html_safe, :back,
+              class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
+  <%= link_to '<span><i class="fa fa-edit mr-1"></i>Editar</span>'.html_safe, edit_user_path(@user),
+              class: 'btn btn-primary btn-icon btn-1 btn-simple' %>
+</div>
