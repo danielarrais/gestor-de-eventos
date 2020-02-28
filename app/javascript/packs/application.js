@@ -24,8 +24,5 @@ import '../js/custom/inputs-conf'
 // Bootstrap 4
 import '../stylesheets/application'
 
-// Icones
-import '@fortawesome/fontawesome-free/js/all';
-
 // Mensagens de alerta
 global.toastr = require('toastr');
