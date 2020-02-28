@@ -1,4 +1,4 @@
-<%= form_with(model: profile, local: true) do |form| %>
+<%= form_with(model: profile, local: true) do |f| %>
   <% if profile.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
@@ -11,22 +11,26 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= f.label :name, 'Nome' %>
+        <%= f.text_field :name, autofocus: true, class: 'form-control', placeholder: 'Ex. Professor' %>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="form-group">
+        <%= f.label :description, 'Descrição' %>
+        <%= f.text_field :description, class: 'form-control', placeholder: 'Ex.: Dar acesso as fuções dedicadas aos docentes' %>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_field :description %>
-  </div>
-
-  <div class="field">
-    <%= form.label :custom %>
-    <%= form.check_box :custom %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <div class="float-right">
+    <%= link_to '<span><i class="fa fa-arrow-left mr-1"></i>Voltar</span>'.html_safe, :back,
+                class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
+    <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple") do %>
+      <span><i class="fa fa-floppy-o mr-1"></i> Salvar</span>
+    <% end %>
   </div>
 <% end %>
