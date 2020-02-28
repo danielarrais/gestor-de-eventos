@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :profiles
-  resources :actions
+  resources :actions, only: [:index]
   devise_for :users, :skip => [:registrations]
 
   resources :users
