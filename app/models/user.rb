@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_and_belongs_to_many :profiles
+
   before_validation :generate_random_password, unless: -> (d) { d.encrypted_password.present? }
   after_create :create_password_instructions, if: -> (d) { d.senha_gerada }
 
