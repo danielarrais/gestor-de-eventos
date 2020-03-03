@@ -63,6 +63,18 @@
         <%= f.text_field :cellphone, class: 'form-control cellphone-mask', placeholder: 'Ex.: (63) 9995-5656' %>
       </div>
     </div>
+    <div class="col-md-12">
+      <div class="form-group">
+        <%= f.label :profile_ids, 'Perfis' %>
+        <%= f.select(:profile_ids, @profiles,
+                     {include_blank: "Escolha os perfis do usuário"},
+                     {multiple: true,
+                      size: 5,
+                      class: 'form-control',
+                      data: {trigger: ''},
+                      id: 'profile_ids'}) %>
+      </div>
+    </div>
   </div>
 
   <div class="float-right">
@@ -73,3 +85,14 @@
     <% end %>
   </div>
 <% end %>
+
+<script type="text/javascript" charset="utf-8">
+    new Choices('#profile_ids', {
+        searchEnabled: true,
+        searchChoices: true,
+        search: true,
+        delimiter: ',',
+        editItems: true,
+        removeItemButton: true,
+    });
+</script>
