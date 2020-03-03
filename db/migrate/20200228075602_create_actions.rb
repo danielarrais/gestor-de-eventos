@@ -3,7 +3,8 @@ class CreateActions < ActiveRecord::Migration[6.0]
     create_table :actions do |t|
       t.string :name, null: false
       t.string :description, null: false
-      t.string :key, null: false
+      t.string :controller, null: false
+      t.string :action, null: false
 
       t.timestamps
     end
