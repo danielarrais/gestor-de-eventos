@@ -24,6 +24,18 @@
         <%= f.text_field :description, class: 'form-control', placeholder: 'Ex.: Dar acesso as funções dedicadas aos docentes' %>
       </div>
     </div>
+    <div class="col-md-12">
+      <div class="form-group">
+        <%= f.label :action_ids, 'Ações permitidas' %>
+        <%= f.select(:action_ids, @actions,
+                     {include_blank: "Escolha as ações permitidas para o perfil"},
+                     {multiple: true,
+                      size: 5,
+                      class: 'form-control',
+                      data: {trigger: ''},
+                      id: 'action_ids'}) %>
+      </div>
+    </div>
   </div>
 
   <div class="float-right">
@@ -34,3 +46,14 @@
     <% end %>
   </div>
 <% end %>
+
+<script type="text/javascript" charset="utf-8">
+    new Choices('#action_ids', {
+        searchEnabled: true,
+        searchChoices: true,
+        search: true,
+        delimiter: ',',
+        editItems: true,
+        removeItemButton: true,
+    });
+</script>
