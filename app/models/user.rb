@@ -10,7 +10,18 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  def all_actions
+    actions = []
+
+    profiles.each do |profile|
+      actions.push(*profile.actions.to_a)
+    end
+
+    actions
+  end
+
   private
+
   # Gera senha aleatória caso não haja uma
   def generate_random_password
     self.password = SecureRandom.hex
