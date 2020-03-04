@@ -28,6 +28,9 @@ gem 'jbuilder', '~> 2.7'
 # Gem de autenticação
 gem 'devise'
 
+# Gem de autorização
+gem 'cancancan'
+
 # Gem de tradução de mensagens para o rails
 gem 'rails-i18n'
 
