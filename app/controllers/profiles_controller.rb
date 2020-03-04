@@ -1,4 +1,6 @@
 class ProfilesController < ApplicationController
+  load_and_authorize_resource
+
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
   before_action :set_actions_for_select, only: [:edit, :new]
 
