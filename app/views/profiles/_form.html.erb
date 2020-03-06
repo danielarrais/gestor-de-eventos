@@ -1,0 +1,59 @@
+<%= form_with(model: profile, local: true) do |f| %>
+  <% if profile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
+
+      <ul>
+        <% profile.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= f.label :name, 'Nome' %>
+        <%= f.text_field :name, autofocus: true, class: 'form-control', placeholder: 'Ex. Professor' %>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="form-group">
+        <%= f.label :description, 'Descrição' %>
+        <%= f.text_field :description, class: 'form-control', placeholder: 'Ex.: Dar acesso as funções dedicadas aos docentes' %>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="form-group">
+        <%= f.label :action_ids, 'Ações permitidas' %>
+        <%= f.select(:action_ids, @actions,
+                     {include_blank: "Escolha as ações permitidas para o perfil"},
+                     {multiple: true,
+                      size: 5,
+                      class: 'form-control',
+                      data: {trigger: ''},
+                      id: 'action_ids'}) %>
+      </div>
+    </div>
+  </div>
+
+  <div class="float-right">
+    <%= link_to '<span><i class="fa fa-arrow-left mr-1"></i>Voltar</span>'.html_safe, :back,
+                class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
+    <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple") do %>
+      <span><i class="fa fa-floppy-o mr-1"></i> Salvar</span>
+    <% end %>
+  </div>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+    new Choices('#action_ids', {
+        searchEnabled: true,
+        searchChoices: true,
+        search: true,
+        delimiter: ',',
+        editItems: true,
+        removeItemButton: true,
+    });
+</script>
