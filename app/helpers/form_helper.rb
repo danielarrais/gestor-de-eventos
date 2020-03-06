@@ -4,9 +4,7 @@ module FormHelper
   def validations_errors(model)
     return if model.errors.empty?
     content_tag :div do
-      model.errors.full_messages.each do |value|
-        concat content_tag(:strong, alert_message(:error, value))
-      end
+      concat content_tag(:strong, alert_messages(:error, model.errors.full_messages))
     end
   end
 
@@ -14,6 +12,18 @@ module FormHelper
   def alert_message(level, value)
     content_tag(:div, class: "alert #{flash_level_class(level)} alert-dismissible mt-4 fade show", role: "alert") do
       concat content_tag(:div, value).html_safe
+      concat content_tag(:button, content_tag(:span, 'x', 'aria-hidden': 'true'), class: "close", 'data-dismiss': "alert", 'aria-label': "Close").html_safe
+    end
+  end
+
+  # Produz um alerta boostrap de acordo com o nível
+  def alert_messages(level, values)
+    content_tag(:div, class: "alert #{flash_level_class(level)} alert-dismissible mt-4 fade show", role: "alert") do
+      concat(content_tag(:ul) do
+        values.map do |item|
+          concat content_tag(:li, item)
+        end
+      end.html_safe)
       concat content_tag(:button, content_tag(:span, 'x', 'aria-hidden': 'true'), class: "close", 'data-dismiss': "alert", 'aria-label': "Close").html_safe
     end
   end

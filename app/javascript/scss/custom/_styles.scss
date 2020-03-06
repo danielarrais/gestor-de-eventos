@@ -24,3 +24,20 @@
 .page-header {
   min-height: calc(100vh - 43.6833px - 56px);
 }
+
+.alert {
+  padding: 0.5rem 1rem;
+}
+
+.alert-dismissible .close {
+  right: 1rem;
+}
+
+.alert-dismissible .close > span:not(.sr-only) {
+  font-size: 1rem;
+}
+
+.alert > ul {
+  margin-bottom: 0;
+  margin-left: -1rem;
+}
