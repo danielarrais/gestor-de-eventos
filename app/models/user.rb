@@ -5,6 +5,7 @@ class User < ApplicationRecord
   after_create :create_password_instructions, if: -> (d) { d.senha_gerada }
 
   validates_presence_of :name, :surname, :cpf, :email, :date_of_birth
+  validates_cpf_format_of :cpf, :allow_blank => true
 
   attr_accessor :senha_gerada
   # Include default devise modules. Others available are:
