@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   load_and_authorize_resource
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :set_profiles_for_select, only: [:edit, :new]
+  before_action :set_profiles_for_select, only: [:edit, :new, :create]
 
   # GET /users
   # GET /users.json
