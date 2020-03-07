@@ -34,6 +34,10 @@ gem 'cancancan'
 # Gem de tradução de mensagens para o rails
 gem 'rails-i18n'
 
+# Gems de validação
+gem "cpf_cnpj"
+gem "validators"
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
