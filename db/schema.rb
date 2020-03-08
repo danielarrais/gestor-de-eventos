@@ -10,15 +10,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_29_021449) do
+ActiveRecord::Schema.define(version: 2020_03_01_160943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "actions", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description", null: false
+    t.string "controller", null: false
+    t.string "action", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "actions_profiles", id: false, force: :cascade do |t|
+    t.bigint "action_id", null: false
+    t.bigint "profile_id", null: false
+    t.index ["action_id", "profile_id"], name: "index_actions_profiles_on_action_id_and_profile_id"
+    t.index ["profile_id", "action_id"], name: "index_actions_profiles_on_profile_id_and_action_id"
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description", null: false
+    t.boolean "custom"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "profiles_users", id: false, force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "profile_id", null: false
+    t.index ["profile_id", "user_id"], name: "index_profiles_users_on_profile_id_and_user_id"
+    t.index ["user_id", "profile_id"], name: "index_profiles_users_on_user_id_and_profile_id"
+  end
+
   create_table "users", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "name", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
+    t.string "name", null: false
+    t.string "surname", null: false
+    t.string "registration"
+    t.string "cpf", null: false
+    t.string "email", null: false
+    t.string "cellphone"
+    t.datetime "date_of_birth", null: false
+    t.string "encrypted_password"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
