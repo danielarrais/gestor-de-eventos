@@ -72,16 +72,18 @@ class UsersController < ApplicationController
   end
 
   def set_profiles_for_select
-    @profiles = Profile.all.select(:name, :id).map{| k, v| [k.name, k.id] }
+    @profiles = Profile.all.select(:name, :id).map { |k, v| [k.name, k.id] }
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:name,
-                                 :surname,
-                                 :registration,
-                                 :cpf, :email,
-                                 :cellphone, :date_of_birth,
-                                 :encrypted_password, :profile_ids => [])
+    params.require(:user).permit(:email,
+                                 :encrypted_password,
+                                 person_attributes: [:name,
+                                          :surname,
+                                          :registration,
+                                          :cpf,
+                                          :cellphone, :date_of_birth],
+                                 :profile_ids => [])
   end
 end
