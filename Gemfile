@@ -28,6 +28,9 @@ gem 'jbuilder', '~> 2.7'
 # Gem de autenticação
 gem 'devise'
 
+# Gem de autenticação com o Google
+gem 'omniauth-google-oauth2'
+gem 'dotenv-rails', groups: [:development, :test]
 # Gem de autorização
 gem 'cancancan'
 
