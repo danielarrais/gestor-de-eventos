@@ -6,33 +6,33 @@
   <div class="col-md-3">
     <div class="form-group">
       <%= label_tag :name, 'Nome' %>
-      <%= label_tag :name, @user.name, autofocus: true, class: 'form-control' %>
+      <%= label_tag :name, @user.person.name, autofocus: true, class: 'form-control' %>
     </div>
   </div>
   <div class="col-md-4">
     <div class="form-group">
       <%= label_tag :surname, 'Sobrenome' %>
-      <%= label_tag :surname, @user.surname, class: 'form-control' %>
+      <%= label_tag :surname, @user.person.surname, class: 'form-control' %>
     </div>
   </div>
 
   <div class="col-md-3">
     <div class="form-group">
       <%= label_tag :date_of_birth, 'Data de nascimento' %>
-      <%= label_tag :date_of_birth, @user.date_of_birth.strftime('%d/%m/%Y'), class: 'form-control' %>
+      <%= label_tag :date_of_birth, @user.person.date_of_birth.strftime('%d/%m/%Y'), class: 'form-control' %>
     </div>
   </div>
 
   <div class="col-md-2">
     <div class="form-group">
       <%= label_tag :registration, 'Matrícula' %>
-      <%= label_tag :registration, @user.registration, class: 'form-control' %>
+      <%= label_tag :registration, @user.person.registration ||= '', class: 'form-control' %>
     </div>
   </div>
   <div class="col-md-3">
     <div class="form-group">
       <%= label_tag :cpf, 'CPF' %>
-      <%= label_tag :cpf, @user.cpf, class: 'form-control cpf-mask' %>
+      <%= label_tag :cpf, @user.person.cpf, class: 'form-control cpf-mask' %>
     </div>
   </div>
   <div class="col-md-5">
@@ -44,7 +44,7 @@
   <div class="col-md-4">
     <div class="form-group">
       <%= label_tag :cellphone, 'Celular' %>
-      <%= label_tag :cellphone, @user.cellphone, class: 'form-control cellphone-mask' %>
+      <%= label_tag :cellphone, @user.person.cellphone ||= '', class: 'form-control' %>
     </div>
   </div>
 </div>
