@@ -1,0 +1,12 @@
+'pt-BR':
+  activerecord:
+    models:
+      user: 'Usuário'
+    attributes:
+      user:
+        name: "Nome"
+        surname: "Sobrenome"
+        date_of_birth: "Data de Nascimento"
+        password: 'Senha'
+        cpf: "CPF"
+      # will translate User attribute "login" as "Handle"

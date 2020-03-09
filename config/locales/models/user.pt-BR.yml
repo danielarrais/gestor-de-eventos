@@ -1,14 +1,8 @@
 'pt-BR':
   activerecord:
     models:
-      user: 'Usuário'
+      person: 'Usuário'
     attributes:
-      user:
+      person:
         email: "Email"
-        name: "Nome"
-        surname: "Sobrenome"
-        date_of_birth: "Data de Nascimento"
-        password: 'Senha'
         remember_me: "Lembrar senha"
-        cpf: "CPF"
-      # will translate User attribute "login" as "Handle"
