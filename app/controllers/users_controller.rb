@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_profiles_for_select, only: [:edit, :new, :create]
+  before_action :verify_user_registration, except: [:complete_registration, :registration_save]
 
   # GET /users
   # GET /users.json
@@ -25,11 +26,20 @@ class UsersController < ApplicationController
   end
 
   def complete_registration
-    @user = current_user
+    @user = User.find(current_user.id)
   end
 
   def registration_save
-    current_user.update(registers_user_params)
+    @user = User.find(current_user.id)
+    respond_to do |format|
+      if @user.update(registers_user_params)
+        format.html { render "home/index", notice: 'Cadastro concluído com sucesso!'  }
+      else
+        format.html { render "complete_registration" }
+      end
+    end
+
+
   end
 
   # POST /users

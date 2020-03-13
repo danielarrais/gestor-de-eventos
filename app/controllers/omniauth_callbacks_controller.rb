@@ -17,7 +17,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     sign_in(:user, user)
 
-    redirect_to complete_registration_user_path(user) if primeiro_login
+    redirect_to complete_registration_users_path if primeiro_login
     redirect_to after_sign_in_path_for(user) unless primeiro_login
   end
 end

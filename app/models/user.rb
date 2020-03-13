@@ -25,7 +25,7 @@ class User < ApplicationRecord
     actions
   end
 
-  def build_person
+  def build_person(*)
     person = super
     person.name = self.name.to_s
 

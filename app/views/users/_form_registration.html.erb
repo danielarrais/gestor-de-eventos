@@ -1,7 +1,7 @@
 <% public_access ||= true %>
-<%= form_for user, url: registration_save_users_path do |f| %>
+<%= form_for user, method: :post, url: registration_save_users_path do |f| %>
   <%= validations_errors(f.object) %>
-
+  <%= f.hidden_field :id %>
   <div class="row">
     <%= f.fields_for :person, f.object.person ||= f.object.build_person  do |person_fields| %>
       <div class="col-md-3">
