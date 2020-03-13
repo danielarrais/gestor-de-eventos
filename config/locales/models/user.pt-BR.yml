@@ -1,8 +1,8 @@
 'pt-BR':
   activerecord:
     models:
-      person: 'Usuário'
+      user: 'Usuário'
     attributes:
-      person:
+      user:
         email: "Email"
         remember_me: "Lembrar senha"

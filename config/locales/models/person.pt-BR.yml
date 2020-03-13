@@ -1,9 +1,9 @@
 'pt-BR':
   activerecord:
     models:
-      user: 'Usuário'
+      person: 'Pessoa'
     attributes:
-      user:
+      person:
         name: "Nome"
         surname: "Sobrenome"
         date_of_birth: "Data de Nascimento"
