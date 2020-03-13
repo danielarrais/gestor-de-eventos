@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  belongs_to :person
+  belongs_to :person, required: false
   has_and_belongs_to_many :profiles
 
   accepts_nested_attributes_for :person, allow_destroy: true
@@ -23,6 +23,13 @@ class User < ApplicationRecord
     end
 
     actions
+  end
+
+  def build_person
+    person = super
+    person.name = self.name.to_s
+
+    person
   end
 
   private
