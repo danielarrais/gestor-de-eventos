@@ -5,27 +5,34 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: root
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
     networks:
       - postgres
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
+
   web:
     build: .
-    command: bash -c "foreman start -f Procfile.prod-server"
+    command: bundle exec rails server -b 0.0.0.0 -p 80
     volumes:
       - '.:/app'
     expose:
       - "80"
     ports:
       - '80:80'
+    environment:
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_APP_TOKEN: ${GOOGLE_APP_TOKEN}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
     networks:
       - postgres
     links:
       - db
     depends_on:
       - db
+
 networks:
   postgres:
     driver: bridge

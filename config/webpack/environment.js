@@ -1,6 +1,6 @@
 const { environment } = require('@rails/webpacker');
 const webpack = require('webpack');
-const expose = require('./loaders/expose')
+const expose = require('./loaders/expose');
 
 environment.plugins.append(
     "Provide",
@@ -11,6 +11,6 @@ environment.plugins.append(
     })
 );
 
-environment.loaders.prepend('expose', expose)
+environment.loaders.prepend('expose', expose);
 
 module.exports = environment;

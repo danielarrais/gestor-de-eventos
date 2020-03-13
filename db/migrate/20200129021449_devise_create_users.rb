@@ -20,21 +20,10 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.0]
       ## Rememberable
       t.datetime :remember_created_at
 
-
       t.timestamps null: false
     end
 
     add_index :users, :email, unique: true
     add_index :users, :reset_password_token, unique: true
-
-    # Initialize first account:
-    User.create! do |u|
-      u.email = 'ec6bba3be6-0e67c9@inbox.mailtrap.io'
-      u.password = '123456'
-      u.name = 'Daniel'
-      u.cpf = '064.127.213-80'
-      u.surname = 'Arrais'
-      u.date_of_birth = Date.today
-    end
   end
 end

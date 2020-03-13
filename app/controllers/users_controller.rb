@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_profiles_for_select, only: [:edit, :new, :create]
+  before_action :verify_user_registration, except: [:complete_registration, :registration_save]
 
   # GET /users
   # GET /users.json
@@ -22,6 +23,23 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+  end
+
+  def complete_registration
+    @user = User.find(current_user.id)
+  end
+
+  def registration_save
+    @user = User.find(current_user.id)
+    respond_to do |format|
+      if @user.update(registers_user_params)
+        format.html { render "home/index", notice: 'Cadastro concluído com sucesso!'  }
+      else
+        format.html { render "complete_registration" }
+      end
+    end
+
+
   end
 
   # POST /users
@@ -72,16 +90,29 @@ class UsersController < ApplicationController
   end
 
   def set_profiles_for_select
-    @profiles = Profile.all.select(:name, :id).map{| k, v| [k.name, k.id] }
+    @profiles = Profile.all.select(:name, :id).map { |k, v| [k.name, k.id] }
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:name,
-                                 :surname,
-                                 :registration,
-                                 :cpf, :email,
-                                 :cellphone, :date_of_birth,
-                                 :encrypted_password, :profile_ids => [])
+    params.require(:user).permit(:email,
+                                 :encrypted_password,
+                                 person_attributes: [:name,
+                                          :surname,
+                                          :registration,
+                                          :cpf,
+                                          :cellphone, :date_of_birth],
+                                 :profile_ids => [])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def registers_user_params
+    params.require(:user).permit(:email,
+                                 :encrypted_password,
+                                 person_attributes: [:name,
+                                          :surname,
+                                          :registration,
+                                          :cpf,
+                                          :cellphone, :date_of_birth])
   end
 end

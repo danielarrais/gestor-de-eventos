@@ -1,17 +1,19 @@
 class User < ApplicationRecord
+  belongs_to :person, required: false
   has_and_belongs_to_many :profiles
+
+  accepts_nested_attributes_for :person, allow_destroy: true
+
+  validates_presence_of :email
 
   before_validation :generate_random_password, unless: -> (d) { d.encrypted_password.present? }
   after_create :create_password_instructions, if: -> (d) { d.senha_gerada }
 
-  validates_presence_of :name, :surname, :cpf, :email, :date_of_birth
-  validates_cpf_format_of :cpf, :allow_blank => true
-
   attr_accessor :senha_gerada
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  # :confirmable, :lockable, :timeoutable, :trackable and
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :omniauthable,
+         omniauth_providers: [:google_oauth2]
 
   def all_actions
     actions = []
@@ -21,6 +23,13 @@ class User < ApplicationRecord
     end
 
     actions
+  end
+
+  def build_person(*)
+    person = super
+    person.name = self.name.to_s
+
+    person
   end
 
   private

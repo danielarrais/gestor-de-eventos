@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  load_and_authorize_resource class: false
+  skip_before_action :authenticate_user!
 
   def index
   end

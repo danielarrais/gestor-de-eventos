@@ -2,7 +2,8 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    all_actions = user.all_actions
+    all_actions = Action.all.where(public: true).to_a
+    all_actions.push(user.all_actions) if user.all_actions.any?
 
     all_actions.each do |x|
       independent_control = Object.const_defined?(x.controller)

@@ -2,7 +2,7 @@
   <h1 class="ct-title" id="content">Editar Usuário</h1>
 </div>
 
-<%= render 'form', user: @user %>
+<%= render 'form', user: @user, public_access: false %>
 
 <%= link_to 'Show', @user %> |
 <%= link_to 'Back', users_path %>
