@@ -6,17 +6,18 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     user = User.where(provider: auth["provider"], uid: auth["uid"])
                .first_or_initialize(email: auth["info"]["email"])
 
-    if user.new_record?
-      user.build_person
+    primeiro_login = user.new_record?
 
-      user.person.name = auth["info"]["first_name"]
-      user.person.surname = auth["info"]["last_name"]
+    if primeiro_login
+      user.name = auth["info"]["first_name"]
+      user.incomplete_register = true
 
-      user.save!
+      user.save
     end
 
     sign_in(:user, user)
 
-    redirect_to after_sign_in_path_for(user)
+    redirect_to complete_registration_user_path(user) if primeiro_login
+    redirect_to after_sign_in_path_for(user) unless primeiro_login
   end
 end

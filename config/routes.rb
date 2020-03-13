@@ -1,9 +1,19 @@
 Rails.application.routes.draw do
   resources :profiles
   resources :actions, only: [:index]
-  devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }, :skip => [:registrations]
+  devise_for :users,
+             controllers: { omniauth_callbacks: "omniauth_callbacks" },
+             :skip => [:registrations]
 
-  resources :users
+
+  resources :users do
+    collection do
+      get 'complete_registration'
+      post 'registration_save'
+    end
+  end
+
+  # get 'users/:id/complete_registration', to: 'users#complete_registration'
 
   root to: "home#index"
 

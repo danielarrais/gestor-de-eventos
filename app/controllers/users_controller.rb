@@ -24,6 +24,14 @@ class UsersController < ApplicationController
   def edit
   end
 
+  def complete_registration
+    @user = current_user
+  end
+
+  def registration_save
+    current_user.update(registers_user_params)
+  end
+
   # POST /users
   # POST /users.json
   def create
@@ -85,5 +93,16 @@ class UsersController < ApplicationController
                                           :cpf,
                                           :cellphone, :date_of_birth],
                                  :profile_ids => [])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def registers_user_params
+    params.require(:user).permit(:email,
+                                 :encrypted_password,
+                                 person_attributes: [:name,
+                                          :surname,
+                                          :registration,
+                                          :cpf,
+                                          :cellphone, :date_of_birth])
   end
 end
