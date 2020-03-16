@@ -30,7 +30,7 @@ class User < ApplicationRecord
 
   # Copia nome da pessoa para o usuário
   def duplicate_name
-    self.name = self.person.name
+    self.name = self.person.name if self.person.present?
   end
 
   # Gera senha aleatória caso não haja uma
