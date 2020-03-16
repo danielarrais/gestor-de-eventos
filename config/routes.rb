@@ -8,7 +8,8 @@ Rails.application.routes.draw do
 
   resources :users do
     collection do
-      get 'complete_registration'
+      get 'new_registration'
+      get 'success_registration'
       post 'registration_save'
     end
   end

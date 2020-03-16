@@ -56,28 +56,11 @@
         <%= f.email_field :email, class: 'form-control', placeholder: 'Ex.: exemplo@email.com' %>
       </div>
     </div>
-
-    <% unless public_access %>
-      <div class="col-md-12">
-        <div class="form-group">
-          <%= f.label :profile_ids, 'Perfis' %>
-          <%= f.select(:profile_ids, @profiles,
-                       { include_blank: "Escolha os perfis do usuário" },
-                       { multiple: true,
-                         size: 5,
-                         class: 'form-control',
-                         data: { trigger: '' },
-                         id: 'profile_ids' }) %>
-        </div>
-      </div>
-    <% end %>
   </div>
 
   <div class="float-right">
-    <%= link_to '<span><i class="fa fa-arrow-left mr-1"></i>Voltar</span>'.html_safe, :back,
-                class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
     <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple") do %>
-      <span><i class="fa fa-floppy-o mr-1"></i> Salvar</span>
+      <span><i class="fa fa-floppy-o mr-1"></i> Cadastra-se</span>
     <% end %>
   </div>
 <% end %>

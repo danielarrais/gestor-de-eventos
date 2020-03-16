@@ -6,3 +6,4 @@
       user:
         email: "Email"
         remember_me: "Lembrar senha"
+        reset_password_token: "Token"
