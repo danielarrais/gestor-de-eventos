@@ -1,0 +1,44 @@
+<div class="float-left">
+  <div class="ct-page-title">
+    <h1 class="ct-title" id="content">Ações do Sistema</h1>
+  </div>
+</div>
+<div class="float-right pt-4">
+  <%= link_to '<span><i class="fa fa-repeat"></i> Atualizar</span>'.html_safe, recreate_and_update_all_permissions_path %>
+</div>
+
+<table class="table">
+  <thead>
+  <tr class="bg-primary">
+    <th class="text-white bold">
+      Nome
+    </th>
+    <th class="text-white bold">
+      Descrição
+    </th>
+    <th class="text-white text-center bold">
+      Ações
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @permissions.each do |action| %>
+    <tr>
+      <td>
+        <%= action.name %>
+      </td>
+      <td>
+        <%= action.description %>
+      </td>
+      <td class="text-center">
+        <%= link_to '<span><i class="fa fa-search"></i></span>'.html_safe, action,
+                    class: 'btn btn-primary btn-icon btn-sm btn-simple' %>
+        <%= link_to '<span><i class="fa fa-edit"></i></span>'.html_safe, edit_permission_path(action),
+                    class: 'btn btn-icon btn-sm btn-warning' %>
+      </td>
+    </tr>
+
+  <% end %>
+  </tbody>
+</table>
+

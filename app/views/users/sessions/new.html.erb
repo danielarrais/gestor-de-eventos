@@ -2,16 +2,15 @@
   <div class="col-lg-5 col-md-8 mx-auto mt-8">
     <div class="card bg-secondary shadow border-0">
       <div class="card-header bg-white pb-5">
-        <div class="text-muted text-center mb-3"><small>Entre com</small></div>
+        <div class="text-muted text-center mb-3"><small>SE AINDA NÃO TEM CONTA</small></div>
         <div class="btn-wrapper text-center">
-          <%= link_to "<span class=\"btn-inner--icon\"><img src=\"#{asset_path('icons/common/google.svg')}\"></span>
-          <span class=\"btn-inner--text\">Google</span>".html_safe, user_google_oauth2_omniauth_authorize_path, class: "btn btn-neutral btn-icon" %>
+          <%= link_to "Cadastre-se", new_registration_users_path, class: "btn btn-neutral btn-icon" %>
           <br/>
         </div>
       </div>
       <div class="card-body px-lg-5 py-lg-5">
         <div class="text-center text-muted mb-4">
-          <small>Ou entre com suas credênciais</small>
+          <small>OU ENTRE COM SUAS CREDÊNCIAIS</small>
         </div>
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <%= render "users/shared/error_messages", resource: resource %>

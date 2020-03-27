@@ -1,14 +1,19 @@
 Rails.application.routes.draw do
+  resources :permissions, except: [:new, :destroy] do
+    collection do
+      get 'recreate_and_update_all'
+    end
+  end
   resources :profiles
-  resources :actions, only: [:index]
+  resources :permissions, only: [:index]
   devise_for :users,
              controllers: { omniauth_callbacks: "omniauth_callbacks" },
              :skip => [:registrations]
 
-
   resources :users do
     collection do
-      get 'complete_registration'
+      get 'new_registration'
+      get 'success_registration'
       post 'registration_save'
     end
   end

@@ -14,7 +14,7 @@
                 sua senha</small>
             </div>
             <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :post}) do |f| %>
-              <%= render "users/shared/error_messages", resource: resource %>
+              <%= f.hidden_field :reset_password_token %>
               <div class="form-group mb-3">
                 <div class="input-group input-group-alternative">
                   <div class="input-group-prepend">

@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   validates_presence_of :email
 
+  before_validation :duplicate_name
   before_validation :generate_random_password, unless: -> (d) { d.encrypted_password.present? }
   after_create :create_password_instructions, if: -> (d) { d.senha_gerada }
 
@@ -15,24 +16,22 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :omniauthable,
          omniauth_providers: [:google_oauth2]
 
-  def all_actions
-    actions = []
+  def all_permissions
+    permissions = []
 
     profiles.each do |profile|
-      actions.push(*profile.actions.to_a)
+      permissions.push(*profile.permissions.to_a)
     end
 
-    actions
-  end
-
-  def build_person(*)
-    person = super
-    person.name = self.name.to_s
-
-    person
+    permissions
   end
 
   private
+
+  # Copia nome da pessoa para o usuário
+  def duplicate_name
+    self.name = self.person.name if self.person.present?
+  end
 
   # Gera senha aleatória caso não haja uma
   def generate_random_password

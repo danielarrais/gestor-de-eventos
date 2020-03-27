@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
-  load_and_authorize_resource
+  skip_before_action :authenticate_user!, only: [:new_registration, :registration_save, :success_registration]
+  load_and_authorize_resource except: [:new_registration, :registration_save, :success_registration]
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_profiles_for_select, only: [:edit, :new, :create]
-  before_action :verify_user_registration, except: [:complete_registration, :registration_save]
+  # before_action :verify_user_registration, except: [:complete_registration, :registration_save]
 
   # GET /users
   # GET /users.json
@@ -25,21 +26,37 @@ class UsersController < ApplicationController
   def edit
   end
 
-  def complete_registration
+  def new_registration
+    @user = User.new
+  end
+
+  def success_registration
+  end
+
+  def edit_registration
     @user = User.find(current_user.id)
   end
 
   def registration_save
+    @user = User.new(registers_user_params)
+    respond_to do |format|
+      if @user.save
+        format.html { redirect_to success_registration_users_path, notice: 'Cadastro concluído com sucesso!'  }
+      else
+        format.html { render "new_registration" }
+      end
+    end
+  end
+
+  def registration_update
     @user = User.find(current_user.id)
     respond_to do |format|
       if @user.update(registers_user_params)
-        format.html { render "home/index", notice: 'Cadastro concluído com sucesso!'  }
+        format.html { render "home/index", notice: 'Cadastro atualizado com sucesso!'  }
       else
-        format.html { render "complete_registration" }
+        format.html { render "edit_registration" }
       end
     end
-
-
   end
 
   # POST /users
@@ -84,7 +101,7 @@ class UsersController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
+  # Use callbacks to share common setup or constraints between permissions.
   def set_user
     @user = User.find(params[:id])
   end
