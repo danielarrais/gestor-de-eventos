@@ -1,5 +1,3 @@
-Dir["#{Rails.root}/app/controllers/*.rb"].each { |file| require_dependency file }
-
 namespace :profiles do
   desc "Renames the controller name of the actions"
   task change_name_control: :environment do

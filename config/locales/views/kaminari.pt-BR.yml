@@ -1,0 +1,5 @@
+pt-BR:
+  views:
+    pagination:
+      previous: '<i class="fa fa-angle-left"></i><span class="sr-only">Previous</span>'
+      next: '<i class="fa fa-angle-right"></i><span class="sr-only">Next</span>'

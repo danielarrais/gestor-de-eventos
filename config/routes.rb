@@ -5,7 +5,6 @@ Rails.application.routes.draw do
     end
   end
   resources :profiles
-  resources :permissions, only: [:index]
   devise_for :users,
              controllers: { omniauth_callbacks: "omniauth_callbacks" },
              :skip => [:registrations]
