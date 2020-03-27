@@ -1,7 +1,53 @@
 class ActionsController < ApplicationController
+  before_action :set_action, only: [:show, :edit, :update, :destroy]
+
   # GET /actions
   # GET /actions.json
   def index
     @actions = Action.all
   end
+
+  # GET /actions/1
+  # GET /actions/1.json
+  def show
+  end
+
+  # GET /actions/1/edit
+  def edit
+  end
+
+  # PATCH/PUT /actions/1
+  # PATCH/PUT /actions/1.json
+  def update
+    respond_to do |format|
+      if @action.update(action_params)
+        format.html { redirect_to @action, notice: 'Action was successfully updated.' }
+        format.json { render :show, status: :ok, location: @action }
+      else
+        format.html { render :edit }
+        format.json { render json: @action.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /actions/1
+  # DELETE /actions/1.json
+  def destroy
+    @action.destroy
+    respond_to do |format|
+      format.html { redirect_to actions_url, notice: 'Action was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_action
+      @action = Action.find(params[:id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def action_params
+      params.require(:action).permit(:name, :description)
+    end
 end

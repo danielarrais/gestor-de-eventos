@@ -1,0 +1,47 @@
+<div class="float-left">
+  <div class="ct-page-title">
+    <h1 class="ct-title" id="content">Ações do Sistema</h1>
+  </div>
+</div>
+<div class="float-right pt-4">
+  <%= link_to '<span><i class="fa fa-repeat"></i> Atualizar</span>'.html_safe, actions_path %>
+</div>
+
+<table class="table">
+  <thead>
+  <tr class="bg-primary">
+    <th class="text-white bold">
+      Nome
+    </th>
+    <th class="text-white bold">
+      Descrição
+    </th>
+    <th class="text-white text-center bold">
+      Ações
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @actions.each do |action| %>
+    <tr>
+      <td>
+        <%= action.name %>
+      </td>
+      <td>
+        <%= action.description %>
+      </td>
+      <td class="text-center">
+        <%= link_to '<span><i class="fa fa-search"></i></span>'.html_safe, action,
+                    class: 'btn btn-primary btn-icon btn-sm btn-simple' %>
+        <%= link_to '<span><i class="fa fa-edit"></i></span>'.html_safe, edit_action_path(action),
+                    class: 'btn btn-icon btn-sm btn-warning' %>
+        <%= link_to '<span><i class="fa fa-trash"></i></span>'.html_safe, action,
+                    method: :delete, data: {confirm: 'Are you sure?'},
+                    class: 'btn btn-icon btn-sm btn-danger' %>
+      </td>
+    </tr>
+
+  <% end %>
+  </tbody>
+</table>
+
