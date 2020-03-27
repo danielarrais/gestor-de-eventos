@@ -19,10 +19,13 @@ class PermissionsController < ApplicationController
   def recreate_and_update_all
     controllers = ApplicationController.subclasses
 
-    Permission::import_from_controllers(controllers)
+    if Permission::import_from_controllers(controllers)
+      notice = "Novas permissões foram encontradas e cadastradas."
+    else
+      notice = "Nenhuma permissão nova foi encontrada."
+    end
 
     respond_to do |format|
-      notice = "Lista atualizada com sucesso, #{count_permissions_created} novas permissões encontradas e cadastradas."
       format.html { redirect_to permissions_path, notice: notice }
     end
   end
@@ -42,13 +45,14 @@ class PermissionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between permissions.
-    def set_action
-      @permission = Permission.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def permission_params
-      params.require(:permission).permit(:name, :description)
-    end
+  # Use callbacks to share common setup or constraints between permissions.
+  def set_action
+    @permission = Permission.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def permission_params
+    params.require(:permission).permit(:name, :description)
+  end
 end
