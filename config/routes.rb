@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  resources :actions, except: :new
+  resources :permissions, except: [:new, :destroy]
   resources :profiles
-  resources :actions, only: [:index]
+  resources :permissions, only: [:index]
   devise_for :users,
              controllers: { omniauth_callbacks: "omniauth_callbacks" },
              :skip => [:registrations]

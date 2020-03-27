@@ -4,7 +4,7 @@
   </div>
 </div>
 <div class="float-right pt-4">
-  <%= link_to '<span><i class="fa fa-repeat"></i> Atualizar</span>'.html_safe, actions_path %>
+  <%= link_to '<span><i class="fa fa-repeat"></i> Atualizar</span>'.html_safe, permissions_path %>
 </div>
 
 <table class="table">
@@ -22,7 +22,7 @@
   </tr>
   </thead>
   <tbody>
-  <% @actions.each do |action| %>
+  <% @permissions.each do |action| %>
     <tr>
       <td>
         <%= action.name %>
@@ -33,7 +33,7 @@
       <td class="text-center">
         <%= link_to '<span><i class="fa fa-search"></i></span>'.html_safe, action,
                     class: 'btn btn-primary btn-icon btn-sm btn-simple' %>
-        <%= link_to '<span><i class="fa fa-edit"></i></span>'.html_safe, edit_action_path(action),
+        <%= link_to '<span><i class="fa fa-edit"></i></span>'.html_safe, edit_permission_path(action),
                     class: 'btn btn-icon btn-sm btn-warning' %>
         <%= link_to '<span><i class="fa fa-trash"></i></span>'.html_safe, action,
                     method: :delete, data: {confirm: 'Are you sure?'},

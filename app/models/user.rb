@@ -16,14 +16,14 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :omniauthable,
          omniauth_providers: [:google_oauth2]
 
-  def all_actions
-    actions = []
+  def all_permissions
+    permissions = []
 
     profiles.each do |profile|
-      actions.push(*profile.actions.to_a)
+      permissions.push(*profile.permissions.to_a)
     end
 
-    actions
+    permissions
   end
 
   private

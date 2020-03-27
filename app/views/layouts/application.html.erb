@@ -44,7 +44,7 @@
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-primary_dropdown_1">
             <%= link_to users_path, method: :get, class: 'dropdown-item' do %>Usuários<% end %>
             <%= link_to profiles_path, method: :get, class: 'dropdown-item' do %>Perfis<% end %>
-            <%= link_to actions_path, method: :get, class: 'dropdown-item' do %>Ações<% end %>
+            <%= link_to permissions_path, method: :get, class: 'dropdown-item' do %>Ações<% end %>
           </div>
         </li>
         <% if current_user.present? %>
