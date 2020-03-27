@@ -4,7 +4,7 @@
   </div>
 </div>
 <div class="float-right pt-4">
-  <%= link_to '<span><i class="fa fa-repeat"></i> Atualizar</span>'.html_safe, permissions_path %>
+  <%= link_to '<span><i class="fa fa-repeat"></i> Atualizar</span>'.html_safe, recreate_and_update_all_permissions_path %>
 </div>
 
 <table class="table">
@@ -35,9 +35,6 @@
                     class: 'btn btn-primary btn-icon btn-sm btn-simple' %>
         <%= link_to '<span><i class="fa fa-edit"></i></span>'.html_safe, edit_permission_path(action),
                     class: 'btn btn-icon btn-sm btn-warning' %>
-        <%= link_to '<span><i class="fa fa-trash"></i></span>'.html_safe, action,
-                    method: :delete, data: {confirm: 'Are you sure?'},
-                    class: 'btn btn-icon btn-sm btn-danger' %>
       </td>
     </tr>
 

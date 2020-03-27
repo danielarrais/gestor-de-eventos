@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :permissions, except: [:new, :destroy]
+  resources :permissions, except: [:new, :destroy] do
+    collection do
+      get 'recreate_and_update_all'
+    end
+  end
   resources :profiles
   resources :permissions, only: [:index]
   devise_for :users,

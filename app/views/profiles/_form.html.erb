@@ -16,14 +16,14 @@
     </div>
     <div class="col-md-12">
       <div class="form-group">
-        <%= f.label :permission_ids, 'Ações permitidas' %>
-        <%= f.select(:permission_ids, @permissions,
+        <%= f.label :action_ids, 'Ações permitidas' %>
+        <%= f.select(:action_ids, @actions,
                      {include_blank: "Escolha as ações permitidas para o perfil"},
                      {multiple: true,
                       size: 5,
                       class: 'form-control',
                       data: {trigger: ''},
-                      id: 'permission_ids'}) %>
+                      id: 'action_ids'}) %>
       </div>
     </div>
   </div>
@@ -38,7 +38,7 @@
 <% end %>
 
 <script type="text/javascript" charset="utf-8">
-    new Choices('#permission_ids', {
+    new Choices('#action_ids', {
         searchEnabled: true,
         searchChoices: true,
         search: true,
