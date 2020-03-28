@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :certificate_signatures
   resources :permissions, except: [:new, :destroy] do
     collection do
       get 'recreate_and_update_all'

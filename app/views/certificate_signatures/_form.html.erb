@@ -1,0 +1,17 @@
+<%= form_with(model: certificate_signature, local: true) do |form| %>
+  <% if certificate_signature.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(certificate_signature.errors.count, "error") %> prohibited this certificate_signature from being saved:</h2>
+
+      <ul>
+        <% certificate_signature.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

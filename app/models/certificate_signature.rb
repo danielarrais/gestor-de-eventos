@@ -1,0 +1,2 @@
+class CertificateSignature < ApplicationRecord
+end
