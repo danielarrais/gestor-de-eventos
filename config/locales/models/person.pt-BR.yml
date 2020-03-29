@@ -7,6 +7,13 @@
         name: "Nome"
         surname: "Sobrenome"
         date_of_birth: "Data de Nascimento"
-        password: 'Senha'
         cpf: "CPF"
-      # will translate User attribute "login" as "Handle"
+  helpers:
+    placeholder:
+      person:
+        name: "Seu primeiro nome"
+        registration: "Sua matrícula"
+        cellphone: "Seu telefone celular"
+        surname: "Seu Sobrenome"
+        date_of_birth: "Sua data de nascimento"
+        cpf: "Seu CPF"

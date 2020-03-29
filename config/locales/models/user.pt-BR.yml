@@ -6,4 +6,11 @@
       user:
         email: "Email"
         remember_me: "Lembrar senha"
+        password: "Senha"
         reset_password_token: "Token"
+  helpers:
+    placeholder:
+      user:
+        email: "Seu email"
+        password: "Sua senha"
+        password_confirmation: "Repita a sua senha"

@@ -1,0 +1,14 @@
+'pt-BR':
+  activerecord:
+    models:
+      certificate_signature: 'Assinatura de Certificado'
+    attributes:
+      certificate_signature:
+        name: "Nome"
+        role: "Cargo"
+        image/file: "Assinatura"
+  helpers:
+    placeholder:
+      certificate_signature:
+        name: "Nome"
+        role: "Cargo"
