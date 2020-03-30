@@ -6,20 +6,20 @@
     <%= f.fields_for :person, f.object.person ||= f.object.build_person  do |person_fields| %>
       <div class="col-md-3">
         <div class="form-group">
-          <%= person_fields.label :name, 'Nome' %>
+          <%= person_fields.label :name %>
           <%= person_fields.text_field :name, autofocus: true, class: 'form-control', placeholder: 'Ex. Daniel' %>
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group">
-          <%= person_fields.label :surname, 'Sobrenome' %>
+          <%= person_fields.label :surname %>
           <%= person_fields.text_field :surname, class: 'form-control', placeholder: 'Ex.: Arrais de Carvalho' %>
         </div>
       </div>
 
       <div class="col-md-3">
         <div class="form-group">
-          <%= person_fields.label :date_of_birth, 'Data de nascimento' %>
+          <%= person_fields.label :date_of_birth %>
 
           <div class="input-group">
             <div class="input-group-prepend">
@@ -32,19 +32,19 @@
       </div>
       <div class="col-md-2">
         <div class="form-group">
-          <%= person_fields.label :registration, 'Matrícula' %>
+          <%= person_fields.label :registration %>
           <%= person_fields.text_field :registration, class: 'form-control', placeholder: 'Ex.: FC20191527' %>
         </div>
       </div>
       <div class="col-md-3">
         <div class="form-group">
-          <%= person_fields.label :cpf, 'CPF' %>
+          <%= person_fields.label :cpf %>
           <%= person_fields.text_field :cpf, class: 'form-control cpf-mask', placeholder: 'Ex.: 837.580.160-70' %>
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group">
-          <%= person_fields.label :cellphone, 'Celular' %>
+          <%= person_fields.label :cellphone %>
           <%= person_fields.text_field :cellphone, class: 'form-control cellphone-mask', placeholder: 'Ex.: (63) 9995-5656' %>
         </div>
       </div>
@@ -52,7 +52,7 @@
 
     <div class="col-md-5">
       <div class="form-group">
-        <%= f.label :email, 'Email' %>
+        <%= f.label :email %>
         <%= f.email_field :email, class: 'form-control', placeholder: 'Ex.: exemplo@email.com' %>
       </div>
     </div>
@@ -60,7 +60,7 @@
     <% unless public_access %>
       <div class="col-md-12">
         <div class="form-group">
-          <%= f.label :profile_ids, 'Perfis' %>
+          <%= f.label :profile_ids %>
           <%= f.select(:profile_ids, @profiles,
                        { include_blank: "Escolha os perfis do usuário" },
                        { multiple: true,
