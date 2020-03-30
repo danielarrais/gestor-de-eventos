@@ -15,6 +15,7 @@ import '../js/plugins/bootstrap-switch.js'
 import 'flatpickr'
 import '../js/plugins/headroom.min.js'
 import '../js/plugins/jquery.mask'
+import 'jasny-bootstrap'
 import '../js/argon-design-system.js?v=1.0.0'
 
 // Definição das mascaras de input
