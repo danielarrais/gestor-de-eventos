@@ -4,7 +4,7 @@ class CertificateSignaturesController < ApplicationController
   # GET /certificate_signatures
   # GET /certificate_signatures.json
   def index
-    @certificate_signatures = CertificateSignature.all
+    @certificate_signatures = CertificateSignature.all.page(params[:page]).per(10)
   end
 
   # GET /certificate_signatures/1
@@ -69,6 +69,6 @@ class CertificateSignaturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def certificate_signature_params
-      params.fetch(:certificate_signature, {})
+      params.require(:certificate_signature).permit(:name, :role, image_attributes: [:file])
     end
 end
