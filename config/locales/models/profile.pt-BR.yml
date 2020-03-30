@@ -7,3 +7,8 @@
         name: "Nome"
         description: "Descrição"
         actions: "Ações permitidas"
+  helpers:
+    placeholder:
+      certificate_signature:
+        name: "Ex. Professor"
+        description: "Ex.: Dar acesso as funções dedicadas aos docentes"

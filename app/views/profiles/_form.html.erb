@@ -4,19 +4,19 @@
   <div class="row">
     <div class="col-md-3">
       <div class="form-group">
-        <%= f.label :name, 'Nome' %>
-        <%= f.text_field :name, autofocus: true, class: 'form-control', placeholder: 'Ex. Professor' %>
+        <%= f.label :name %>
+        <%= f.text_field :name, autofocus: true, class: 'form-control', placeholder: true %>
       </div>
     </div>
     <div class="col-md-9">
       <div class="form-group">
-        <%= f.label :description, 'Descrição' %>
-        <%= f.text_field :description, class: 'form-control', placeholder: 'Ex.: Dar acesso as funções dedicadas aos docentes' %>
+        <%= f.label :description %>
+        <%= f.text_field :description, class: 'form-control', placeholder: true %>
       </div>
     </div>
     <div class="col-md-12">
       <div class="form-group">
-        <%= f.label :action_ids, 'Ações permitidas' %>
+        <%= f.label :action_ids %>
         <%= f.select(:action_ids, @actions,
                      {include_blank: "Escolha as ações permitidas para o perfil"},
                      {multiple: true,

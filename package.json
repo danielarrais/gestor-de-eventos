@@ -19,6 +19,7 @@
     "flatpickr": "4.5.7",
     "font-awesome": "^4.7.0 ",
     "imports-loader": "^0.8.0",
+    "jasny-bootstrap": "^4.0.0",
     "jquery": "^3.4.1",
     "jquery.maskedinput": "^1.4.1",
     "multi.js": "^0.5.1",

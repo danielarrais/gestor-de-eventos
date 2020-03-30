@@ -4749,6 +4749,11 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
+jasny-bootstrap@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/jasny-bootstrap/-/jasny-bootstrap-4.0.0.tgz#5243157cc8d1b93b58b4f82261bb575ea7dfe5ff"
+  integrity sha512-NDaZxaxizDjnH/5XESqC8inuas7aAuOn8RkCma4z9xAYfT/UQpZRvnH92oXtAbPA4Hn3jyjqWHzTmd2cyD+DDA==
+
 jest-worker@^24.9.0:
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/jest-worker/-/jest-worker-24.9.0.tgz#5dbfdb5b2d322e98567898238a9697bcce67b3e5"

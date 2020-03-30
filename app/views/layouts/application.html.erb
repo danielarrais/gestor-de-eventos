@@ -36,15 +36,20 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Eventos</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Certificados</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="#" id="navbar-primary_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Certificados</a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-primary_dropdown_1">
+            <%= link_to certificate_signatures_path, method: :get, class: 'dropdown-item' do %>Assinaturas<% end %>
+            <%= link_to '#', method: :get, class: 'dropdown-item' do %>Templates Certificados<% end %>
+            <%= link_to '#', method: :get, class: 'dropdown-item' do %>Templates de Email<% end %>
+          </div>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link" href="#" id="navbar-primary_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sistema</a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-primary_dropdown_1">
             <%= link_to users_path, method: :get, class: 'dropdown-item' do %>Usuários<% end %>
             <%= link_to profiles_path, method: :get, class: 'dropdown-item' do %>Perfis<% end %>
-            <%= link_to permissions_path, method: :get, class: 'dropdown-item' do %>Ações<% end %>
+            <%= link_to permissions_path, method: :get, class: 'dropdown-item' do %>Permissões<% end %>
           </div>
         </li>
         <% if current_user.present? %>
