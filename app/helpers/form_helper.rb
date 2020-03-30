@@ -43,4 +43,13 @@ module FormHelper
       # type code here
     end
   end
+
+  # Cria label para colocar traduções alternativas
+  def label(*sources)
+    if sources[0].to_s.include? '['
+      i18n_key = "activerecord.attributes.#{sources[0]}/#{sources[1]}".remove('_attributes', ']').gsub('[', '.')
+      sources[2] = I18n.translate(i18n_key, default: nil)
+    end
+    super *sources
+  end
 end
