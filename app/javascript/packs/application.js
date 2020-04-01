@@ -2,20 +2,22 @@ require('@rails/ujs').start();
 require('@rails/activestorage').start();
 require('channels');
 
+// Import NPM
 import 'jquery'
-
-import '../js/core/popper.min.js'
-import '../js/core/bootstrap.min.js'
-import '../js/plugins/perfect-scrollbar.jquery.min.js'
-import '../js/plugins/bootstrap-switch.js'
-import '../js/plugins/nouislider.min.js'
-import '../js/plugins/glide.js'
-import 'choices.js'
-import '../js/plugins/bootstrap-switch.js'
-import 'flatpickr'
-import '../js/plugins/headroom.min.js'
-import '../js/plugins/jquery.mask'
 import 'jasny-bootstrap'
+import 'choices.js'
+import 'icheck'
+import 'flatpickr'
+import 'bootstrap'
+import 'popper.js'
+import '@glidejs/glide'
+import 'nouislider'
+import 'bootstrap-switch'
+import 'perfect-scrollbar'
+import 'headroom.js'
+import 'jquery.maskedinput'
+
+// Import Locais
 import '../js/argon-design-system.js?v=1.0.0'
 
 // Definição das mascaras de input
