@@ -31,7 +31,16 @@ const  choisesExpose = {
     }]
 };
 
+const  icheckExpose = {
+    test: require.resolve('icheck'),
+    use: [{
+        loader: 'expose-loader',
+        options: 'icheck'
+    }]
+};
+
 environment.loaders.append('jqueryExpose', jqueryExpose);
 environment.loaders.append('choisesExpose', choisesExpose);
+environment.loaders.append('choisesExpose', icheckExpose);
 
 module.exports = environment;
