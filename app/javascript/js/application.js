@@ -2,7 +2,7 @@ require('@rails/ujs').start();
 require('@rails/activestorage').start();
 require('channels');
 
-// Import NPM
+// Import YARN
 import 'jquery'
 import 'bootstrap'
 import 'popper.js'
