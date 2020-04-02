@@ -4,18 +4,21 @@ require('channels');
 
 // Import NPM
 import 'jquery'
+import 'bootstrap'
+import 'popper.js'
 import 'jasny-bootstrap'
+import 'bootstrap-switch'
 import 'choices.js'
 import 'icheck'
 import 'flatpickr'
-import 'bootstrap'
-import 'popper.js'
+import 'animejs'
+import 'moment'
 import '@glidejs/glide'
+import 'slick-carousel'
 import 'nouislider'
-import 'bootstrap-switch'
 import 'perfect-scrollbar'
 import 'headroom.js'
-import 'jquery.maskedinput'
+import 'jquery-mask-plugin'
 
 // Import Locais
 import '../js/argon-design-system.js?v=1.0.0'
@@ -23,8 +26,8 @@ import '../js/argon-design-system.js?v=1.0.0'
 // Definição das mascaras de input
 import '../js/custom/inputs-conf'
 
-// Bootstrap 4
-import '../stylesheets/application'
+// Stylsheet do sistema
+import '../scss/application.scss'
 
 // Mensagens de alerta
 global.toastr = require('toastr');
