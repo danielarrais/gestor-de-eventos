@@ -1,25 +1,50 @@
-<p id="notice"><%= notice %></p>
+<div class="float-left">
+  <div class="ct-page-title">
+    <h1 class="ct-title" id="content">Categorias de Eventos</h1>
+  </div>
+</div>
+<div class="float-right pt-4">
+  <%= link_to '<span><i class="fa fa-plus"></i> Cadastrar</span>'.html_safe, new_event_category_path %>
+</div>
 
-<h1>Event Categories</h1>
-
-<table>
+<table class="table">
   <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
+  <tr class="bg-primary">
+    <th class="text-white bold">
+      Nome
+    </th>
+    <th class="text-white bold">
+      Descrição
+    </th>
+    <th class="text-white text-center bold">
+      Ações
+    </th>
+  </tr>
   </thead>
-
   <tbody>
-    <% @event_categories.each do |event_category| %>
-      <tr>
-        <td><%= link_to 'Show', event_category %></td>
-        <td><%= link_to 'Edit', edit_event_category_path(event_category) %></td>
-        <td><%= link_to 'Destroy', event_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+  <% @event_categories.each do |event_category| %>
+    <tr>
+      <td>
+        <%= event_category.name %>
+      </td>
+      <td>
+        <%= event_category.description.html_safe %>
+      </td>
+      <td class="text-center">
+        <%= link_to '<span><i class="fa fa-search"></i></span>'.html_safe, event_category,
+                    class: 'btn btn-primary btn-icon btn-sm btn-simple' %>
+        <%= link_to '<span><i class="fa fa-edit"></i></span>'.html_safe, edit_event_category_path(event_category),
+                    class: 'btn btn-icon btn-sm btn-warning' %>
+        <%= link_to '<span><i class="fa fa-trash"></i></span>'.html_safe, event_category,
+                    method: :delete, data: {confirm: 'Are you sure?'},
+                    class: 'btn btn-icon btn-sm btn-danger' %>
+      </td>
+    </tr>
+
+  <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Event Category', new_event_category_path %>
+<div class="row justify-content-center">
+  <%= paginate @event_categories %>
+</div>

@@ -1,4 +1,25 @@
-<p id="notice"><%= notice %></p>
+<div class="ct-page-title">
+  <h1 class="ct-title" id="content">Visualizar Categoria de Evento</h1>
+</div>
 
-<%= link_to 'Edit', edit_event_category_path(@event_category) %> |
-<%= link_to 'Back', event_categories_path %>
+<div class="row">
+  <div class="col-md-3">
+    <div class="form-group">
+      <%= label_tag :name, 'Nome' %>
+      <%= label_tag :name, @event_category.name, autofocus: true, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="col-md-9">
+    <div class="form-group">
+      <%= label_tag :description, 'Descrição' %>
+      <%= label_tag :description, @event_category.description.html_safe, class: 'form-control' %>
+    </div>
+  </div>
+</div>
+
+<div class="float-right">
+  <%= link_to '<span><i class="fa fa-arrow-left mr-1"></i>Voltar</span>'.html_safe, :back,
+              class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
+  <%= link_to '<span><i class="fa fa-edit mr-1"></i>Editar</span>'.html_safe, edit_event_category_path(@event_category),
+              class: 'btn btn-primary btn-icon btn-1 btn-simple' %>
+</div>
