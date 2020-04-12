@@ -10,10 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_27_003956) do
+ActiveRecord::Schema.define(version: 2020_04_12_005153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "certificate_signatures", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "role", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "image_id", null: false
+  end
+
+  create_table "certificate_templates", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "image_id", null: false
+    t.text "body", null: false
+    t.boolean "disabled", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "event_categories", force: :cascade do |t|
+    t.string "name"
+    t.string "description", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.string "format", null: false
+    t.binary "content", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "people", force: :cascade do |t|
     t.string "registration"
@@ -76,5 +107,7 @@ ActiveRecord::Schema.define(version: 2020_03_27_003956) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "certificate_signatures", "images"
+  add_foreign_key "certificate_templates", "images"
   add_foreign_key "users", "people"
 end
