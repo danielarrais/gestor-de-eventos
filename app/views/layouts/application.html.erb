@@ -37,7 +37,7 @@
           <a class="nav-link" href="#" id="navbar-primary_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Eventos</a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-primary_dropdown_1">
             <%= link_to event_categories_path, method: :get, class: 'dropdown-item' do %>Categorias<% end %>
-            <%= link_to '#', method: :get, class: 'dropdown-item' do %>Eventos<% end %>
+            <%= link_to events_path, method: :get, class: 'dropdown-item' do %>Eventos<% end %>
             <%= link_to '#', method: :get, class: 'dropdown-item' do %>Solicitações<% end %>
           </div>
         </li>
