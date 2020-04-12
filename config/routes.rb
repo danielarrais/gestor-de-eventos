@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :event_categories
   resources :certificate_signatures
   resources :permissions, except: [:new, :destroy] do
     collection do

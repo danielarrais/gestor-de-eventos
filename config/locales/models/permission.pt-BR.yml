@@ -9,6 +9,6 @@
         public: "Permissão pública"
   helpers:
     placeholder:
-      certificate_signature:
+      permission:
         name: "Ex.: Excluir permissão"
         description: "Ex.: Permite que o usuário excluar uma permissão de acesso"
