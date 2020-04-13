@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-  before_action :set_category_events_for_select, only: [:new, :edit, :update]
+  before_action :set_category_events_for_select, only: [:new, :edit, :create]
 
   # GET /events
   # GET /events.json
@@ -75,6 +75,11 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.fetch(:event, {})
+      params.require(:event).permit(:name,
+                                    :start_date,
+                                    :closing_date,
+                                    :event_category_id,
+                                    :workload,
+                                    image_attributes: [:file])
     end
 end
