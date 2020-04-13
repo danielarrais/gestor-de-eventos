@@ -57,4 +57,13 @@ module FormHelper
     end
     super *sources
   end
+
+  # Usa placeholders para inserir uma opção em branco no select
+  def select(*sources)
+    if sources[3][:include_blank] == true
+      i18n_key = "helpers.placeholder.#{sources[0]}.#{sources[1]}"
+      sources[3][:include_blank] = I18n.translate(i18n_key, default: "")
+    end
+    super *sources
+  end
 end
