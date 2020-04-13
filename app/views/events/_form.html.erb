@@ -1,17 +1,89 @@
-<%= form_with(model: event, local: true) do |form| %>
-  <% if event.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+<%= form_with(model: event, local: true) do |f| %>
+  <%= validations_errors(f.object) %>
 
-      <ul>
-        <% event.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, autofocus: true, class: 'form-control', placeholder: true %>
+      </div>
     </div>
-  <% end %>
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= f.label :start_date %>
 
-  <div class="actions">
-    <%= form.submit %>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+          </div>
+          <%= f.text_field :start_date,
+                                       class: 'flatpickr flatpickr-input form-control', placeholder: 'Ex: 22/02/1998' %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= f.label :closing_date %>
+
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+          </div>
+          <%= f.text_field :closing_date,
+                                       class: 'flatpickr flatpickr-input form-control', placeholder: 'Ex: 22/02/1998' %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.label :event_category_id %>
+        <%= f.select(:event_category_id, @event_categories,
+                     { include_blank: "Escolha a categoria do evento" },
+                     { size: 5,
+                       class: 'form-control',
+                       data: { trigger: '' },
+                       id: 'event_category_id' }) %>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <%= f.label :workload %>
+        <%= f.number_field :workload, autofocus: true, class: 'form-control', placeholder: true %>
+      </div>
+    </div>
+    <%= f.fields_for :image, f.object.image ||= f.object.build_image do |image_fields| %>
+      <% url = image_fields.object.url %>
+      <%= image_fields.hidden_field :id %>
+      <div class="col-sm-auto">
+        <div class="form-group">
+          <div>
+            <%= image_fields.label :file %>
+          </div>
+          <div class="fileinput <%= url.present? ? 'fileinput-exists' : 'fileinput-new' %> text-center " data-provides="fileinput">
+            <div>
+              <span class="btn btn-raised btn-default btn-file">
+                <span class="fileinput-new"><i class="fa fa-image"></i> Procurar</span>
+                <span class="fileinput-exists"><i class="fa fa-refresh"></i> Alterar</span>
+                <%= image_fields.file_field :file %>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="float-right">
+    <%= link_to '<span><i class="fa fa-arrow-left mr-1"></i>Voltar</span>'.html_safe, :back,
+                class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
+    <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple") do %>
+      <span><i class="fa fa-floppy-o mr-1"></i> Salvar</span>
+    <% end %>
   </div>
 <% end %>
+
+<script type="text/javascript" charset="utf-8">
+    new Choices('#event_category_id', {
+        removeItemButton: true,
+    });
+</script>

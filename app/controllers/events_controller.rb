@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_category_events_for_select, only: [:new, :edit, :update]
 
   # GET /events
   # GET /events.json
@@ -65,6 +66,11 @@ class EventsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_event
       @event = Event.find(params[:id])
+    end
+
+    # Use callbacks to share common setup or constraints between actions.
+    def set_category_events_for_select
+      @event_categories = EventCategory.select(:name, :id).map { |k, v| [k.name, k.id] }
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
