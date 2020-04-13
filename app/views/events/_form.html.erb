@@ -38,7 +38,7 @@
       <div class="form-group">
         <%= f.label :event_category_id %>
         <%= f.select(:event_category_id, @event_categories,
-                     { include_blank: "Escolha a categoria do evento" },
+                     { include_blank: true },
                      { size: 5,
                        class: 'form-control',
                        data: { trigger: '' },
