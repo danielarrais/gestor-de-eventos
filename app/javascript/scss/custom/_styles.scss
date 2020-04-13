@@ -60,3 +60,7 @@ label {
   height: 50px;
   margin-bottom: 5px;
 }
+
+.choices[data-type*="select-one"] .choices__button {
+  margin-top: 0;
+}
