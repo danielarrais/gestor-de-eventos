@@ -17,8 +17,8 @@
     <div class="col-md-12">
       <div class="form-group">
         <%= f.label :action_ids %>
-        <%= f.select(:action_ids, @actions,
-                     {include_blank: "Escolha as ações permitidas para o perfil"},
+        <%= f.select(:action_ids, @permissions,
+                     {include_blank: true},
                      {multiple: true,
                       size: 5,
                       class: 'form-control',
