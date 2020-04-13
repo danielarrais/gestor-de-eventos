@@ -6,9 +6,10 @@
       profile:
         name: "Nome"
         description: "Descrição"
-        actions: "Ações permitidas"
+        action_ids: "Ações permitidas"
   helpers:
     placeholder:
-      certificate_signature:
+      profile:
         name: "Ex. Professor"
         description: "Ex.: Dar acesso as funções dedicadas aos docentes"
+        action_ids: "Escolha as ações permitidas para o perfil"

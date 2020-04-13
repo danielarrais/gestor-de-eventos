@@ -1,13 +1,20 @@
 'pt-BR':
   activerecord:
     models:
-      event_category: 'Categoria de evento'
+      event: 'Evento'
     attributes:
-      event_category:
+      event:
         name: "Nome"
-        description: "Descrição"
+        start_date: "Data de Início"
+        closing_date: "Data de Encerramento"
+        event_category_id: "Categoria"
+        workload: "Carga Horária"
+        image/file: "Fundo do Certificado"
   helpers:
     placeholder:
-      event_category:
-        name: "Ex.: Curso"
-        description: "Ex.: É um evento on alguém ministra um conteúdo sobre determinado assunto"
+      event:
+        name: "Ex.: Curso de Flutter"
+        start_date: "Ex.: 25/05/1998"
+        closing_date: "Ex.: 26/05/1998"
+        event_category_id: "Selecione uma categoria"
+        workload: "Ex.: 10 Horas"
