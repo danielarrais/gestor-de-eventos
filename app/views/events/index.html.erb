@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<table class="table">
+  <thead>
+  <tr class="bg-primary">
+    <th class="text-white bold">
+      Nome
+    </th>
+    <th class="text-white bold">
+      Data de Inicio
+    </th>
+    <th class="text-white bold">
+      Data de Encerramento
+    </th>
+    <th class="text-white text-center bold">
+      Ações
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @events.each do |event| %>
+    <tr>
+      <td>
+        <%= event.name %>
+      </td>
+      <td>
+        <%= event.start_date.strftime('%d/%m/%Y') %>
+      </td>
+      <td>
+        <%= event.closing_date.strftime('%d/%m/%Y') %>
+      </td>
+      <td class="text-center">
+        <%= link_to '<span><i class="fa fa-search"></i></span>'.html_safe, event,
+                    class: 'btn btn-primary btn-icon btn-sm btn-simple' %>
+        <%= link_to '<span><i class="fa fa-edit"></i></span>'.html_safe, edit_event_path(event),
+                    class: 'btn btn-icon btn-sm btn-warning' %>
+        <%= link_to '<span><i class="fa fa-trash"></i></span>'.html_safe, event,
+                    method: :delete, data: { confirm: 'Are you sure?' },
+                    class: 'btn btn-icon btn-sm btn-danger' %>
+      </td>
+    </tr>
+
+  <% end %>
+  </tbody>
+</table>
+
+<div class="row justify-content-center">
+  <%= paginate @events %>
+</div>
