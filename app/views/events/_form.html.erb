@@ -1,4 +1,4 @@
-<%= form_with(model: event, local: true) do |f| %>
+<%= form_with(model: event, local: true, html: { multipart: true }) do |f| %>
   <%= validations_errors(f.object) %>
 
   <div class="row">
@@ -9,30 +9,10 @@
       </div>
     </div>
     <div class="col-md-3">
-      <div class="form-group">
-        <%= f.label :start_date %>
-
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
-          </div>
-          <%= f.text_field :start_date,
-                                       class: 'flatpickr flatpickr-input form-control', placeholder: 'Ex: 22/02/1998' %>
-        </div>
-      </div>
+      <%= f.date_picker :start_date, placeholder: true %>
     </div>
     <div class="col-md-3">
-      <div class="form-group">
-        <%= f.label :closing_date %>
-
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
-          </div>
-          <%= f.text_field :closing_date,
-                                       class: 'flatpickr flatpickr-input form-control', placeholder: 'Ex: 22/02/1998' %>
-        </div>
-      </div>
+      <%= f.date_picker :closing_date, placeholder: true %>
     </div>
     <div class="col-md-6">
       <div class="form-group">
@@ -51,24 +31,12 @@
         <%= f.number_field :workload, autofocus: true, class: 'form-control', placeholder: true %>
       </div>
     </div>
-    <%= f.fields_for :image, f.object.image ||= f.object.build_image do |image_fields| %>
-      <% url = image_fields.object.url %>
-      <%= image_fields.hidden_field :id %>
+    <%= f.fields_for :image, f.object.image ||= f.object.build_image do |ff| %>
       <div class="col-sm-auto">
-        <div class="form-group">
-          <div>
-            <%= image_fields.label :file %>
-          </div>
-          <div class="fileinput <%= url.present? ? 'fileinput-exists' : 'fileinput-new' %> text-center " data-provides="fileinput">
-            <div>
-              <span class="btn btn-raised btn-default btn-file">
-                <span class="fileinput-new"><i class="fa fa-image"></i> Procurar</span>
-                <span class="fileinput-exists"><i class="fa fa-refresh"></i> Alterar</span>
-                <%= image_fields.file_field :file %>
-              </span>
-            </div>
-          </div>
-        </div>
+        <% url = ff.object.url %>
+
+        <%= ff.hidden_field :id %>
+        <%= ff.image_field(:file, 'Procurar', 'Alterar', new: !url.present?) %>
       </div>
     <% end %>
   </div>
