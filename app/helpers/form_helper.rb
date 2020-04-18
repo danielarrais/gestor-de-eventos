@@ -1,5 +1,4 @@
 module FormHelper
-
   # Processa e exibe os conteúdos dos flash enviados pelas controllers
   def validations_errors(model)
     return if model.errors.empty?
@@ -65,5 +64,49 @@ module FormHelper
       sources[3][:include_blank] = I18n.translate(i18n_key, default: "")
     end
     super *sources
+  end
+end
+
+class ArgonFormBuilder < ActionView::Helpers::FormBuilder
+  delegate :content_tag, :concat, :icon, to: :@template
+
+  def date_picker(method, options = {})
+    options[:class] = 'flatpickr flatpickr-input form-control'
+    content_tag('div', class: 'form-group') do
+      concat(content_tag('div') do
+        @template.label(@object_name, method)
+      end)
+      concat(content_tag('div', class: 'input-group') do
+        concat(content_tag('div', class: 'input-group-prepend') do
+          content_tag('span', class: 'input-group-text') do
+            concat icon('calendar-grid-58', type: :ni)
+          end
+        end)
+        concat @template.text_field(@object_name, method, options)
+      end)
+    end
+  end
+
+  def image_field(method, options: {}, new_text:, change_text:, new: false)
+    content_tag('div', class: 'form-group') do
+      concat(content_tag('div') do
+        @template.label @object_name, method, @template
+      end)
+      concat(content_tag('div',
+                         class: "fileinput #{new ? 'fileinput-exists' : 'fileinput-new'} text-center",
+                         data: { provides: 'fileinput' }) do
+        content_tag('span', class: 'btn btn-raised btn-default btn-file') do
+          concat(content_tag('span', class: 'fileinput-new') do
+            concat(icon('image', margin: 1))
+            concat(new_text)
+          end)
+          concat(content_tag('span', class: 'fileinput-exists') do
+            concat(icon('refresh', margin: 1))
+            concat(change_text)
+          end)
+          concat(@template.file_field @object_name, method)
+        end
+      end)
+    end
   end
 end
