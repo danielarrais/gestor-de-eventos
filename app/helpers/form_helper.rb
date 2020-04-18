@@ -87,15 +87,24 @@ class ArgonFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
-  def image_field(method, options: {}, new_text:, change_text:, new: false)
+  def image_field(method, new_text, change_text, options = {})
+    new = options[:new] ||= false
+    show_preview = options[:show_preview] ||= false
+    id_preview = options[:id_preview] ||= ''
+
+    options_input = options.extract!(:onchange)
+
     content_tag('div', class: 'form-group') do
       concat(content_tag('div') do
         @template.label @object_name, method, @template
       end)
       concat(content_tag('div',
-                         class: "fileinput #{new ? 'fileinput-exists' : 'fileinput-new'} text-center",
+                         class: "fileinput #{new ? 'fileinput-new' : 'fileinput-exists'} text-center",
                          data: { provides: 'fileinput' }) do
-        content_tag('span', class: 'btn btn-raised btn-default btn-file') do
+        concat(content_tag('div', id: id_preview,
+                           class: "fileinput-preview fileinput-exists thumbnail img-raised #{'d-none' unless show_preview}") do
+        end)
+        concat(content_tag('span', class: 'btn btn-raised btn-default btn-file') do
           concat(content_tag('span', class: 'fileinput-new') do
             concat(icon('image', margin: 1))
             concat(new_text)
@@ -104,8 +113,8 @@ class ArgonFormBuilder < ActionView::Helpers::FormBuilder
             concat(icon('refresh', margin: 1))
             concat(change_text)
           end)
-          concat(@template.file_field @object_name, method)
-        end
+          concat(@template.file_field @object_name, method, options_input)
+        end)
       end)
     end
   end
