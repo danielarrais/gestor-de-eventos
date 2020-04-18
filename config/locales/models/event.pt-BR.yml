@@ -10,6 +10,7 @@
         event_category_id: "Categoria"
         workload: "Carga Horária"
         image/file: "Fundo do Certificado"
+        image: "Fundo do Certificado"
   helpers:
     placeholder:
       event:
