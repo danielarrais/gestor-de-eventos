@@ -7,7 +7,7 @@ class Image < ApplicationRecord
   attr_accessor :file
 
   def url
-    "data:#{self.format};base64,#{Base64.strict_encode64(self.content)}" if content.present?
+    "data:#{self.format};base64,#{Base64.strict_encode64(self.content)}" if content.present? and !self.new_record?
   end
 
   private
