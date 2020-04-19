@@ -18,8 +18,8 @@
       <% url = image_fields.object.url %>
       <%= image_fields.hidden_field :id %>
       <div class="col-sm-auto">
-        <%= image_fields.image_field(:file, 'Procurar', 'Alterar', id_preview: 'fileinput-preview',
-                                     onchange: 'onChangeScannedSignature()', new: url.present?) %>
+        <%= image_fields.image_field(:file, 'Procurar', 'Alterar', id: 'fileinput',
+                                     onchange: 'onChangeScannedSignature();', value: url) %>
       </div>
       <div class="col-md-6">
         <div class="form-group">
@@ -64,6 +64,6 @@
     function onChangeScannedSignature() {
         setTimeout(() => {
             $('#scanned-signature').attr('src', $('#fileinput-preview > img').attr('src'));
-        }, 1000)
+        }, 500)
     }
 </script>

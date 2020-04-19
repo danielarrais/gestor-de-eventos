@@ -107,7 +107,7 @@ class ArgonFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def image_field(method, new_text, change_text, options = {})
-    new = options[:new] ||= false
+    new = options[:value].nil?
     show_preview = options[:show_preview] ||= false
     id = options[:id] ||= Util::genarate_random_string(25)
     url = options[:value]
