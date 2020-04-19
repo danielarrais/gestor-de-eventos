@@ -104,12 +104,12 @@ class ArgonFormBuilder < ActionView::Helpers::FormBuilder
   def image_field(method, new_text, change_text, options = {})
     new = options[:new] ||= false
     show_preview = options[:show_preview] ||= false
-    id_img_preview = options[:id_preview] ||= Util::genarate_random_string(25)
+    id = options[:id] ||= Util::genarate_random_string(25)
     url = options[:value]
 
-    options_input = options.extract!(:onchange)
+    options_input = options.extract!(:onchange, :id)
     options_input[:onchange] = options_input[:onchange].to_s + "setTimeout(() => {
-                                    $('##{id_img_preview}-image').attr('src', $('##{id_img_preview}-preview > img').attr('src'));
+                                    $('##{id}-image').attr('src', $('##{id}-preview > img').attr('src'));
                                  }, 500)"
 
     content_tag('div', class: 'form-group') do
@@ -119,7 +119,7 @@ class ArgonFormBuilder < ActionView::Helpers::FormBuilder
       concat(content_tag('div',
                          class: "fileinput #{new ? 'fileinput-new' : 'fileinput-exists'} text-center",
                          data: { provides: 'fileinput' }) do
-        concat(content_tag('div', id: "#{id_img_preview}-preview",
+        concat(content_tag('div', id: "#{id}-preview",
                            class: "fileinput-preview fileinput-exists thumbnail img-raised #{'d-none' unless show_preview}") do
         end)
         concat(content_tag('span', class: 'btn btn-raised btn-default btn-file') do
@@ -134,7 +134,7 @@ class ArgonFormBuilder < ActionView::Helpers::FormBuilder
           concat(@template.file_field @object_name, method, options_input)
         end)
         concat(content_tag('span', class: 'fileinput-exists') do
-          @template.view_image_button(url, 'title', button_text: '', id: id_img_preview)
+          @template.view_image_button(url, 'title', button_text: '', id: id)
         end)
       end)
     end
