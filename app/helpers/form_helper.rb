@@ -43,6 +43,20 @@ module FormHelper
     end
   end
 
+  def output_tag(method, object, value)
+    class_name = object.class.to_s.underscore
+    content_tag('div', class: 'form-group') do
+      concat(label_tag :name, i18n_model(class_name, method))
+      concat(content_tag('div') do
+        label_tag(:method, value, class: 'form-control')
+      end)
+    end
+  end
+
+  def i18n_model(class_name, method)
+    I18n.translate("activerecord.attributes.#{class_name}.#{method}", default: method)
+  end
+
   # Retornar uma URL de imagem fake com base nos paramêtros
   def url_image_fake(resolution:, text: nil, image_color: '0a0c0d', text_color: 'fff', text_size: '15')
     "https://fakeimg.pl/#{resolution}/#{image_color},100/#{text_color},255?retina=1&font_size=#{text_size}&text=#{text ||= resolution}"
