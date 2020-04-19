@@ -3,9 +3,9 @@ module LayoutHelper
     url = url ||= url_image_fake(text: 'IMAGEM NÃO ENCONTRADA', resolution: '500x500')
 
     @content = link_to "<span><i class='fa fa-search #{'mr-1' unless button_text.blank?}'></i>#{button_text}</span>".html_safe, '#',
-                       class: 'btn btn-default btn-icon btn-1 btn-simple', data: { toggle: "modal", target: "##{id}" }
+                       class: 'btn btn-default btn-icon btn-1 btn-simple', data: { toggle: "modal", target: "##{id}-modal" }
 
-    @content << content_tag(:div, id: id, class: 'modal fade',
+    @content << content_tag(:div, id: "#{id}-modal", class: 'modal fade',
                             tabindex: '-1', role: 'dialog',
                             'aria-labelledby' => "#{id}_label",
                             'aria-hidden' => "true") do
