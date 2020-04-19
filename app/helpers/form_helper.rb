@@ -82,6 +82,11 @@ module FormHelper
 end
 
 class ArgonFormBuilder < ActionView::Helpers::FormBuilder
+  def initialize(object_name, object, template, options)
+    super
+    @object_class_name = object.class.to_s.underscore
+  end
+
   delegate :content_tag, :concat, :icon, to: :@template
 
   def date_picker(method, options = {})
@@ -134,7 +139,7 @@ class ArgonFormBuilder < ActionView::Helpers::FormBuilder
           concat(@template.file_field @object_name, method, options_input)
         end)
         concat(content_tag('span', class: 'fileinput-exists') do
-          @template.view_image_button(url, 'title', button_text: '', id: id)
+          @template.view_image_button(url, @template.i18n_model(@object_class_name, method), button_text: '', id: id)
         end)
       end)
     end
