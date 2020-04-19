@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2020_04_12_230859) do
     t.string "name", null: false
     t.datetime "start_date", null: false
     t.datetime "closing_date", null: false
-    t.bigint "category_id", null: false
+    t.bigint "event_category_id", null: false
     t.bigint "image_id", null: false
     t.integer "workload", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -120,5 +120,7 @@ ActiveRecord::Schema.define(version: 2020_04_12_230859) do
 
   add_foreign_key "certificate_signatures", "images"
   add_foreign_key "certificate_templates", "images"
+  add_foreign_key "events", "event_categories"
+  add_foreign_key "events", "images"
   add_foreign_key "users", "people"
 end
