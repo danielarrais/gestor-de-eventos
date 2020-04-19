@@ -43,6 +43,20 @@ module FormHelper
     end
   end
 
+  def output_tag(method, object, value)
+    class_name = object.class.to_s.underscore
+    content_tag('div', class: 'form-group') do
+      concat(label_tag :name, i18n_model(class_name, method))
+      concat(content_tag('div') do
+        label_tag(:method, value, class: 'form-control')
+      end)
+    end
+  end
+
+  def i18n_model(class_name, method)
+    I18n.translate("activerecord.attributes.#{class_name}.#{method}", default: method)
+  end
+
   # Retornar uma URL de imagem fake com base nos paramêtros
   def url_image_fake(resolution:, text: nil, image_color: '0a0c0d', text_color: 'fff', text_size: '15')
     "https://fakeimg.pl/#{resolution}/#{image_color},100/#{text_color},255?retina=1&font_size=#{text_size}&text=#{text ||= resolution}"
@@ -68,6 +82,11 @@ module FormHelper
 end
 
 class ArgonFormBuilder < ActionView::Helpers::FormBuilder
+  def initialize(object_name, object, template, options)
+    super
+    @object_class_name = object.class.to_s.underscore
+  end
+
   delegate :content_tag, :concat, :icon, to: :@template
 
   def date_picker(method, options = {})
@@ -88,11 +107,15 @@ class ArgonFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def image_field(method, new_text, change_text, options = {})
-    new = options[:new] ||= false
+    new = options[:value].nil?
     show_preview = options[:show_preview] ||= false
-    id_preview = options[:id_preview] ||= ''
+    id = options[:id] ||= Util::genarate_random_string(25)
+    url = options[:value]
 
-    options_input = options.extract!(:onchange)
+    options_input = options.extract!(:onchange, :id)
+    options_input[:onchange] = options_input[:onchange].to_s + "setTimeout(() => {
+                                    $('##{id}-image').attr('src', $('##{id}-preview > img').attr('src'));
+                                 }, 500)"
 
     content_tag('div', class: 'form-group') do
       concat(content_tag('div') do
@@ -101,7 +124,7 @@ class ArgonFormBuilder < ActionView::Helpers::FormBuilder
       concat(content_tag('div',
                          class: "fileinput #{new ? 'fileinput-new' : 'fileinput-exists'} text-center",
                          data: { provides: 'fileinput' }) do
-        concat(content_tag('div', id: id_preview,
+        concat(content_tag('div', id: "#{id}-preview",
                            class: "fileinput-preview fileinput-exists thumbnail img-raised #{'d-none' unless show_preview}") do
         end)
         concat(content_tag('span', class: 'btn btn-raised btn-default btn-file') do
@@ -114,6 +137,9 @@ class ArgonFormBuilder < ActionView::Helpers::FormBuilder
             concat(change_text)
           end)
           concat(@template.file_field @object_name, method, options_input)
+        end)
+        concat(content_tag('span', class: 'fileinput-exists') do
+          @template.view_image_button(url, @template.i18n_model(@object_class_name, method), button_text: '', id: id)
         end)
       end)
     end

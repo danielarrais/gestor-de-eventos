@@ -1,10 +1,8 @@
 <div class="float-left">
-  <div class="ct-page-title">
-    <h1 class="ct-title" id="content">Assinaturas de Certificado</h1>
-  </div>
+  <%= page_title('Assinaturas de Certificado') %>
 </div>
 <div class="float-right pt-4">
-  <%= link_to '<span><i class="fa fa-plus"></i> Cadastrar</span>'.html_safe, new_certificate_signature_path %>
+  <%= icon_link 'Cadastrar', 'plus', new_certificate_signature_path %>
 </div>
 
 <table class="table">

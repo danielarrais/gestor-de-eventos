@@ -1,4 +1,44 @@
-<p id="notice"><%= notice %></p>
+<%= page_title('Visualizar Evento') %>
 
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= output_tag :name, @event, @event.name %>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <%= output_tag :start_date, @event, @event.start_date.strftime('%d/%m/%Y') %>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <%= output_tag :closing_date, @event, @event.start_date.strftime('%d/%m/%Y') %>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <div class="form-group">
+      <%= output_tag :event_category_id, @event, @event.event_category.name %>
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <%= output_tag :workload, @event, "#{@event.workload} Horas" %>
+    </div>
+  </div>
+  <div class="col-auto">
+    <div class="form-group">
+      <%= label_tag :image, i18n_model(:event, :image) %>
+      <div>
+        <%= view_image_button(@event.image.url, i18n_model(:event, :image), button_text: 'Visualizar') %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="float-right">
+  <%= link_to '<span><i class="fa fa-arrow-left mr-1"></i>Voltar</span>'.html_safe, :back,
+              class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
+  <%= link_to '<span><i class="fa fa-edit mr-1"></i>Editar</span>'.html_safe, edit_event_path(@event),
+              class: 'btn btn-primary btn-icon btn-1 btn-simple' %>
+</div>

@@ -36,7 +36,7 @@
         <% url = ff.object.url %>
 
         <%= ff.hidden_field :id %>
-        <%= ff.image_field(:file, 'Procurar', 'Alterar', new: !url.present?) %>
+        <%= ff.image_field(:file, 'Procurar', 'Alterar', value: url) %>
       </div>
     <% end %>
   </div>
