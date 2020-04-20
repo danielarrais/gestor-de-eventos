@@ -1,5 +1,6 @@
 const {environment} = require('@rails/webpacker');
 const webpack = require('webpack');
+const exposeLoaders = require('./expose-loaders/expose-loader');
 
 environment.plugins.append(
     "Provide",
@@ -12,35 +13,10 @@ environment.plugins.append(
     })
 );
 
-const jqueryExpose = {
-    test: require.resolve('jquery'),
-    use: [{
-        loader: 'expose-loader',
-        options: 'jQuery'
-    }, {
-        loader: 'expose-loader',
-        options: '$'
-    }]
-};
-
-const  choisesExpose = {
-    test: require.resolve('choices.js'),
-    use: [{
-        loader: 'expose-loader',
-        options: 'Choices'
-    }]
-};
-
-const  icheckExpose = {
-    test: require.resolve('icheck'),
-    use: [{
-        loader: 'expose-loader',
-        options: 'iCheck'
-    }]
-};
-
-environment.loaders.append('jqueryExpose', jqueryExpose);
-environment.loaders.append('choisesExpose', choisesExpose);
-environment.loaders.append('icheckExpose', icheckExpose);
+for (const exposeLoaderKey in exposeLoaders['exposeLoaders']) {
+    if (exposeLoaders['exposeLoaders'].hasOwnProperty(exposeLoaderKey)) {
+        environment.loaders.append(exposeLoaderKey + '', exposeLoaders['exposeLoaders'][exposeLoaderKey]);
+    }
+}
 
 module.exports = environment;
