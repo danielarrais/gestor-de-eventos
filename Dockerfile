@@ -6,10 +6,10 @@ ENV RAILS_ENV production
 # Substitui shell por bash para que possamos obter arquivos de origem
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
+# Cria a pasta onde ficará os arquivos da aplicação
 RUN mkdir -p /app
-RUN mkdir -p /usr/local/nvm
 
-# Define pasta de trabalho
+# Define pasta da aplicação como pasta de trabalho
 WORKDIR /app
 
 # Instala o NODE.js
@@ -27,8 +27,6 @@ RUN bundle install --verbose --jobs 20 --retry 5
 
 # Intala o YARN
 RUN npm install -g yarn
-
-COPY . ./
 
 # Expõe a porta 80
 EXPOSE 80

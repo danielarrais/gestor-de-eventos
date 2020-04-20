@@ -10,6 +10,7 @@
     "animejs": "^3.1.0",
     "argon-design-system-free": "^1.1.0",
     "babel-loader": "^8.0.6",
+    "@babel/core": "^7.0.0",
     "bootstrap": "^4.4.1",
     "bootstrap-switch": "^3.4.0",
     "channels": "^0.0.4",
