@@ -5,7 +5,6 @@
 window.nested_form_fields || (window.nested_form_fields = {});
 
 nested_form_fields.bind_nested_forms_links = function() {
-    debugger
     $('body').off("click", '.add_nested_fields_link');
     $('body').on('click', '.add_nested_fields_link', function(event, additional_data) {
         let $child_templates, $link, $parsed_template, $template, added_index, association_path, index_placeholder, object_class, target,
@@ -53,7 +52,6 @@ nested_form_fields.bind_nested_forms_links = function() {
         return false;
     });
     $("body").off("click", '.remove_nested_fields_link');
-    debugger
     return $("body").on('click', '.remove_nested_fields_link', function() {
         let $link, $nested_fields_container, delete_association_field_name, delete_field, object_class, removed_index;
         $link = $(this);
