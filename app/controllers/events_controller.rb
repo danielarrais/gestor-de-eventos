@@ -75,6 +75,12 @@ class EventsController < ApplicationController
                                     :closing_date,
                                     :event_category_id,
                                     :workload,
-                                    image_attributes: [:file])
+                                    image_attributes: [:id, :file],
+                                    oriented_activities_attributes: [
+                                        :id,
+                                        :event_category_id,
+                                        :title,
+                                        :_destroy
+                                    ])
     end
 end
