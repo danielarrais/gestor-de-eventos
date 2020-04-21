@@ -1,6 +1,6 @@
 class AddFkPermissionsProfiles < ActiveRecord::Migration[6.0]
   def change
-    add_reference :permissions_profiles, :permissions, foreign_key: true
-    add_reference :permissions_profiles, :profiles, foreign_key: true
+    add_foreign_key :permissions_profiles, :permissions, index: true
+    add_foreign_key :permissions_profiles, :profiles, index: true
   end
 end

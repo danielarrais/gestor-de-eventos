@@ -1,6 +1,6 @@
 class AddFkProfilesUsers < ActiveRecord::Migration[6.0]
   def change
-    add_reference :profiles_users, :users, foreign_key: true
-    add_reference :profiles_users, :profiles, foreign_key: true
+    add_foreign_key :profiles_users, :users, index: true
+    add_foreign_key :profiles_users, :profiles, index: true
   end
 end
