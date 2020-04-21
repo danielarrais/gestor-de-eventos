@@ -38,12 +38,14 @@ module LayoutHelper
   end
 
   def icon_link(text, icon, path)
-    span_icon = content_tag 'span' do
+    link_to span_icon(text, icon).html_safe, path
+  end
+
+  def span_icon(text, icon)
+    content_tag 'span' do
       concat icon icon, margin: 1
       concat text
     end
-
-    link_to span_icon.html_safe, path
   end
 
   def icon(icon, type: :fa, margin: 0)
