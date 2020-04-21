@@ -26,6 +26,9 @@ import '../js/argon-design-system.js?v=1.0.0'
 // Definição das mascaras de input
 import '../js/custom/inputs-conf'
 
+// Fucnções para trabalhar com nested forms
+import '../js/custom/nested-fields'
+
 // Stylsheet do sistema
 import '../scss/application.scss'
 
