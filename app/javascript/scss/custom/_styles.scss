@@ -64,3 +64,14 @@ label {
 .choices[data-type*="select-one"] .choices__button {
   margin-top: 0;
 }
+
+.no-label {
+  margin-top: 31px;
+}
+
+.form-area {
+  margin: 0 auto;
+  padding: 1.5rem;
+  border-radius: .25rem;
+  transition: all .5s;
+}
