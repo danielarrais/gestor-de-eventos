@@ -5,7 +5,7 @@
     <div class="col-md-6">
       <div class="form-group">
         <%= f.label :name %>
-        <%= f.text_field :name, autofocus: true, class: 'form-control', placeholder: true %>
+        <%= f.text_field :name, class: 'form-control', placeholder: true %>
       </div>
     </div>
     <div class="col-md-3">
@@ -20,15 +20,14 @@
         <%= f.select(:event_category_id, @event_categories,
                      { include_blank: true },
                      { size: 5,
-                       class: 'form-control',
-                       data: { trigger: '' },
-                       id: 'event_category_id' }) %>
+                       class: 'form-control choices',
+                       data: { trigger: '' }, }) %>
       </div>
     </div>
     <div class="col">
       <div class="form-group">
         <%= f.label :workload %>
-        <%= f.number_field :workload, autofocus: true, class: 'form-control', placeholder: true %>
+        <%= f.number_field :workload, class: 'form-control', placeholder: true %>
       </div>
     </div>
     <%= f.fields_for :image, f.object.image ||= f.object.build_image do |ff| %>
@@ -39,6 +38,54 @@
         <%= ff.image_field(:file, 'Procurar', 'Alterar', value: url) %>
       </div>
     <% end %>
+
+    <div class="col-sm-12">
+      <h5>Atividades Orientadas</h5>
+    </div>
+    <div class="col-sm-12 mt-3">
+      <%= f.nested_fields_for :oriented_activities, f.object.oriented_activities ||= f.object.build_oriented_activities do |ff| %>
+        <%= ff.hidden_field :id %>
+        <div class="col-sm-12 form-area bg-secondary mb-4">
+          <div class="row">
+            <div class="col-sm-8">
+              <%= ff.label :title %>
+              <%= ff.text_field :title, class: 'form-control', placeholder: true %>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <%= ff.label :event_category_id %>
+                <%= ff.select(:event_category_id, @event_categories,
+                              { include_blank: true },
+                              { size: 5,
+                                class: 'form-control choices',
+                                data: { trigger: '' }, }) %>
+              </div>
+            </div>
+
+            <div class="col-auto">
+              <%= ff.remove_nested_fields_link span_icon('', 'trash'), class: 'btn btn-danger no-label', role: 'button' %>
+            </div>
+
+            <div class="col-sm-12">
+              <%= f.add_nested_fields_link :oriented_activities, span_icon('Adicionar Orientando', 'plus'), class: 'btn btn-sm btn-primary' %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-sm-12">
+      <div class="form-group">
+        <%= f.add_nested_fields_link :oriented_activities, span_icon('Adicionar Atividade Orientada', 'plus'), class: 'btn btn-sm btn-default' %>
+      </div>
+    </div>
+    <div class="col-sm-12 mt-3">
+      <h5>Subeventos</h5>
+    </div>
+    <div class="col-sm-12 mt-3">
+      <div class="form-group">
+        <%= f.add_nested_fields_link :oriented_activities, span_icon('Adicionar Subevento', 'plus'), class: 'btn btn-sm btn-default' %>
+      </div>
+    </div>
   </div>
 
   <div class="float-right">
@@ -51,7 +98,11 @@
 <% end %>
 
 <script type="text/javascript" charset="utf-8">
-    new Choices('#event_category_id', {
-        removeItemButton: true,
+    $(document).on("fieldsAdded", () => {
+        $('select.choices').each((i, element) => {
+            new Choices(element, {
+                removeItemButton: true,
+            });
+        })
     });
 </script>
