@@ -1,0 +1,21 @@
+<%= page_title('Visualizar Curso') %>
+
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+      <%= output_tag :number_of_semesters, @course, @course.name %>
+    </div>
+  </div>
+  <div class="col-md-7">
+    <div class="form-group">
+      <%= output_tag :number_of_semesters, @course, @course.number_of_semesters %>
+    </div>
+  </div>
+</div>
+
+<div class="float-right">
+  <%= link_to '<span><i class="fa fa-arrow-left mr-1"></i>Voltar</span>'.html_safe, :back,
+              class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
+  <%= link_to '<span><i class="fa fa-edit mr-1"></i>Editar</span>'.html_safe, edit_course_path(@course),
+              class: 'btn btn-primary btn-icon btn-1 btn-simple' %>
+</div>

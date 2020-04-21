@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_12_230859) do
+ActiveRecord::Schema.define(version: 2020_04_21_191222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,13 @@ ActiveRecord::Schema.define(version: 2020_04_12_230859) do
     t.bigint "image_id", null: false
     t.text "body", null: false
     t.boolean "disabled", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "number_of_semesters", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -50,11 +57,36 @@ ActiveRecord::Schema.define(version: 2020_04_12_230859) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "events_oriented_activities", id: false, force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.bigint "oriented_activity_id", null: false
+  end
+
+  create_table "guideds", force: :cascade do |t|
+    t.bigint "person_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "images", force: :cascade do |t|
     t.string "format", null: false
     t.binary "content", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "oriented_activities", force: :cascade do |t|
+    t.string "title", null: false
+    t.bigint "event_category_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "oriented_activities_people", id: false, force: :cascade do |t|
+    t.bigint "oriented_activity_id", null: false
+    t.bigint "person_id", null: false
+    t.index ["oriented_activity_id"], name: "index_oriented_activities_people_on_oriented_activity_id"
+    t.index ["person_id"], name: "index_oriented_activities_people_on_person_id"
   end
 
   create_table "people", force: :cascade do |t|
@@ -122,5 +154,14 @@ ActiveRecord::Schema.define(version: 2020_04_12_230859) do
   add_foreign_key "certificate_templates", "images"
   add_foreign_key "events", "event_categories"
   add_foreign_key "events", "images"
+  add_foreign_key "events_oriented_activities", "events"
+  add_foreign_key "events_oriented_activities", "oriented_activities"
+  add_foreign_key "guideds", "people"
+  add_foreign_key "oriented_activities_people", "oriented_activities"
+  add_foreign_key "oriented_activities_people", "people"
+  add_foreign_key "permissions_profiles", "permissions"
+  add_foreign_key "permissions_profiles", "profiles"
+  add_foreign_key "profiles_users", "profiles"
+  add_foreign_key "profiles_users", "users"
   add_foreign_key "users", "people"
 end
