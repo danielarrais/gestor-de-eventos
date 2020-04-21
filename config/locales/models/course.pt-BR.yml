@@ -1,0 +1,13 @@
+'pt-BR':
+  activerecord:
+    models:
+      course: 'Curso'
+    attributes:
+      permission:
+        name: "Nome"
+        number_of_semesters: "Quantidade de semestres"
+  helpers:
+    placeholder:
+      permission:
+        name: "Ex.: Sistemas de Informação"
+        number_of_semesters: "Ex.: 5"
