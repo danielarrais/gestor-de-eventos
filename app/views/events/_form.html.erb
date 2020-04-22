@@ -65,9 +65,55 @@
             <div class="col-auto">
               <%= ff.remove_nested_fields_link span_icon('', 'trash'), class: 'btn btn-danger no-label', role: 'button' %>
             </div>
-
             <div class="col-sm-12">
-              <%= f.add_nested_fields_link :oriented_activities, span_icon('Adicionar Orientando', 'plus'), class: 'btn btn-sm btn-primary' %>
+              <h6>Orientandos</h6>
+            </div>
+            <div class="col-sm-12 mt-3">
+              <%= ff.nested_fields_for :guideds, ff.object.guideds ||= ff.object.build_guideds do |fff| %>
+                <%= fff.hidden_field :id %>
+                <%= fff.hidden_field :person_id, class: 'person-hidden-field' %>
+                <div class="col-sm-12 form-area bg-white mb-4">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <div class="form-group">
+                        <% cpf = fff.object.person.cpf if fff.object.person.present? %>
+                        <%= label_tag :cpf, i18n_model(:person, :cpf) %>
+                        <%= text_field_tag :cpf, cpf, class: 'form-control choices cpf-mask cpf-guided-field' %>
+                      </div>
+                    </div>
+                    <div class="col-sm-9">
+                      <div class="form-group">
+                        <% full_name = fff.object.person.full_name if fff.object.person.present? %>
+                        <%= label_tag :nome, i18n_model(:person, :name) %>
+                        <%= text_field_tag :nome, full_name, class: 'form-control choices name-guided-field', disabled: true %>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <%= fff.label :course_id %>
+                        <%= fff.select(:course_id, @courses,
+                                       { include_blank: true },
+                                       { size: 5,
+                                         class: 'form-control choices',
+                                         data: { trigger: '' }, }) %>
+                      </div>
+                    </div>
+                    <div class="col-sm-auto">
+                      <div class="form-group">
+                        <%= fff.label :semester %>
+                        <%= fff.number_field :semester, class: 'form-control choices' %>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <%= fff.remove_nested_fields_link span_icon('', 'trash'), class: 'btn btn-danger no-label', role: 'button' %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+            <div class="col-sm-12">
+              <%= ff.add_nested_fields_link :guideds, span_icon('Adicionar Orientando', 'plus'), class: 'btn btn-sm
+              btn-primary' %>
             </div>
           </div>
         </div>
@@ -98,11 +144,43 @@
 <% end %>
 
 <script type="text/javascript" charset="utf-8">
-    $(document).on("fieldsAdded", () => {
+    $(document).ready(prepareInputs).on("fieldsAdded", () => {
+        prepareInputs();
+    });
+
+    function prepareInputs() {
+        $('.cpf-guided-field').bind('keyup', searchPersonName);
+        $('.cpf-mask').mask('000.000.000-00', {reverse: true});
         $('select.choices').each((i, element) => {
             new Choices(element, {
                 removeItemButton: true,
             });
         })
-    });
+    }
+
+    function searchPersonName(event) {
+        const people_name_path = '<%= people_name_path %>'
+        const input = $(event.target)
+        console.log(input.val())
+        if (input.val().length === 14) {
+            $.ajax(people_name_path,
+                {
+                    data: {cpf: input.val()},
+                    beforeSend: function () {
+                        input.attr('disabled', 'true')
+                        setTimeout(() => {
+                            input.closest('div').append('<div class="icon-container"><i class="loader"></i></div>')
+                        }, 200)
+                    },
+                    success: function () {
+                        input.removeAttr('disabled')
+                        input.closest('div').find('.icon-container').remove()
+                    }
+                })
+                .done(function (response) {
+                    input.closest("fieldset").find(".name-guided-field").val(`${response.name} ${response.surname}`)
+                    input.closest("fieldset").find(".person-hidden-field").val(response.id)
+                });
+        }
+    }
 </script>
