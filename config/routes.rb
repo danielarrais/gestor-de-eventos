@@ -23,6 +23,8 @@ Rails.application.routes.draw do
 
   # get 'users/:id/complete_registration', to: 'users#complete_registration'
 
+  get 'people/name', to: 'people#name'
+
   root to: "home#index"
 
   get '/404', to: "errors#not_found"
