@@ -78,14 +78,14 @@
                       <div class="form-group">
                         <% cpf = fff.object.person.cpf if fff.object.person.present? %>
                         <%= label_tag :cpf, i18n_model(:person, :cpf) %>
-                        <%= text_field_tag :cpf, cpf, class: 'form-control choices cpf-mask cpf-guided-field' %>
+                        <%= text_field_tag :cpf, cpf, class: 'form-control cpf-mask cpf-guided-field' %>
                       </div>
                     </div>
                     <div class="col-sm-9">
                       <div class="form-group">
                         <% full_name = fff.object.person.full_name if fff.object.person.present? %>
                         <%= label_tag :nome, i18n_model(:person, :name) %>
-                        <%= text_field_tag :nome, full_name, class: 'form-control choices name-guided-field', disabled: true %>
+                        <%= text_field_tag :nome, full_name, class: 'form-control name-guided-field', disabled: true %>
                       </div>
                     </div>
                     <div class="col">
@@ -161,26 +161,19 @@
     function searchPersonName(event) {
         const people_name_path = '<%= people_name_path %>'
         const input = $(event.target)
-        console.log(input.val())
+
+        const set_name =  function (response) {
+            if (response !== null) {
+                input.closest("fieldset").find(".name-guided-field").val(`${response.name} ${response.surname}`)
+                input.closest("fieldset").find(".person-hidden-field").val(response.id)
+            } else {
+                input.closest("fieldset").find(".name-guided-field").val('')
+                input.closest("fieldset").find(".person-hidden-field").val('')
+            }
+        }
+
         if (input.val().length === 14) {
-            $.ajax(people_name_path,
-                {
-                    data: {cpf: input.val()},
-                    beforeSend: function () {
-                        input.attr('disabled', 'true')
-                        setTimeout(() => {
-                            input.closest('div').append('<div class="icon-container"><i class="loader"></i></div>')
-                        }, 200)
-                    },
-                    success: function () {
-                        input.removeAttr('disabled')
-                        input.closest('div').find('.icon-container').remove()
-                    }
-                })
-                .done(function (response) {
-                    input.closest("fieldset").find(".name-guided-field").val(`${response.name} ${response.surname}`)
-                    input.closest("fieldset").find(".person-hidden-field").val(response.id)
-                });
+            ajaxGet(people_name_path, { cpf: input.val() }, set_name, input);
         }
     }
 </script>

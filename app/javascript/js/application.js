@@ -23,14 +23,11 @@ import 'jquery-mask-plugin'
 // Import Locais
 import '../js/argon-design-system.js?v=1.0.0'
 
-// Definição das mascaras de input
-import '../js/custom/inputs-conf'
+import '../js/custom/inputs-conf' // Definição das mascaras de input
+import '../js/custom/ajax-functions' // Carrega funções ajax
 
-// Fucnções para trabalhar com nested forms
-import '../js/custom/nested-fields'
+import '../js/custom/nested-fields' // Fucnções para trabalhar com nested forms
 
-// Stylsheet do sistema
-import '../scss/application.scss'
+import '../scss/application.scss' // Stylsheet do sistema
 
-// Mensagens de alerta
-global.toastr = require('toastr');
+global.toastr = require('toastr'); // Mensagens de alerta

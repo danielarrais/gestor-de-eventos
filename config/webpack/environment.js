@@ -19,4 +19,6 @@ for (const exposeLoaderKey in exposeLoaders['exposeLoaders']) {
     }
 }
 
+environment.config.set('output.library', 'seu')
+
 module.exports = environment;
