@@ -9,10 +9,10 @@
       </div>
     </div>
     <div class="col-md-3">
-      <%= f.date_picker :start_date, placeholder: true %>
+      <%= f.date_time_picker :start_date, placeholder: true %>
     </div>
     <div class="col-md-3">
-      <%= f.date_picker :closing_date, placeholder: true %>
+      <%= f.date_time_picker :closing_date, placeholder: true %>
     </div>
     <div class="col-md-6">
       <div class="form-group">
@@ -43,7 +43,7 @@
       <h5>Atividades Orientadas</h5>
     </div>
     <div class="col-sm-12 mt-3">
-      <%= f.nested_fields_for :oriented_activities, f.object.oriented_activities ||= f.object.build_oriented_activities do |ff| %>
+      <%= f.nested_fields_for :oriented_activities, f.object.oriented_activities do |ff| %>
         <%= ff.hidden_field :id %>
         <div class="col-sm-12 form-area bg-secondary mb-4">
           <div class="row">
@@ -69,7 +69,7 @@
               <h6>Orientandos</h6>
             </div>
             <div class="col-sm-12 mt-3">
-              <%= ff.nested_fields_for :guideds, ff.object.guideds ||= ff.object.build_guideds do |fff| %>
+              <%= ff.nested_fields_for :guideds, ff.object.guideds do |fff| %>
                 <%= fff.hidden_field :id %>
                 <%= fff.hidden_field :person_id, class: 'person-hidden-field' %>
                 <div class="col-sm-12 form-area bg-white mb-4">
@@ -125,11 +125,58 @@
       </div>
     </div>
     <div class="col-sm-12 mt-3">
+      <%= f.nested_fields_for :child_events, f.object.child_events do |ff| %>
+        <%= validations_errors(ff.object) %>
+        <%= ff.hidden_field :id %>
+        <div class="col-sm-12 form-area bg-secondary mb-4">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <%= ff.label :name %>
+                <%= ff.text_field :name, class: 'form-control', placeholder: true %>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <%= ff.date_time_picker :start_date, placeholder: true %>
+            </div>
+            <div class="col-md-3">
+              <%= ff.date_time_picker :closing_date, placeholder: true %>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <%= ff.label :event_category_id %>
+                <%= ff.select(:event_category_id, @event_categories,
+                              { include_blank: true },
+                              { size: 5,
+                                class: 'form-control choices',
+                                data: { trigger: '' }, }) %>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <%= ff.label :workload %>
+                <%= ff.number_field :workload, class: 'form-control', placeholder: true %>
+              </div>
+            </div>
+            <div class="col-sm-auto">
+              <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                  <%= ff.check_box :own_certificate, class: 'custom-control-input' %>
+                  <%= ff.label :own_certificate, 'teste', class: 'custom-control-label' %>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-auto">
+              <%= ff.remove_nested_fields_link span_icon('', 'trash'), class: 'btn btn-danger no-label', role: 'button' %>
+            </div>
+          </div>
+        </div>
+      <% end %>
       <h5>Subeventos</h5>
     </div>
     <div class="col-sm-12 mt-3">
       <div class="form-group">
-        <%= f.add_nested_fields_link :oriented_activities, span_icon('Adicionar Subevento', 'plus'), class: 'btn btn-sm btn-default' %>
+        <%= f.add_nested_fields_link :child_events, span_icon('Adicionar Subevento', 'plus'), class: 'btn btn-sm btn-default' %>
       </div>
     </div>
   </div>
@@ -144,25 +191,14 @@
 <% end %>
 
 <script type="text/javascript" charset="utf-8">
-    $(document).ready(prepareInputs).on("fieldsAdded", () => {
-        prepareInputs();
-    });
-
-    function prepareInputs() {
-        $('.cpf-guided-field').bind('keyup', searchPersonName);
-        $('.cpf-mask').mask('000.000.000-00', {reverse: true});
-        $('select.choices').each((i, element) => {
-            new Choices(element, {
-                removeItemButton: true,
-            });
-        })
-    }
-
+    $(document).on('fieldsadded', (event) => {
+        $(event.target).find('.cpf-guided-field').bind('keyup', searchPersonName);
+    })
     function searchPersonName(event) {
         const people_name_path = '<%= people_name_path %>'
         const input = $(event.target)
 
-        const set_name =  function (response) {
+        const set_name = function (response) {
             if (response !== null) {
                 input.closest("fieldset").find(".name-guided-field").val(`${response.name} ${response.surname}`)
                 input.closest("fieldset").find(".person-hidden-field").val(response.id)
@@ -173,7 +209,7 @@
         }
 
         if (input.val().length === 14) {
-            ajaxGet(people_name_path, { cpf: input.val() }, set_name, input);
+            ajaxGet(people_name_path, {cpf: input.val()}, set_name, input);
         }
     }
 </script>
