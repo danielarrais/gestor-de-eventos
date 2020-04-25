@@ -61,15 +61,6 @@ module FormHelper
   def url_image_fake(resolution:, text: nil, image_color: '0a0c0d', text_color: 'fff', text_size: '15')
     "https://fakeimg.pl/#{resolution}/#{image_color},100/#{text_color},255?retina=1&font_size=#{text_size}&text=#{text ||= resolution}"
   end
-
-  # Cria label para colocar traduções alternativas
-  def label(*sources)
-    if sources[0].to_s.include? '['
-      i18n_key = "activerecord.attributes.#{sources[0]}/#{sources[1]}".remove('_attributes', ']').gsub('[', '.')
-      sources[2] = I18n.translate(i18n_key, default: nil)
-    end
-    super *sources
-  end
 end
 
 class ArgonFormBuilder < ActionView::Helpers::FormBuilder
@@ -79,6 +70,15 @@ class ArgonFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   delegate :content_tag, :concat, :icon, to: :@template
+
+  def label(method, text = nil, options = {}, &block)
+    if @object_name.to_s.include? '['
+      i18n_key = "activerecord.attributes.#{@object_name}/#{method}".remove(/\[[0-9]\]/, '_attributes', ']').gsub('[', '.')
+      text = I18n.translate(i18n_key, default: nil)
+    end
+
+    @template.label(@object_name, method, text, objectify_options(options), &block)
+  end
 
   # Usa placeholders para inserir uma opção em branco no select
   def select(*sources)
@@ -90,10 +90,12 @@ class ArgonFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def date_picker(method, options = {})
-    options[:class] = 'flatpickr flatpickr-input form-control'
+    options[:value] = @object[method.to_sym].to_time.iso8601 if @object[method.to_sym].present?
+    options[:class] = [''] unless options[:class].present?
+    options[:class] << ' flatpickr flatpickr-input form-control'
     content_tag('div', class: 'form-group') do
       concat(content_tag('div') do
-        @template.label(@object_name, method)
+        label(method)
       end)
       concat(content_tag('div', class: 'input-group') do
         concat(content_tag('div', class: 'input-group-prepend') do
@@ -101,9 +103,13 @@ class ArgonFormBuilder < ActionView::Helpers::FormBuilder
             concat icon('calendar-grid-58', type: :ni)
           end
         end)
-        concat @template.text_field(@object_name, method, options)
+        concat text_field(method, options)
       end)
     end
+  end
+
+  def date_time_picker(method, options = {})
+    date_picker method, options.merge(class: 'datetimepicker')
   end
 
   def image_field(method, new_text, change_text, options = {})
@@ -119,7 +125,7 @@ class ArgonFormBuilder < ActionView::Helpers::FormBuilder
 
     content_tag('div', class: 'form-group') do
       concat(content_tag('div') do
-        @template.label @object_name, method, @template
+        label method
       end)
       concat(content_tag('div',
                          class: "fileinput #{new ? 'fileinput-new' : 'fileinput-exists'} text-center",
@@ -136,7 +142,7 @@ class ArgonFormBuilder < ActionView::Helpers::FormBuilder
             concat(icon('refresh', margin: 1))
             concat(change_text)
           end)
-          concat(@template.file_field @object_name, method, options_input)
+          concat(file_field method, options_input)
         end)
         concat(content_tag('span', class: 'fileinput-exists') do
           @template.view_image_button(url, @template.i18n_model(@object_class_name, method), button_text: '', id: id)
