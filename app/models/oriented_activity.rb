@@ -5,5 +5,5 @@ class OrientedActivity < ApplicationRecord
   has_and_belongs_to_many :guideds
 
   accepts_nested_attributes_for :people
-  accepts_nested_attributes_for :guideds
+  accepts_nested_attributes_for :guideds, allow_destroy: true
 end

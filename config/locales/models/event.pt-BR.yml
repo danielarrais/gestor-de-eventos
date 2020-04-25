@@ -11,6 +11,7 @@
         workload: "Carga Horária"
         image/file: "Fundo do Certificado"
         image: "Fundo do Certificado"
+        own_certificate: "Certificado Próprio"
   helpers:
     placeholder:
       event:
