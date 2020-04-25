@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-  before_action :set_list_for_select, only: [:new, :edit, :create]
+  before_action :set_list_for_select, only: [:new, :edit, :update, :create]
 
   # GET /events
   def index
@@ -86,7 +86,13 @@ class EventsController < ApplicationController
                                                              :person_id,
                                                              :course_id,
                                                              :_destroy,
-                                                             :semester]
-                                    ])
+                                                             :semester]],
+                                    child_events_attributes: [:id,
+                                                              :name,
+                                                              :start_date,
+                                                              :closing_date,
+                                                              :event_category_id,
+                                                              :own_certificate,
+                                                              :workload])
     end
 end
