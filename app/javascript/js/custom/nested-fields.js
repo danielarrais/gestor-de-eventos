@@ -41,7 +41,7 @@ nested_form_fields.bind_nested_forms_links = function() {
         } else {
             $template.before($parsed_template);
         }
-        $parsed_template.trigger("fieldsAdded", {
+        $parsed_template.trigger("fieldsadded", {
             object_class: object_class,
             added_index: added_index,
             association_path: association_path,

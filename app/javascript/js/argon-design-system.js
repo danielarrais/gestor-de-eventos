@@ -32,7 +32,7 @@ var $html = $('html');
 var $tagsinput = $('.tagsinput');
 
 (function() {
-  var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
+  var isWindows = navigator.platform.indexOf('Win') > -1;
 
   if (isWindows) {
     // if we are on windows OS we activate the perfectScrollbar function
