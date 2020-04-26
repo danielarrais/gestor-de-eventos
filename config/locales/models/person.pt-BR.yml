@@ -5,6 +5,8 @@
     attributes:
       person:
         name: "Nome"
+        registration: "Matrícula"
+        cellphone: "Celular"
         surname: "Sobrenome"
         date_of_birth: "Data de Nascimento"
         cpf: "CPF"
