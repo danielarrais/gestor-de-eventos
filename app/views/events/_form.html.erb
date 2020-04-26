@@ -125,6 +125,8 @@
       </div>
     </div>
     <div class="col-sm-12 mt-3">
+      <h5>Subeventos</h5>
+
       <%= f.nested_fields_for :child_events, f.object.child_events do |ff| %>
         <%= validations_errors(ff.object) %>
         <%= ff.hidden_field :id %>
@@ -172,7 +174,6 @@
           </div>
         </div>
       <% end %>
-      <h5>Subeventos</h5>
     </div>
     <div class="col-sm-12 mt-3">
       <div class="form-group">
