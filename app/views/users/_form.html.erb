@@ -1,4 +1,4 @@
-<% public_access ||= true %>
+<% public_access = true if public_access.nil? %>
 <%= form_with(model: user, local: true) do |f| %>
   <%= validations_errors(f.object) %>
 
