@@ -1,6 +1,15 @@
+$navbar-heigth: 64px;
+$footer-heigth: 124px;
+$breadcumb-heigth: 43.68px;
+
 #logo {
   font-size: 18pt;
   font-weight: bold;
+}
+
+// Empurra o footer para baixo
+body > .container {
+  min-height: calc(100vh - #{$navbar-heigth} - #{$footer-heigth} - #{$breadcumb-heigth});
 }
 
 .table thead th {
