@@ -22,9 +22,51 @@ jQuery(function ($) {
 function inicializeInputs(element = 'body') {
     parent = $(element)
     parent.find('.cpf-mask').mask('000.000.000-00', {reverse: true});
+
+    parent.find('select.choices-ajax').each((i, element) => {
+        const choices_ajax = $(element)
+
+        const search_mask = choices_ajax.attr('data-search-mask')
+        const search_url = choices_ajax.attr('data-search-url')
+        const search_text = choices_ajax.attr('data-search-text') || 'Digite o termo para busca'
+        const search_min = choices_ajax.attr('data-search-min') || 2
+
+        const choices = new Choices(element, {
+            removeItemButton: true,
+            placeholder: true,
+            noChoicesText: search_text,
+            duplicateItemsAllowed: false,
+            searchEnabled: true,
+        });
+
+        if (search_mask !== undefined) {
+            choices_ajax.parent().find('.choices__input').mask(search_mask, {reverse: true});
+        }
+
+        element.addEventListener(
+            'search',
+            function (event) {
+                console.log(event.detail.value)
+                if (event.detail.value.length >= search_min) {
+                    choices.clearChoices();
+                    ajaxGet(search_url,
+                        {
+                            cpf: event.detail.value,
+                            selecteds: [choices.getValue(true)]
+                        },
+                        (response) => {
+                            choices.setChoices(response);
+                        });
+                }
+            },
+            true,
+        );
+    })
+
     parent.find('select.choices').each((i, element) => {
         new Choices(element, {
             removeItemButton: true,
+            search: true,
         });
     })
 
@@ -43,7 +85,7 @@ function inicializeInputs(element = 'body') {
     })
 }
 
-function getDateOfInput(element){
+function getDateOfInput(element) {
     let value = $(element).attr('value')
     if (value !== '' && value !== undefined) {
         return new Date($(element).attr('value'))
