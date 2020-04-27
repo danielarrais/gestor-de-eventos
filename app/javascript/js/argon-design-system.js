@@ -141,7 +141,7 @@ $(document).ready(function() {
   if ($('#choices-single-default')[0]) {
     // Activate Choices
     new Choices('#choices-single-default', {
-      search: false,
+      search: true,
     });
   }
   if ($('#choices-multiple-default')[0]) {

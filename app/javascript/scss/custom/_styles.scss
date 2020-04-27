@@ -157,3 +157,8 @@ input {
   animation: around 0.7s ease-in-out 0.1s infinite;
   background: transparent;
 }
+
+// Ajusta estilo do choices
+.choices[data-type*="select-multiple"] .choices__inner {
+  padding: 5px .75rem 0;
+}
