@@ -47,18 +47,32 @@
         <%= ff.hidden_field :id %>
         <div class="col-sm-12 form-area bg-secondary mb-4">
           <div class="row">
-            <div class="col-sm-8">
+            <div class="col-sm-6">
               <%= ff.label :title %>
               <%= ff.text_field :title, class: 'form-control', placeholder: true %>
             </div>
-            <div class="col">
+            <div class="col-sm-6">
               <div class="form-group">
                 <%= ff.label :event_category_id %>
                 <%= ff.select(:event_category_id, @event_categories,
                               { include_blank: true },
                               { size: 5,
-                                class: 'form-control choices',
-                                data: { trigger: '' }, }) %>
+                                class: 'form-control choices' }) %>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="form-group">
+                <%= ff.label :person_ids %>
+                <%= ff.select(:person_ids, ff.object.people.map { |v| [ v.full_name, v.id] },
+                              { include_blank: true},
+                              { size: 5,
+                                multiple: true,
+                                class: 'form-control choices-ajax',
+                                data: { 'search-text': 'Digite o CPF do orientador que deseja selecionar',
+                                        'search-mask': '000.000.000-00',
+                                        'search-min': 14,
+                                        'search-url': people_autocomplete_by_cpf_path}, }) %>
               </div>
             </div>
 
@@ -201,7 +215,7 @@
         const people_name_path = '<%= people_name_path %>'
         const input = $(event.target)
 
-        const set_name = function (response) {
+        const setName = function (response) {
             if (response !== null) {
                 input.closest("fieldset").find(".name-guided-field").val(`${response.name} ${response.surname}`)
                 input.closest("fieldset").find(".person-hidden-field").val(response.id)
@@ -212,7 +226,7 @@
         }
 
         if (input.val().length === 14) {
-            ajaxGet(people_name_path, {cpf: input.val()}, set_name, input);
+            ajaxGet(people_name_path, {cpf: input.val()}, setName, input);
         }
     }
 </script>

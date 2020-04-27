@@ -43,7 +43,7 @@ module LayoutHelper
 
   def span_icon(text, icon)
     margin = text.blank? ? 0 : 1
-    
+
     content_tag 'span' do
       concat icon icon, margin: margin
       concat text

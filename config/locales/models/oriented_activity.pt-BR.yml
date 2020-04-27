@@ -6,6 +6,7 @@
       oriented_activity:
         title: "Título"
         event_category_id: "Categoria"
+        person_ids: "Orientadores"
   helpers:
     placeholder:
       oriented_activity:
