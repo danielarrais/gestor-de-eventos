@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_21_191222) do
+ActiveRecord::Schema.define(version: 2020_04_25_222356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,10 +51,12 @@ ActiveRecord::Schema.define(version: 2020_04_21_191222) do
     t.datetime "start_date", null: false
     t.datetime "closing_date", null: false
     t.bigint "event_category_id", null: false
-    t.bigint "image_id", null: false
+    t.bigint "image_id"
     t.integer "workload", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "event_id"
+    t.boolean "own_certificate", default: false
   end
 
   create_table "events_oriented_activities", id: false, force: :cascade do |t|
@@ -64,8 +66,15 @@ ActiveRecord::Schema.define(version: 2020_04_21_191222) do
 
   create_table "guideds", force: :cascade do |t|
     t.bigint "person_id", null: false
+    t.bigint "course_id", null: false
+    t.bigint "semester", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "guideds_oriented_activities", id: false, force: :cascade do |t|
+    t.bigint "oriented_activity_id", null: false
+    t.bigint "guided_id", null: false
   end
 
   create_table "images", force: :cascade do |t|
@@ -153,10 +162,13 @@ ActiveRecord::Schema.define(version: 2020_04_21_191222) do
   add_foreign_key "certificate_signatures", "images"
   add_foreign_key "certificate_templates", "images"
   add_foreign_key "events", "event_categories"
+  add_foreign_key "events", "events"
   add_foreign_key "events", "images"
   add_foreign_key "events_oriented_activities", "events"
   add_foreign_key "events_oriented_activities", "oriented_activities"
   add_foreign_key "guideds", "people"
+  add_foreign_key "guideds_oriented_activities", "guideds"
+  add_foreign_key "guideds_oriented_activities", "oriented_activities"
   add_foreign_key "oriented_activities_people", "oriented_activities"
   add_foreign_key "oriented_activities_people", "people"
   add_foreign_key "permissions_profiles", "permissions"

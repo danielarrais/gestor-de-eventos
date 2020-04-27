@@ -80,14 +80,31 @@
   </div>
 </nav>
 <nav aria-label="breadcrumb" role="navigation">
-  <ol class="breadcrumb container">
+  <ol class="breadcrumb container mb-0">
     <li class="breadcrumb-item active" aria-current="page">Home</li>
     <li class="breadcrumb-item active" aria-current="page">Usuários</li>
     <li class="breadcrumb-item active" aria-current="page">Listagem</li>
   </ol>
 </nav>
-<div class="container">
+<div class="container mb-4">
   <%= yield %>
 </div>
+<footer class="footer footer-simple bg-default text-white">
+  <div class="container">
+    <nav>
+      <ul>
+        <li>
+          <a href="https://www.danielarrais.dev" class="nav-link text-white">
+            Daniel Arrais
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="copyright text-right">
+      © <script>document.write(new Date().getFullYear())</script>, Proudly Coded by
+      <a href="https://www.danielarrais.dev" target="_blank" class="copyright-link">Daniel Arrais</a>.
+    </div>
+  </div>
+</footer>
 </body>
 </html>

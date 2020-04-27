@@ -1,4 +1,4 @@
-<% public_access ||= true %>
+<% public_access = true if public_access.nil? %>
 <%= form_with(model: user, local: true) do |f| %>
   <%= validations_errors(f.object) %>
 
@@ -7,7 +7,7 @@
       <div class="col-md-3">
         <div class="form-group">
           <%= person_fields.label :name %>
-          <%= person_fields.text_field :name, autofocus: true, class: 'form-control', placeholder: 'Ex. Daniel' %>
+          <%= person_fields.text_field :name, class: 'form-control', placeholder: 'Ex. Daniel' %>
         </div>
       </div>
       <div class="col-md-4">

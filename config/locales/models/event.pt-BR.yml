@@ -4,13 +4,14 @@
       event: 'Evento'
     attributes:
       event:
-        name: "Nome"
+        name: "Título"
         start_date: "Data de Início"
         closing_date: "Data de Encerramento"
         event_category_id: "Categoria"
         workload: "Carga Horária"
         image/file: "Fundo do Certificado"
         image: "Fundo do Certificado"
+        own_certificate: "Certificado Próprio"
   helpers:
     placeholder:
       event:

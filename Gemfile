@@ -29,6 +29,9 @@ gem 'devise'
 # Gem de paginacao
 gem 'kaminari'
 
+# Gem para adicionar formulários nested
+gem 'nested_form_fields'
+
 # Gem de autenticação com o Google
 gem 'omniauth-google-oauth2'
 gem 'dotenv-rails', groups: [:development, :test]

@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-  before_action :set_category_events_for_select, only: [:new, :edit, :create]
+  before_action :set_list_for_select, only: [:new, :edit, :update, :create]
 
   # GET /events
   def index
@@ -58,23 +58,44 @@ class EventsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_event
-      @event = Event.find(params[:id])
-    end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_category_events_for_select
-      @event_categories = EventCategory.select(:name, :id).map { |k, v| [k.name, k.id] }
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_event
+    @event = Event.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def event_params
-      params.require(:event).permit(:name,
-                                    :start_date,
-                                    :closing_date,
-                                    :event_category_id,
-                                    :workload,
-                                    image_attributes: [:file])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_list_for_select
+    @event_categories = EventCategory.select(:name, :id).map { |k, v| [k.name, k.id] }
+    @courses = Course.select(:name, :id).map { |k, v| [k.name, k.id] }
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def event_params
+    params.require(:event).permit(:name,
+                                  :start_date,
+                                  :closing_date,
+                                  :event_category_id,
+                                  :workload,
+                                  image_attributes: [:id, :file],
+                                  oriented_activities_attributes: [:id,
+                                                                   :event_category_id,
+                                                                   :title,
+                                                                   :_destroy,
+                                                                   person_ids: [],
+                                                                   guideds_attributes: [:id,
+                                                                                        :person_id,
+                                                                                        :course_id,
+                                                                                        :_destroy,
+                                                                                        :semester],],
+                                  child_events_attributes: [:id,
+                                                            :_destroy,
+                                                            :name,
+                                                            :start_date,
+                                                            :closing_date,
+                                                            :event_category_id,
+                                                            :own_certificate,
+                                                            :workload],
+                                  people_attributes: [:id, :_destroy])
+  end
 end

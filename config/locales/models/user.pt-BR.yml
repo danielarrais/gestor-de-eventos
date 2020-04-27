@@ -7,6 +7,7 @@
         email: "Email"
         remember_me: "Lembrar senha"
         password: "Senha"
+        profile_ids: "Perfis de Acesso"
         reset_password_token: "Token"
   helpers:
     placeholder:

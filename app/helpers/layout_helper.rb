@@ -33,17 +33,21 @@ module LayoutHelper
 
   def page_title(title)
     content_tag 'div', class: 'ct-page-title' do
-      content_tag 'h1', title, class: 'ct-title'
+      content_tag 'h1', title, class: 'ct-title mt-0'
     end
   end
 
   def icon_link(text, icon, path)
-    span_icon = content_tag 'span' do
-      concat icon icon, margin: 1
+    link_to span_icon(text, icon).html_safe, path
+  end
+
+  def span_icon(text, icon)
+    margin = text.blank? ? 0 : 1
+
+    content_tag 'span' do
+      concat icon icon, margin: margin
       concat text
     end
-
-    link_to span_icon.html_safe, path
   end
 
   def icon(icon, type: :fa, margin: 0)

@@ -1,0 +1,14 @@
+'pt-BR':
+  activerecord:
+    models:
+      oriented_activity: 'Atividades orientadas'
+    attributes:
+      oriented_activity:
+        title: "Título"
+        event_category_id: "Categoria"
+        person_ids: "Orientadores"
+  helpers:
+    placeholder:
+      oriented_activity:
+        title: "Ex.: Tecnologia e Educação"
+        event_category_id: "Selecione uma categoria"

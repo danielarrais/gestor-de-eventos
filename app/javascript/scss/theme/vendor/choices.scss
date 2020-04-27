@@ -65,10 +65,18 @@
   box-shadow: 0px 0px 0px 2px #00BCD4;
 }
 
-.choices[data-type*="select-one"],
+//.choices[data-type*="select-one"],
+//.choices[data-type*="select-multiple"] {
+//  .choices__input--cloned {
+//    display: none;
+//  }
+//}
+
+
 .choices[data-type*="select-multiple"] {
   .choices__input--cloned {
-    display: none;
+    min-width: 1ch;
+    width: 1ch;
   }
 }
 
