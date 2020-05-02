@@ -1,6 +1,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+  host: localhost
 
 development:
   <<: *default
@@ -15,7 +16,7 @@ test:
 
 production:
   <<: *default
+  host: danielarrais.dev
   database: cert_production
-  host: db
   username: <%= ENV['DATABASE_USER'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
