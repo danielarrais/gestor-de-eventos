@@ -1,13 +1,15 @@
+require "active_record"
+
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.13.0"
+lock '~> 3.13.0'
 
-set :application, "seu"
-set :repo_url, "git@gitlab.com:danielarrais/seu.git"
+set :application, 'seu'
+set :repo_url, 'git@gitlab.com:danielarrais/seu.git'
 
-set :deploy_to, "/var/www/seu"
+set :deploy_to, '/var/www/seu'
 
-append :linked_files, "config/database.yml", "config/master.key"
-append :linked_dirs, "log", "tmp"
+append :linked_files, 'config/database.yml', 'config/master.key'
+append :linked_dirs, 'log', 'tmp'
 
 set :keep_releases, 5
 set :migration_role, :app
@@ -17,8 +19,8 @@ set :puma_bind, "unix://#{shared_path}/tmp/sockets/puma.sock"
 set :puma_access_log, "#{shared_path}/log/puma_access.log"
 set :puma_error_log, "#{shared_path}/log/puma_error.log"
 
-set :nginx_sites_available_path, "/etc/nginx/sites-available"
-set :nginx_sites_enabled_path, "/etc/nginx/sites-enabled"
+set :nginx_sites_available_path, '/etc/nginx/sites-available'
+set :nginx_sites_enabled_path, '/etc/nginx/sites-enabled'
 
 set :rvm_ruby_version, '2.7.0'
 
@@ -31,10 +33,10 @@ namespace :puma do
     end
   end
 
-  desc "Restart Nginx"
+  desc 'Restart Nginx'
   task :nginx_restart do
     on roles(:app) do
-      execute "sudo service nginx restart"
+      execute 'sudo service nginx restart'
     end
   end
 
@@ -43,7 +45,7 @@ namespace :puma do
 end
 
 namespace :deploy do
-  desc 'Runs any rake task, cap deploy:rake task=db:rollback'
+  desc 'Seed the database using the db: seed rake'
   task seed: [:set_rails_env] do
     on release_roles([:db]) do
       within release_path do
@@ -54,23 +56,17 @@ namespace :deploy do
     end
   end
 
+  desc 'Creates the database using the db: create rake'
   task create: [:set_rails_env] do
     on release_roles([:db]) do
       within release_path do
         with rails_env: fetch(:rails_env) do
-          begin
-            ActiveRecord::Base.connection
-          rescue
-            p 'creating database'
-            execute :rake, 'db:create'
-          else
-            p 'database already created'
-            exit 0
-          end
+          execute :rake, 'db:create'
         end
       end
     end
   end
+
   before :compile_assets, :create
   after :migrate, :seed
 end
