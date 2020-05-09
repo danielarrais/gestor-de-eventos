@@ -16,7 +16,7 @@ test:
 
 production:
   <<: *default
-  host: danielarrais.dev
-  database: cert_production
+  host: <%= ENV['DATABASE_HOST'] %>
+  database: <%= ENV['DATABASE_NAME'] %>
   username: <%= ENV['DATABASE_USER'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
