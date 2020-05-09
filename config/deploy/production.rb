@@ -1,5 +1,5 @@
 set :branch, 'develop'
-set :server_address, '104.248.3.89'
+set :server_address, '167.172.150.180'
 
 ask(:password, nil, echo: false)
 server fetch(:server_address), user: "root", roles: %w{app db web}
