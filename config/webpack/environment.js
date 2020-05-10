@@ -20,5 +20,6 @@ for (const exposeLoaderKey in exposeLoaders['exposeLoaders']) {
 }
 
 environment.config.set('output.library', 'seu')
+environment.config.set('performance.hints', false)
 
 module.exports = environment;
