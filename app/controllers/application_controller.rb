@@ -14,8 +14,8 @@ class ApplicationController < ActionController::Base
   #     end
   #   end
   # end
-  #
-  #
+
+  private
 
   def set_raven_context
     Raven.user_context(id: session[:current_user_id])
