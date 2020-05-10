@@ -1,5 +1,6 @@
 set :branch, 'develop'
-set :server_address, '167.172.150.180'
+set :server_address, 'danielarrais.dev'
+set :rails_env,   "production"
 
 ask(:password, nil, echo: false)
 server fetch(:server_address), user: "root", roles: %w{app db web}
