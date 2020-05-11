@@ -53,8 +53,14 @@ module FormHelper
     end
   end
 
-  def i18n_model(class_name, method)
-    I18n.translate("activerecord.attributes.#{class_name}.#{method}", default: method.to_s.humanize)
+  def i18n_model(class_name, method = nil, plural: false)
+    return I18n.translate("activerecord.attributes.#{class_name}.#{method}", default: humanize(method)) if method.present?
+    I18n.translate("activerecord.models.#{class_name}.#{plural ? :other : :one }", default: humanize(class_name, plural))
+  end
+
+  def humanize(simbol, plural = false)
+    simbol = plural ? simbol.to_s : simbol.to_s.pluralize
+    simbol.humanize
   end
 
   def i18n_word(word)
