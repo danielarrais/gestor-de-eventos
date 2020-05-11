@@ -1,0 +1,40 @@
+<div class="float-left">
+  <%%= page_title(i18n_model(:<%= singular_table_name %>, plural: true)) %>
+</div>
+<div class="float-right pt-2">
+  <%%= icon_link i18n_word(:register), 'plus', new_<%= singular_route_name %>_path %>
+</div>
+
+<table class="table">
+  <thead>
+    <tr class="bg-primary">
+<% attributes.reject(&:password_digest?).each do |attribute| -%>
+      <th class="text-white bold"><%%= i18n_model(:<%= singular_table_name %>, :<%= attribute.column_name %>) %></th>
+<% end -%>
+      <th class="text-white text-center bold" colspan="3"><%%= i18n_word(:actions) %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
+    <tr>
+<% attributes.reject(&:password_digest?).each do |attribute| -%>
+      <td><%%= <%= singular_table_name %>.<%= attribute.column_name %> %></td>
+<% end -%>
+      <td class="text-center">
+        <%%= link_to '<span><i class="fa fa-search"></i></span>'.html_safe, <%= model_resource_name %>,
+                    class: 'btn btn-primary btn-icon btn-sm btn-simple'%>
+        <%%= link_to '<span><i class="fa fa-edit"></i></span>'.html_safe, edit_<%= singular_route_name %>_path(<%= singular_table_name %>),
+                    class: 'btn btn-icon btn-sm btn-warning' %>
+        <%%= link_to '<span><i class="fa fa-trash"></i></span>'.html_safe, <%= model_resource_name %>,
+                    method: :delete, data: { confirm: 'Are you sure?' },
+                    class: 'btn btn-icon btn-sm btn-danger' %>
+      </td>
+    </tr>
+    <%% end %>
+  </tbody>
+</table>
+
+<div class="row justify-content-center">
+  <%%= paginate @<%= plural_table_name %> %>
+</div>

@@ -1,7 +1,9 @@
 'pt-BR':
   activerecord:
     models:
-      image: 'Imagem'
+      image:
+        one: 'Imagem'
+        other: 'Imagens'
     attributes:
       image:
         format: "Formato"

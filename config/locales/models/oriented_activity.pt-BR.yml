@@ -1,7 +1,9 @@
 'pt-BR':
   activerecord:
     models:
-      oriented_activity: 'Atividades orientadas'
+      oriented_activity:
+        one: 'Atividade orientada'
+        other: 'Atividades orientadas'
     attributes:
       oriented_activity:
         title: "Título"

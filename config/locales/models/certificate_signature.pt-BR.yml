@@ -1,7 +1,9 @@
 'pt-BR':
   activerecord:
     models:
-      certificate_signature: 'Assinatura de Certificado'
+      certificate_signature:
+        one: 'Assinatura de Certificado'
+        other: 'Assinaturas de Certificados'
     attributes:
       certificate_signature:
         name: "Nome"

@@ -1,7 +1,9 @@
 'pt-BR':
   activerecord:
     models:
-      event_category: 'Categoria de evento'
+      event_category:
+        one: 'Categoria de evento'
+        other: 'Categorias de evento'
     attributes:
       event_category:
         name: "Nome"

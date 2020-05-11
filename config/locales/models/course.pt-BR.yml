@@ -1,7 +1,9 @@
 'pt-BR':
   activerecord:
     models:
-      course: 'Curso'
+      course:
+        one: 'Curso'
+        other: 'Cursos'
     attributes:
       course:
         name: "Nome"
