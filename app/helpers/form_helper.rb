@@ -54,7 +54,7 @@ module FormHelper
   end
 
   def i18n_model(class_name, method)
-    I18n.translate("activerecord.attributes.#{class_name}.#{method}", default: method)
+    I18n.translate("activerecord.attributes.#{class_name}.#{method}", default: method.to_s.humanize)
   end
 
   # Retornar uma URL de imagem fake com base nos paramêtros
