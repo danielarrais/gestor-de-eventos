@@ -1,17 +1,17 @@
 <div class="float-left">
-  <%%= page_title('<%= plural_table_name.titleize %>') %>
+  <%%= page_title(i18n_model(:<%= singular_table_name %>, plural: true)) %>
 </div>
-<div class="float-right pt-4">
-  <%%= icon_link 'Register', 'plus', new_<%= singular_route_name %>_path %>
+<div class="float-right pt-2">
+  <%%= icon_link i18n_word(:register), 'plus', new_<%= singular_route_name %>_path %>
 </div>
 
 <table class="table">
   <thead>
     <tr class="bg-primary">
 <% attributes.reject(&:password_digest?).each do |attribute| -%>
-      <th class="text-white bold"><%= attribute.human_name %></th>
+      <th class="text-white bold"><%%= i18n_model(:<%= singular_table_name %>, :<%= attribute.column_name %>) %></th>
 <% end -%>
-      <th class="text-white text-center bold" colspan="3">Actions</th>
+      <th class="text-white text-center bold" colspan="3"><%%= i18n_word(:actions) %></th>
     </tr>
   </thead>
 

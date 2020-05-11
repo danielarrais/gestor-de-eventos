@@ -64,7 +64,7 @@ module FormHelper
   end
 
   def i18n_word(word)
-    I18n.translate("word.#{word}", default: word.to_s.humanize)
+    I18n.translate("words.#{word}", default: word.to_s.humanize)
   end
 
   # Retornar uma URL de imagem fake com base nos paramêtros
