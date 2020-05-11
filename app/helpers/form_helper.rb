@@ -57,6 +57,10 @@ module FormHelper
     I18n.translate("activerecord.attributes.#{class_name}.#{method}", default: method.to_s.humanize)
   end
 
+  def i18n_word(word)
+    I18n.translate("word.#{word}", default: word.to_s.humanize)
+  end
+
   # Retornar uma URL de imagem fake com base nos paramêtros
   def url_image_fake(resolution:, text: nil, image_color: '0a0c0d', text_color: 'fff', text_size: '15')
     "https://fakeimg.pl/#{resolution}/#{image_color},100/#{text_color},255?retina=1&font_size=#{text_size}&text=#{text ||= resolution}"
