@@ -1,7 +1,9 @@
 'pt-BR':
   activerecord:
     models:
-      guided: 'Curso'
+      guided:
+        one: 'Orientando'
+        other: 'Orientandos'
     attributes:
       guided:
         course_id: "Curso"

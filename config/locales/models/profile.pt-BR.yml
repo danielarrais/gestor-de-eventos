@@ -1,7 +1,9 @@
 'pt-BR':
   activerecord:
     models:
-      profile: 'Perfil'
+      profile:
+        one: 'Permissão'
+        other: 'Permissões'
     attributes:
       profile:
         name: "Nome"
