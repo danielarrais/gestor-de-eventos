@@ -26,6 +26,10 @@ class User < ApplicationRecord
     permissions
   end
 
+  def full_name
+    person&.full_name
+  end
+
   private
 
   # Copia nome da pessoa para o usuário
