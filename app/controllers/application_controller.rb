@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  default_form_builder ArgonFormBuilder
+  default_form_builder CertEventsFormBuilder
 
   before_action :authenticate_user!
   before_action :set_raven_context
