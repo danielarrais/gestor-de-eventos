@@ -1,0 +1,34 @@
+<div class="float-left">
+  <%= page_title(i18n_model(:event_request, plural: true)) %>
+</div>
+<div class="float-right pt-2">
+  <%= icon_link i18n_word(:register), 'plus', new_event_request_path %>
+</div>
+
+<table class="table">
+  <thead>
+    <tr class="bg-primary">
+      <th class="text-white text-center bold" colspan="3"><%= i18n_word(:actions) %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @event_requests.each do |event_request| %>
+    <tr>
+      <td class="text-center">
+        <%= link_to '<span><i class="fa fa-search"></i></span>'.html_safe, event_request,
+                    class: 'btn btn-primary btn-icon btn-sm btn-simple'%>
+        <%= link_to '<span><i class="fa fa-edit"></i></span>'.html_safe, edit_event_request_path(event_request),
+                    class: 'btn btn-icon btn-sm btn-warning' %>
+        <%= link_to '<span><i class="fa fa-trash"></i></span>'.html_safe, event_request,
+                    method: :delete, data: { confirm: 'Are you sure?' },
+                    class: 'btn btn-icon btn-sm btn-danger' %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="row justify-content-center">
+  <%= paginate @event_requests %>
+</div>

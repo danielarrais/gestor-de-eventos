@@ -1,0 +1,15 @@
+'pt-BR':
+  activerecord:
+    models:
+      event_request:
+        one: 'Solicitação de Eventos'
+        other: 'Solicitações de Eventos'
+    attributes:
+      event_request:
+        name: "Nome"
+        description: "Descrição"
+  helpers:
+    placeholder:
+      event_category:
+        name: "Ex.: Curso"
+        description: "Ex.: É um evento on alguém ministra um conteúdo sobre determinado assunto"

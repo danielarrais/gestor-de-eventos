@@ -34,7 +34,6 @@ namespace :deploy do
     on release_roles([:db]) do
       within release_path do
         with rails_env: fetch(:rails_env) do
-          execute :rake, 'assets:clean'
           # execute :rake, 'db:create' # descomentar caso esteja utilizando banco local
         end
       end

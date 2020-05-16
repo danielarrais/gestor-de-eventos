@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :event_requests
   resources :courses
   resources :events
   resources :event_categories
