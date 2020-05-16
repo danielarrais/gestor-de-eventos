@@ -6,10 +6,9 @@
         other: 'Solicitações de Eventos'
     attributes:
       event_request:
-        name: "Nome"
-        description: "Descrição"
+        person_id: "Solicitante"
+        event_id: "Evento"
+        additional_information: "Informações adicionais"
   helpers:
     placeholder:
       event_category:
-        name: "Ex.: Curso"
-        description: "Ex.: É um evento on alguém ministra um conteúdo sobre determinado assunto"
