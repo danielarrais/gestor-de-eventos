@@ -102,7 +102,7 @@ class CertEventsFormBuilder < ActionView::Helpers::FormBuilder
   def summernote_area(method, options = {})
     add_class options, 'summernote'
 
-    text_field method, options
+    text_area method, options
   end
 
   def date_picker(method, options = {})
