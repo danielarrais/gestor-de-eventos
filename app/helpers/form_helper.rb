@@ -73,7 +73,7 @@ module FormHelper
   end
 end
 
-class ArgonFormBuilder < ActionView::Helpers::FormBuilder
+class CertEventsFormBuilder < ActionView::Helpers::FormBuilder
   def initialize(object_name, object, template, options)
     super
     @object_class_name = object.class.to_s.underscore
@@ -91,18 +91,25 @@ class ArgonFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   # Usa placeholders para inserir uma opção em branco no select
-  def select(*sources)
-    if sources[2][:include_blank] == true
-      i18n_key = "helpers.placeholder.#{@object_class_name}.#{sources[0]}"
-      sources[2][:include_blank] = I18n.translate(i18n_key, default: "")
+  def select(method, choices = nil, options = {}, html_options = {})
+    if options[:include_blank] == true
+      i18n_key = "helpers.placeholder.#{@object_class_name}.#{method}"
+      options[:include_blank] = I18n.translate(i18n_key, default: "")
     end
-    super *sources
+    super method, choices, options, html_options
+  end
+
+  def summernote_area(method, options = {})
+    add_class options, 'summernote'
+
+    text_field method, options
   end
 
   def date_picker(method, options = {})
     options[:value] = @object[method.to_sym].to_time.iso8601 if @object[method.to_sym].present?
-    options[:class] = [''] unless options[:class].present?
-    options[:class] << ' flatpickr flatpickr-input form-control'
+
+    add_class options, 'flatpickr flatpickr-input form-control'
+
     content_tag('div', class: 'form-group') do
       concat(content_tag('div') do
         label(method)
@@ -159,5 +166,12 @@ class ArgonFormBuilder < ActionView::Helpers::FormBuilder
         end)
       end)
     end
+  end
+
+  private
+
+  def add_class(options, css_class)
+    options[:class] = [] unless options[:class].present?
+    options[:class] << css_class
   end
 end
