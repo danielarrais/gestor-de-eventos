@@ -162,3 +162,28 @@ input {
 .choices[data-type*="select-multiple"] .choices__inner {
   padding: 5px .75rem 0;
 }
+
+// Ajusta estilos do summernote
+.note-icon-caret {
+  display: none;
+}
+
+.note-btn {
+  background-color: #f4f5f7;
+  border: 0;
+  color: #172b4d;
+  box-shadow: none;
+  font-weight: normal;
+}
+
+.note-editor.note-frame, .note-editor.note-airframe {
+  border: 1px solid #cad1d7;
+  border-radius: 0.25rem;
+  box-shadow: none;
+  background-color: white;
+}
+
+.dropdown-fontname {
+  padding-left: 7px;
+  padding-right: 7px;
+}
