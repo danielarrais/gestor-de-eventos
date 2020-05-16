@@ -172,6 +172,6 @@ class CertEventsFormBuilder < ActionView::Helpers::FormBuilder
 
   def add_class(options, css_class)
     options[:class] = [] unless options[:class].present?
-    options[:class] << css_class
+    options[:class] << " #{css_class}"
   end
 end
