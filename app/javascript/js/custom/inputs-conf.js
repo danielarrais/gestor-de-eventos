@@ -12,6 +12,10 @@ flatpickr.setDefaults({
 jQuery(function ($) {
     inicializeInputs()
 
+    $(document).ready(function() {
+        $('.summernote').summernote();
+    });
+
     // Inicializa input de forms nested
     $(document).on("fieldsadded", (event) => {
         inicializeInputs(event.target);

@@ -19,6 +19,7 @@ import 'nouislider'
 import 'perfect-scrollbar'
 import 'headroom.js'
 import 'jquery-mask-plugin'
+import 'summernote/dist/summernote.min'
 
 // Import Locais
 import '../js/argon-design-system.js?v=1.0.0'
