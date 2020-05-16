@@ -1,5 +1,6 @@
 class EventRequestsController < ApplicationController
   before_action :set_event_request, only: [:show, :edit, :update, :destroy]
+  before_action :set_list_for_select, only: [:new, :edit, :update, :create]
 
   # GET /event_requests
   def index
@@ -22,6 +23,7 @@ class EventRequestsController < ApplicationController
   # POST /event_requests
   def create
     @event_request = EventRequest.new(event_request_params)
+    @event_request.person = current_user.person
 
     if @event_request.save
       redirect_to @event_request, notice: 'Event request was successfully created.'
@@ -46,13 +48,45 @@ class EventRequestsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_event_request
-      @event_request = EventRequest.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def event_request_params
-      params.fetch(:event_request, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_list_for_select
+    @event_categories = EventCategory.select(:name, :id).map { |k, v| [k.name, k.id] }
+    @courses = Course.select(:name, :id).map { |k, v| [k.name, k.id] }
+  end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_event_request
+    @event_request = EventRequest.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def event_request_params
+    params.require(:event_request).permit(:additional_information,
+                                          event_attributes: [:name,
+                                                             :start_date,
+                                                             :closing_date,
+                                                             :event_category_id,
+                                                             :workload,
+                                                             image_attributes: [:id, :file],
+                                                             oriented_activities_attributes: [:id,
+                                                                                              :event_category_id,
+                                                                                              :title,
+                                                                                              :_destroy,
+                                                                                              person_ids: [],
+                                                                                              guideds_attributes: [:id,
+                                                                                                                   :person_id,
+                                                                                                                   :course_id,
+                                                                                                                   :_destroy,
+                                                                                                                   :semester],],
+                                                             child_events_attributes: [:id,
+                                                                                       :_destroy,
+                                                                                       :name,
+                                                                                       :start_date,
+                                                                                       :closing_date,
+                                                                                       :event_category_id,
+                                                                                       :own_certificate,
+                                                                                       :workload],
+                                                             people_attributes: [:id, :_destroy]])
+  end
 end
