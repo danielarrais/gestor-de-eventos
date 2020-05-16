@@ -1,6 +1,25 @@
 <%= form_with(model: event_request, local: true) do |f| %>
   <%= validations_errors(f.object) %>
   <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <%= output_tag :person_id, event_request, current_user_full_name %>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="form-group">
+        <%= f.label :additional_information %>
+        <%= f.summernote_area :additional_information %>
+      </div>
+    </div>
+
+    <div class="col-sm-12">
+      <h4>Dados do evento</h4>
+    </div>
+
+    <%= f.fields_for :event, f.object.event || f.object.build_event do |ff| %>
+      <%= render 'events/event_fields', f: ff %>
+    <% end %>
   </div>
 
   <div class="float-right">
