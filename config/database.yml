@@ -2,12 +2,12 @@ default: &default
   adapter: postgresql
   encoding: unicode
   host: localhost
+  username: postgres
+  password: root
 
 development:
   <<: *default
   database: cert_development
-  username: postgres
-  password: root
   host: localhost
 
 test:
