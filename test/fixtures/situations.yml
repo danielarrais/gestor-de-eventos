@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  key_situation: 
+  observation: MyText
+  origin: one
+  origin_type: Origin
+  user: one
+
+two:
+  key_situation: 
+  observation: MyText
+  origin: two
+  origin_type: Origin
+  user: two
