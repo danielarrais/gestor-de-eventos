@@ -8,6 +8,7 @@
       event_request:
         person_id: "Solicitante"
         event_id: "Evento"
+        situation: "Situação"
         additional_information: "Informações adicionais"
   helpers:
     placeholder:

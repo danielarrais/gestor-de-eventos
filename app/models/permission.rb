@@ -4,7 +4,7 @@ class Permission < ApplicationRecord
   validates_presence_of :name, :description
 
   def self.import_from_controllers(controllers)
-    new_permissions = false
+    permissions = []
     controllers.each do |controller|
       controller_class = Object.const_get(controller.to_s)
       action_methods_name = Object.const_get(controller_class.name).action_methods
@@ -15,13 +15,13 @@ class Permission < ApplicationRecord
         saved_action = Permission.where(action: action, controller: controller_formated_name).first
 
         unless saved_action.present?
-          new_permissions = Permission.new(name: "#{controller_class.name}##{action}",
+          permissions << Permission.new(name: "#{controller_class.name}##{action}",
                                            description: "#{controller_class.name}##{action}",
                                            controller: controller_class.name.underscore,
-                                           action: action).save
+                                           action: action)
         end
       end
     end
-    new_permissions
+    Permission.send(:import, permissions)
   end
 end

@@ -20,9 +20,9 @@ class PermissionsController < ApplicationController
     controllers = ApplicationController.subclasses
 
     if Permission::import_from_controllers(controllers)
-      notice = "Novas permissões foram encontradas e cadastradas."
+      notice = "Base de permissões atualizadas com sucesso."
     else
-      notice = "Nenhuma permissão nova foi encontrada."
+      notice = "Falha ao atualizar base de permissões."
     end
 
     respond_to do |format|

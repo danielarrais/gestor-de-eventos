@@ -1,5 +1,5 @@
 class EventRequestsController < ApplicationController
-  before_action :set_event_request, only: [:show, :edit, :update, :destroy]
+  before_action :set_event_request, only: [:show, :edit, :update, :destroy, :forward_the_request]
   before_action :set_list_for_select, only: [:new, :edit, :update, :create]
 
   # GET /event_requests
@@ -32,6 +32,12 @@ class EventRequestsController < ApplicationController
     end
   end
 
+  # GET /event_requests/1
+  def forward_the_request
+    @event_request.forward
+    redirect_to event_requests_url, notice: 'Solicitação de Evento encaminhada com sucesso'
+  end
+
   # PATCH/PUT /event_requests/1
   def update
     if @event_request.update(event_request_params)
@@ -44,7 +50,7 @@ class EventRequestsController < ApplicationController
   # DELETE /event_requests/1
   def destroy
     @event_request.destroy
-    redirect_to event_requests_url, notice: 'Event request was successfully destroyed.'
+    redirect_to event_requests_url, notice: 'Solicitação de Evento excluída com sucesso'
   end
 
   private
