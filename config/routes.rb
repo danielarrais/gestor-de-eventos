@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
-  resources :event_requests do
+  resources :event_requests, path: 'solicitacoes-eventos' do
     member do
       get 'forward_the_request', action: 'forward_the_request'
+    end
+
+    collection do
+      get 'my_requests'
     end
   end
   resources :courses
