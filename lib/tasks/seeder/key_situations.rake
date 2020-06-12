@@ -7,5 +7,7 @@ namespace :seeder do
         .update(description: 'Enviado', description_female: 'Enviada')
     KeySituation.find_or_create_by(key: :returned_for_correction)
         .update(description: 'Devolvido para correção', description_female: 'Devolvida para correção')
+    KeySituation.find_or_create_by(key: :deferred)
+        .update(description: 'Aprovado', description_female: 'Aprovada')
   end
 end

@@ -1,11 +1,39 @@
 <%= page_title("#{i18n_word(:view)} #{i18n_model(:event_request)}") %>
 
 <div class="row">
-</div>
+  <div class="col-sm-4">
+    <div class="form-group">
+      <%= output_tag :person_id, @event_request, @event_request.person.full_name %>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="form-group">
+      <%= output_tag :situation, @event_request, @event_request.situation.situation_description_female %>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <div class="form-group">
+      <%= text_output_tag :additional_information, @event_request, @event_request.additional_information %>
+    </div>
+  </div>
 
-<div class="float-right">
-  <%= link_to "<span><i class='fa fa-arrow-left mr-1'></i>#{i18n_word(:come_back)}</span>".html_safe, :back,
-              class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
-  <%= link_to "<span><i class='fa fa-edit mr-1'></i>#{i18n_word(:edit)}</span>".html_safe, edit_event_request_path(@event_request),
-              class: 'btn btn-primary btn-icon btn-1 btn-simple' %>
+  <div class="col-sm-12">
+    <h4>Dados do evento</h4>
+  </div>
+
+  <%= render 'events/show', event: @event_request.event %>
+</div>
+<div class="clearfix">
+  <div class="float-right">
+    <%= link_to "<span><i class='fa fa-arrow-left mr-1'></i>#{i18n_word(:come_back)}</span>".html_safe, :back,
+                class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
+    <%= link_to "<span><i class='fa fa-edit mr-1'></i>#{i18n_word(:edit)}</span>".html_safe, edit_event_request_path(@event_request),
+                class: 'btn btn-primary btn-icon btn-1 btn-simple' unless @event_request.forwarded? %>
+    <%= link_to "<span><i class='fa fa-edit mr-1'></i>#{i18n_word(:generate_event)}</span>".html_safe,
+                generate_event_event_request_path(@event_request),
+                class: 'btn btn-primary btn-icon btn-1 btn-simple' if @event_request.forwarded? %>
+    <%= link_to "<span><i class='fa fa-edit mr-1'></i>#{i18n_word(:return_for_changes)}</span>".html_safe,
+                generate_event_event_request_path(@event_request),
+                class: 'btn btn-warning btn-icon btn-1 btn-simple' if @event_request.forwarded? %>
+  </div>
 </div>

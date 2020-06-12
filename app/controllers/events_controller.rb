@@ -1,10 +1,12 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   before_action :set_list_for_select, only: [:new, :edit, :update, :create]
+  before_action :set_list_for_select, only: [:new, :edit, :update, :create]
+  before_action :verify_action, only: [:edit, :update, :destroy]
 
   # GET /events
   def index
-    @events = Event.all.page(params[:page]).per(10)
+    @events = Event.all.where(draft: false).page(params[:page]).per(10)
   end
 
   # GET /events/1
@@ -55,6 +57,12 @@ class EventsController < ApplicationController
       format.html { redirect_to events_url, success:'Event was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def verify_action
+    redirect_to events_url, warning:'A solicitação não pode ser alterada após o envio' if @event.draft?
   end
 
   private

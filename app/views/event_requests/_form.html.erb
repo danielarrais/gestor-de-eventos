@@ -19,7 +19,7 @@
 
     <%= f.fields_for :event, f.object.event || f.object.build_event do |ff| %>
       <%= ff.hidden_field :id %>
-      <%= render 'events/event_fields', f: ff %>
+      <%= render 'events/fields', f: ff %>
     <% end %>
   </div>
   <div class="clearfix">

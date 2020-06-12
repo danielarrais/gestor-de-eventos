@@ -53,6 +53,16 @@ module FormHelper
     end
   end
 
+  def text_output_tag(method, object, value)
+    class_name = object.class.to_s.underscore
+    content_tag('div', class: 'form-group') do
+      concat(label_tag :name, i18n_model(class_name, method))
+      concat(content_tag('div') do
+        value.html_safe
+      end)
+    end
+  end
+
   def i18n_model(class_name, method = nil, plural: false)
     return I18n.translate("activerecord.attributes.#{class_name}.#{method}", default: humanize(method)) if method.present?
     I18n.translate("activerecord.models.#{class_name}.#{plural ? :other : :one }", default: humanize(class_name, plural))

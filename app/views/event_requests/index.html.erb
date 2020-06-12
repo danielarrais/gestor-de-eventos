@@ -1,9 +1,6 @@
 <div class="float-left">
   <%= page_title(i18n_model(:event_request, plural: true)) %>
 </div>
-<div class="float-right pt-2">
-  <%= icon_link i18n_word(:new_female), 'plus', new_event_request_path %>
-</div>
 
 <table class="table">
   <thead>
@@ -37,7 +34,7 @@
         <%= event_request.event.name %>
       </td>
       <td>
-        <%= event_request.situation.situation_description %>
+        <%= event_request.situation.situation_description_female %>
       </td>
       <td>
         <%= event_request.event.start_date.strftime('%d/%m/%Y') %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_07_193846) do
+ActiveRecord::Schema.define(version: 2020_06_12_033324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,8 @@ ActiveRecord::Schema.define(version: 2020_06_07_193846) do
     t.bigint "event_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "situation_id"
+    t.index ["situation_id"], name: "index_event_requests_on_situation_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -65,6 +67,7 @@ ActiveRecord::Schema.define(version: 2020_06_07_193846) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "event_id"
     t.boolean "own_certificate", default: false
+    t.boolean "draft", default: false
   end
 
   create_table "events_oriented_activities", id: false, force: :cascade do |t|
@@ -190,6 +193,7 @@ ActiveRecord::Schema.define(version: 2020_06_07_193846) do
 
   add_foreign_key "certificate_signatures", "images"
   add_foreign_key "certificate_templates", "images"
+  add_foreign_key "event_requests", "situations"
   add_foreign_key "events", "event_categories"
   add_foreign_key "events", "events"
   add_foreign_key "events", "images"

@@ -1,5 +1,5 @@
 class EventRequestsController < ApplicationController
-  before_action :set_event_request, only: [:show, :edit, :update, :destroy, :forward_the_request]
+  before_action :set_event_request, only: [:show, :edit, :update, :destroy, :forward_the_request, :generate_event]
   before_action :set_list_for_select, only: [:new, :edit, :update, :create]
   before_action :verify_action, only: [:edit, :update, :destroy]
 
@@ -12,7 +12,7 @@ class EventRequestsController < ApplicationController
   def index
     @event_requests = EventRequest.waiting_for_analysis.page(params[:page]).per(10)
   end
-  
+
   # GET /event_requests/1
   def show
   end
@@ -30,9 +30,10 @@ class EventRequestsController < ApplicationController
   def create
     @event_request = EventRequest.new(event_request_params)
     @event_request.person = current_user.person
+    @event_request.event.draft = true
 
     if @event_request.save
-      redirect_to @event_request, success:'Event request was successfully created.'
+      redirect_to @event_request, success: 'Event request was successfully created.'
     else
       render :new
     end
@@ -41,13 +42,19 @@ class EventRequestsController < ApplicationController
   # GET /event_requests/1
   def forward_the_request
     @event_request.forwarded
-    redirect_to event_requests_url, success:'Solicitação de Evento encaminhada com sucesso'
+    redirect_to my_requests_event_requests_path, success: 'Solicitação de Evento encaminhada com sucesso'
+  end
+
+  # GET /event_requests/1
+  def generate_event
+    @event_request.generate_event
+    redirect_to my_requests_event_requests_path, success: 'Evento gerado com sucesso'
   end
 
   # PATCH/PUT /event_requests/1
   def update
     if @event_request.update(event_request_params)
-      redirect_to @event_request, success:'Event request was successfully updated.'
+      redirect_to @event_request, success: 'Event request was successfully updated.'
     else
       render :edit
     end
@@ -62,7 +69,7 @@ class EventRequestsController < ApplicationController
   private
 
   def verify_action
-    redirect_to my_requests_event_requests_path, warning:'A solicitação não pode ser alterada após o envio' if @event_request.forwarded?
+    redirect_to my_requests_event_requests_path, warning: 'A solicitação não pode ser alterada após o envio' if @event_request.forwarded?
   end
 
   private

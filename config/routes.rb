@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   resources :event_requests, path: 'solicitacoes-eventos' do
     member do
       get 'forward_the_request', action: 'forward_the_request'
+      get 'generate_event', action: 'generate_event'
     end
-
     collection do
       get 'my_requests'
     end

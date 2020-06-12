@@ -1,7 +1,7 @@
 <%= form_with(model: event, local: true, html: { multipart: true }) do |f| %>
   <%= validations_errors(f.object) %>
   <div class="row">
-    <%= render 'event_fields', f:f %>
+    <%= render 'fields', f:f %>
   </div>
 
   <div class="clearfix">

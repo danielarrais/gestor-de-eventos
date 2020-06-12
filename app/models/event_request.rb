@@ -1,9 +1,10 @@
 class EventRequest < ApplicationRecord
   after_create :create_initial_situation
+  after_create :add
 
   belongs_to :event
   belongs_to :person, required: false
-  has_one :situation, -> { order('created_at desc').limit(1) }, as: :origin
+  belongs_to :situation, required: false
   has_many :situations, -> { order('created_at asc') }, as: :origin
 
   accepts_nested_attributes_for :event, allow_destroy: false
@@ -15,15 +16,40 @@ class EventRequest < ApplicationRecord
   def create_initial_situation
     self.situations.create(person: person,
                            key_situation: KeySituation.find_by(key: :draft))
+    set_current_situation
   end
 
   def forwarded
     return if forwarded?
     self.situations.create(person: person,
-                           key_situation: KeySituation.find_by(key: :forwarded))
+                           key_situation: KeySituation.find_by(key: :forwarded)).save
+    set_current_situation
+  end
+
+  def generate_event
+    self.situations.create(person: person,
+                           key_situation: KeySituation.find_by(key: :deferred)).save if forwarded?
+    self.event.draft = false
+    self.event.save
+
+    set_current_situation
   end
 
   def forwarded?
     situation&.key_situation&.key&.to_sym == :forwarded
+  end
+
+  def deferred?
+    situation&.key_situation&.key&.to_sym == :deferred
+  end
+
+  def last_situation
+    self.situations&.last
+  end
+
+  private
+
+  def set_current_situation
+    self.update_column(:situation_id, last_situation&.id)
   end
 end
