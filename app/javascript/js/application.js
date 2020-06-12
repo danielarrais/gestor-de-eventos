@@ -19,6 +19,7 @@ import 'nouislider'
 import 'perfect-scrollbar'
 import 'headroom.js'
 import 'jquery-mask-plugin'
+import 'toastr'
 import 'summernote/dist/summernote.min'
 
 // Import Locais
@@ -28,6 +29,7 @@ import '../js/custom/ajax-functions' // Carrega funções ajax
 import '../js/custom/inputs-conf' // Definição das mascaras de input
 
 import '../js/custom/nested-fields' // Fucnções para trabalhar com nested forms
+import '../js/custom/toastr-options.js' // Fucnções para trabalhar com nested forms
 
 import '../scss/application.scss' // Stylsheet do sistema
 

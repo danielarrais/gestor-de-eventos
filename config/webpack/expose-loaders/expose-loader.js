@@ -19,11 +19,20 @@ module.exports.exposeLoaders = {
             options: 'Choices'
         }]
     },
+
     'icheckExpose': {
         "test": require.resolve('icheck', {path}),
         "use": [{
             "loader": 'expose-loader',
             "options": 'iCheck'
+        }]
+    },
+
+    'toastr': {
+        "test": require.resolve('toastr'),
+        "use": [{
+            "loader": 'expose-loader',
+            "options": 'toastr'
         }]
     },
 }
