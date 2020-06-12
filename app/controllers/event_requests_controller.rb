@@ -1,12 +1,18 @@
 class EventRequestsController < ApplicationController
   before_action :set_event_request, only: [:show, :edit, :update, :destroy, :forward_the_request]
   before_action :set_list_for_select, only: [:new, :edit, :update, :create]
+  before_action :verify_action, only: [:edit, :update, :destroy]
 
   # GET /event_requests
-  def index
+  def my_requests
     @event_requests = EventRequest.all.page(params[:page]).per(10)
   end
 
+  # GET /event_requests
+  def index
+    @event_requests = EventRequest.waiting_for_analysis.page(params[:page]).per(10)
+  end
+  
   # GET /event_requests/1
   def show
   end
@@ -51,6 +57,12 @@ class EventRequestsController < ApplicationController
   def destroy
     @event_request.destroy
     redirect_to event_requests_url, success: 'Solicitação de Evento excluída com sucesso'
+  end
+
+  private
+
+  def verify_action
+    redirect_to my_requests_event_requests_path, warning:'A solicitação não pode ser alterada após o envio' if @event_request.forwarded?
   end
 
   private

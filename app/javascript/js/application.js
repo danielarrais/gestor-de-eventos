@@ -33,4 +33,4 @@ import '../js/custom/toastr-options.js' // Fucnções para trabalhar com nested 
 
 import '../scss/application.scss' // Stylsheet do sistema
 
-global.toastr = require('toastr'); // Mensagens de alerta
+// Mensagens de alerta
