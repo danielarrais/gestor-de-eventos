@@ -26,7 +26,7 @@ class EventRequestsController < ApplicationController
     @event_request.person = current_user.person
 
     if @event_request.save
-      redirect_to @event_request, notice: 'Event request was successfully created.'
+      redirect_to @event_request, success:'Event request was successfully created.'
     else
       render :new
     end
@@ -34,14 +34,14 @@ class EventRequestsController < ApplicationController
 
   # GET /event_requests/1
   def forward_the_request
-    @event_request.forward
-    redirect_to event_requests_url, notice: 'Solicitação de Evento encaminhada com sucesso'
+    @event_request.forwarded
+    redirect_to event_requests_url, success:'Solicitação de Evento encaminhada com sucesso'
   end
 
   # PATCH/PUT /event_requests/1
   def update
     if @event_request.update(event_request_params)
-      redirect_to @event_request, notice: 'Event request was successfully updated.'
+      redirect_to @event_request, success:'Event request was successfully updated.'
     else
       render :edit
     end
@@ -50,7 +50,7 @@ class EventRequestsController < ApplicationController
   # DELETE /event_requests/1
   def destroy
     @event_request.destroy
-    redirect_to event_requests_url, notice: 'Solicitação de Evento excluída com sucesso'
+    redirect_to event_requests_url, success: 'Solicitação de Evento excluída com sucesso'
   end
 
   private

@@ -26,7 +26,7 @@ class PermissionsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to permissions_path, notice: notice }
+      format.html { redirect_to permissions_path, success:notice }
     end
   end
 
@@ -35,7 +35,7 @@ class PermissionsController < ApplicationController
   def update
     respond_to do |format|
       if @permission.update(permission_params)
-        format.html { redirect_to @permission, notice: 'Action was successfully updated.' }
+        format.html { redirect_to @permission, success:'Action was successfully updated.' }
         format.json { render :show, status: :ok, location: @permission }
       else
         format.html { render :edit }

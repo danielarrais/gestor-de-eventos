@@ -28,7 +28,7 @@ class EventCategoriesController < ApplicationController
 
     respond_to do |format|
       if @event_category.save
-        format.html { redirect_to @event_category, notice: 'Event category was successfully created.' }
+        format.html { redirect_to @event_category, success:'Event category was successfully created.' }
       else
         format.html { render :new }
       end
@@ -40,7 +40,7 @@ class EventCategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @event_category.update(event_category_params)
-        format.html { redirect_to @event_category, notice: 'Event category was successfully updated.' }
+        format.html { redirect_to @event_category, success:'Event category was successfully updated.' }
       else
         format.html { render :edit }
       end
@@ -52,7 +52,7 @@ class EventCategoriesController < ApplicationController
   def destroy
     @event_category.destroy
     respond_to do |format|
-      format.html { redirect_to event_categories_url, notice: 'Event category was successfully destroyed.' }
+      format.html { redirect_to event_categories_url, success:'Event category was successfully destroyed.' }
     end
   end
 
