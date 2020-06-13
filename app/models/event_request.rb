@@ -1,6 +1,6 @@
 class EventRequest < ApplicationRecord
   after_create :create_initial_situation
-  after_create :add
+  after_create :set_current_situation
 
   belongs_to :event
   belongs_to :person, required: false
@@ -45,6 +45,19 @@ class EventRequest < ApplicationRecord
 
   def last_situation
     self.situations&.last
+  end
+
+  def can_action?(action)
+    case self.situation&.key_situation&.key&.to_sym
+    when :forwarded
+      [:show, :generate_event, :return_for_changes].include?(action)
+    when :deferred
+      [:show].include?(action)
+    when :draft
+      [:show, :edit, :destroy, :forward_the_request].include?(action)
+    else
+      false
+    end
   end
 
   private
