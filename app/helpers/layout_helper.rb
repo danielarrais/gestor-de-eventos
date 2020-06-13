@@ -1,30 +1,39 @@
 module LayoutHelper
   def view_image_button(url, title, button_text: '', id: Util::genarate_random_string(25))
-    url = url ||= url_image_fake(text: 'IMAGEM NÃO ENCONTRADA', resolution: '500x500')
+    url ||= url_image_fake(text: 'IMAGEM NÃO ENCONTRADA', resolution: '500x500')
 
-    @content = link_to "<span><i class='fa fa-search #{'mr-1' unless button_text.blank?}'></i>#{button_text}</span>".html_safe, '#',
+    content = link_to "<span><i class='fa fa-search #{'mr-1' unless button_text.blank?}'></i>#{button_text}</span>".html_safe, '#',
                        class: 'btn btn-default btn-icon btn-1 btn-simple', data: { toggle: "modal", target: "##{id}-modal" }
 
-    @content << content_tag(:div, id: "#{id}-modal", class: 'modal fade',
+    content << modal(id, title, size: :lg) do
+      content_tag(:div, class: 'text-center') do
+        image_tag url, style: 'max-height: 500px; max-width: 750px;', id: "#{id}-image"
+      end
+    end
+  end
+
+  def modal(id, title, options = nil, &block)
+    close = options[:close] || true
+    size = options[:size] || :default
+
+    content_tag(:div, id: "#{id}-modal", class: 'modal fade',
                             tabindex: '-1', role: 'dialog',
-                            'aria-labelledby' => "#{id}_label",
+                            'aria-labelledby' => "#{id}-label",
                             'aria-hidden' => "true") do
-      content_tag :div, class: 'modal-dialog modal-dialog-centered modal-lg', role: 'document' do
+      content_tag :div, class: "modal-dialog modal-dialog-centered modal-#{size}", role: 'document' do
         content_tag :div, class: 'modal-content' do
           concat(content_tag(:div, class: 'modal-header') do
-            concat(content_tag(:h5, class: 'modal-title', id: "#{id}_label") do
+            concat(content_tag(:h5, class: 'modal-title', id: "#{id}-label") do
               title
             end)
             concat(button_tag('', { class: "close", 'data-dismiss' => "modal", 'aria-label' => "Close" }) do
               content_tag(:span, 'aria-hidden' => 'true') do
                 '&times;'.html_safe
               end
-            end)
+            end) if close
           end)
           concat(content_tag(:div, class: 'modal-body') do
-            content_tag(:div, class: 'text-center') do
-              image_tag url, style: 'max-height: 500px; max-width: 750px;', id: "#{id}-image"
-            end
+            capture(&block)
           end)
         end
       end
