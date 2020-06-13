@@ -1,0 +1,35 @@
+<%%= page_title("#{i18n_word(:view)} #{i18n_model(:<%= singular_table_name %>)}") %>
+
+<div class="row">
+<% attributes.reject(&:password_digest?).each do |attribute| -%>
+<% if attribute.attachment? -%>
+  <div class="col-md-12">
+    <div class="form-group">
+      <%%= link_to @<%= singular_table_name %>.<%= attribute.column_name %>.filename, @<%= singular_table_name %>.<%= attribute.column_name %> if @<%= singular_table_name %>.<%= attribute.column_name %>.attached? %>
+    </div>
+  </div>
+<% elsif attribute.attachments? -%>
+  <div class="col-md-12">
+    <%% @<%= singular_table_name %>.<%= attribute.column_name %>.each do |<%= attribute.singular_name %>| %>
+    <div class="form-group">
+      <%%= link_to <%= attribute.singular_name %>.filename, <%= attribute.singular_name %> %>
+    </div>
+    <%% end %>
+  </div>
+<% else -%>
+  <div class="col-md-12">
+    <div class="form-group">
+      <%%= output_tag :<%= attribute.singular_name %>, @<%= singular_table_name %>, @<%= singular_table_name %>.<%= attribute.singular_name %> %>
+    </div>
+  </div>
+<% end -%>
+<% end -%>
+</div>
+
+<div class="float-right">
+  <%%= link_to "<span><i class='fa fa-arrow-left mr-1'></i>#{i18n_word(:come_back)}</span>".html_safe, :back,
+              class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
+  <%%= link_to "<span><i class='fa fa-edit mr-1'></i>#{i18n_word(:edit)}</span>".html_safe, edit_<%= singular_table_name %>_path(@<%=
+  singular_table_name %>),
+              class: 'btn btn-primary btn-icon btn-1 btn-simple' %>
+</div>

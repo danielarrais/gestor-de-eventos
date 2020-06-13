@@ -31,3 +31,7 @@ yarn-debug.log*
 .yarn-integrity
 
 .idea/
+
+/config/credentials/production.key
+
+public/js/

@@ -1,0 +1,3 @@
+class KeySituation < ApplicationRecord
+
+end

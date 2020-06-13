@@ -1,0 +1,17 @@
+'pt-BR':
+  activerecord:
+    models:
+      profile:
+        one: 'Permissão'
+        other: 'Permissões'
+    attributes:
+      profile:
+        name: "Nome"
+        description: "Descrição"
+        action_ids: "Ações permitidas"
+  helpers:
+    placeholder:
+      profile:
+        name: "Ex. Professor"
+        description: "Ex.: Dar acesso as funções dedicadas aos docentes"
+        action_ids: "Escolha as ações permitidas para o perfil"

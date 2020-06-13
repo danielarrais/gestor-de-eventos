@@ -1,0 +1,17 @@
+'pt-BR':
+  activerecord:
+    models:
+      image:
+        one: 'Imagem'
+        other: 'Imagens'
+    attributes:
+      image:
+        format: "Formato"
+        file: "Imagem"
+        actions: "Ações permitidas"
+    errors:
+      models:
+        image:
+          attributes:
+            format:
+              format_invalid: " de arquivo não permitido. Tente com arquivos %{extensions}"

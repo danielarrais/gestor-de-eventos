@@ -1,0 +1,17 @@
+'pt-BR':
+  words:
+    actions: 'Ações'
+    action: 'Ação'
+    edit: 'Editar'
+    register: 'Cadastrar'
+    delete: 'Excluir'
+    change: 'Alterar'
+    view: 'Visualizar'
+    add: 'Adicionar'
+    new_female: 'Nova'
+    new_male: 'Novo'
+    come_back: 'Voltar'
+    save: 'Salvar'
+    generate_event: 'Gerar Evento'
+    return: 'Devolver'
+    return_for_changes: 'Devolver para alterações'

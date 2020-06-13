@@ -1,34 +1,24 @@
 <%= form_with(model: profile, local: true) do |f| %>
-  <% if profile.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
-
-      <ul>
-        <% profile.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= validations_errors(f.object) %>
 
   <div class="row">
     <div class="col-md-3">
       <div class="form-group">
-        <%= f.label :name, 'Nome' %>
-        <%= f.text_field :name, autofocus: true, class: 'form-control', placeholder: 'Ex. Professor' %>
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control', placeholder: true %>
       </div>
     </div>
     <div class="col-md-9">
       <div class="form-group">
-        <%= f.label :description, 'Descrição' %>
-        <%= f.text_field :description, class: 'form-control', placeholder: 'Ex.: Dar acesso as funções dedicadas aos docentes' %>
+        <%= f.label :description %>
+        <%= f.text_field :description, class: 'form-control', placeholder: true %>
       </div>
     </div>
     <div class="col-md-12">
       <div class="form-group">
-        <%= f.label :action_ids, 'Ações permitidas' %>
-        <%= f.select(:action_ids, @actions,
-                     {include_blank: "Escolha as ações permitidas para o perfil"},
+        <%= f.label :action_ids %>
+        <%= f.select(:action_ids, @permissions,
+                     {include_blank: true},
                      {multiple: true,
                       size: 5,
                       class: 'form-control',

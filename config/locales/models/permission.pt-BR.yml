@@ -1,0 +1,16 @@
+'pt-BR':
+  activerecord:
+    models:
+      permission:
+        one: 'Permissão'
+        other: 'Permissões'
+    attributes:
+      permission:
+        name: "Nome"
+        description: "Descrição"
+        public: "Permissão pública"
+  helpers:
+    placeholder:
+      permission:
+        name: "Ex.: Excluir permissão"
+        description: "Ex.: Permite que o usuário excluar uma permissão de acesso"

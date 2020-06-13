@@ -32,7 +32,7 @@ var $html = $('html');
 var $tagsinput = $('.tagsinput');
 
 (function() {
-  var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
+  var isWindows = navigator.platform.indexOf('Win') > -1;
 
   if (isWindows) {
     // if we are on windows OS we activate the perfectScrollbar function
@@ -141,7 +141,7 @@ $(document).ready(function() {
   if ($('#choices-single-default')[0]) {
     // Activate Choices
     new Choices('#choices-single-default', {
-      search: false,
+      search: true,
     });
   }
   if ($('#choices-multiple-default')[0]) {

@@ -1,11 +1,20 @@
 'pt-BR':
   activerecord:
     models:
-      user: 'Usuário'
+      user:
+        one: 'Usuário'
+        other: 'Usuários'
     attributes:
       user:
         email: "Email"
-        name: "Nome"
-        password: 'Senha'
         remember_me: "Lembrar senha"
-      # will translate User attribute "login" as "Handle"
+        password: "Senha"
+        profile_ids: "Perfis de Acesso"
+        reset_password_token: "Token"
+  helpers:
+    placeholder:
+      user:
+        email: "Seu email"
+        password: "Sua senha"
+        profile_ids: "Escolha os perfis do usuário"
+        password_confirmation: "Repita a sua senha"

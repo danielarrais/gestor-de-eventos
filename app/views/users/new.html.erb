@@ -1,5 +1,3 @@
-<div class="ct-page-title">
-  <h1 class="ct-title" id="content">Novo Usuário</h1>
-</div>
+<%= page_title('Novo Usuário') %>
 
-<%= render 'form', user: @user %>
+<%= render 'form', user: @user, public_access: false %>

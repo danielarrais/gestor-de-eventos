@@ -1,0 +1,16 @@
+'pt-BR':
+  activerecord:
+    models:
+      guided:
+        one: 'Orientando'
+        other: 'Orientandos'
+    attributes:
+      guided:
+        course_id: "Curso"
+        person_id: "Aluno"
+        semester: "Semestre"
+  helpers:
+    placeholder:
+      guided:
+        course_id: "Selecione um curso"
+        semester: "Ex.: 5"

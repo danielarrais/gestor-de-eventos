@@ -2,12 +2,12 @@ class ProfilesController < ApplicationController
   load_and_authorize_resource
 
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
-  before_action :set_actions_for_select, only: [:edit, :new]
+  before_action :set_permissions_for_select, only: [:edit, :new, :update]
 
   # GET /profiles
   # GET /profiles.json
   def index
-    @profiles = Profile.all
+    @profiles = Profile.all.page(params[:page]).per(10)
   end
 
   # GET /profiles/1
@@ -31,7 +31,7 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       if @profile.save
-        format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
+        format.html { redirect_to @profile, success:'Profile was successfully created.' }
         format.json { render :show, status: :created, location: @profile }
       else
         format.html { render :new }
@@ -45,7 +45,7 @@ class ProfilesController < ApplicationController
   def update
     respond_to do |format|
       if @profile.update(profile_params)
-        format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
+        format.html { redirect_to @profile, success:'Profile was successfully updated.' }
         format.json { render :show, status: :ok, location: @profile }
       else
         format.html { render :edit }
@@ -59,24 +59,24 @@ class ProfilesController < ApplicationController
   def destroy
     @profile.destroy
     respond_to do |format|
-      format.html { redirect_to profiles_url, notice: 'Profile was successfully destroyed.' }
+      format.html { redirect_to profiles_url, success:'Profile was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
+  # Use callbacks to share common setup or constraints between permissions.
   def set_profile
     @profile = Profile.find(params[:id])
   end
 
-  def set_actions_for_select
-    @actions = Action.all.select(:name, :id).map { |k, v| [k.name, k.id] }
+  def set_permissions_for_select
+    @permissions = Permission.all.select(:name, :id).map { |k, v| [k.name, k.id] }
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def profile_params
-    params.require(:profile).permit(:name, :description, :custom, action_ids: [])
+    params.require(:profile).permit(:name, :description, :custom, permission_ids: [])
   end
 end

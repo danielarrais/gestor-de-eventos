@@ -1,0 +1,69 @@
+<%= form_with(model: certificate_signature, local: true, html: { multipart: true }) do |f| %>
+  <%= validations_errors(f.object) %>
+
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control', placeholder: true %>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <%= f.label :role %>
+        <%= f.text_field :role, class: 'form-control', placeholder: true %>
+      </div>
+    </div>
+    <%= f.fields_for :image, f.object.image ||= f.object.build_image do |image_fields| %>
+      <% url = image_fields.object.url %>
+      <%= image_fields.hidden_field :id %>
+      <div class="col-sm-auto">
+        <%= image_fields.image_field(:file, 'Procurar', 'Alterar', id: 'fileinput',
+                                     onchange: 'onChangeScannedSignature();', value: url) %>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="mb-2">Pré-visualização</label>
+          <div class="card shadow-none bg-light">
+            <div class="card-body shadow-none text-center">
+              <img id="scanned-signature" class="scanned-signature"
+                   src="<%= url ||= url_image_fake text: 'ADICIONE UMA ASSINATURA', resolution: '200x50' %>"
+                   alt=""/>
+              <span id="name" class="d-block text-black font-weight-bold font-italic"><%= f.object.name ||= 'Preencha o nome' %></span>
+              <span id="role" class="d-block"><%= f.object.role ||= 'Preencha o cargo' %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="float-right">
+    <%= link_to '<span><i class="fa fa-arrow-left mr-1"></i>Voltar</span>'.html_safe, :back,
+                class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
+    <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple") do %>
+      <span><i class="fa fa-floppy-o mr-1"></i> Salvar</span>
+    <% end %>
+  </div>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(() => {
+        $('#certificate_signature_role').bind('keydown blur change', onChangeRole);
+        $('#certificate_signature_name').bind('keydown blur change', onChangeName);
+    });
+
+    function onChangeRole() {
+        $('#role').text($('#certificate_signature_role').val())
+    }
+
+    function onChangeName() {
+        $('#name').text($('#certificate_signature_name').val())
+    }
+
+    function onChangeScannedSignature() {
+        setTimeout(() => {
+            $('#scanned-signature').attr('src', $('#fileinput-preview > img').attr('src'));
+        }, 500)
+    }
+</script>

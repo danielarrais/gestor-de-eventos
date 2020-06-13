@@ -1,9 +1,40 @@
 Rails.application.routes.draw do
+  resources :event_requests, path: 'solicitacoes-eventos' do
+    member do
+      get 'forward_the_request', action: 'forward_the_request'
+      get 'generate_event', action: 'generate_event'
+      post 'return_for_changes', action: 'return_for_changes'
+    end
+    collection do
+      get 'my_requests'
+    end
+  end
+  resources :courses
+  resources :events
+  resources :event_categories
+  resources :certificate_signatures
+  resources :permissions, except: [:new, :destroy] do
+    collection do
+      get 'recreate_and_update_all'
+    end
+  end
   resources :profiles
-  resources :actions, only: [:index]
-  devise_for :users, :skip => [:registrations]
+  devise_for :users,
+             controllers: { omniauth_callbacks: "omniauth_callbacks" },
+             :skip => [:registrations]
 
-  resources :users
+  resources :users do
+    collection do
+      get 'new_registration'
+      get 'success_registration'
+      post 'registration_save'
+    end
+  end
+
+  # get 'users/:id/complete_registration', to: 'users#complete_registration'
+
+  get 'people/name', to: 'people#name'
+  get 'people/autocomplete_by_cpf', to: 'people#autocomplete_by_cpf'
 
   root to: "home#index"
 

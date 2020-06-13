@@ -1,0 +1,15 @@
+'pt-BR':
+  activerecord:
+    models:
+      event_category:
+        one: 'Categoria de evento'
+        other: 'Categorias de evento'
+    attributes:
+      event_category:
+        name: "Nome"
+        description: "Descrição"
+  helpers:
+    placeholder:
+      event_category:
+        name: "Ex.: Curso"
+        description: "Ex.: É um evento on alguém ministra um conteúdo sobre determinado assunto"
