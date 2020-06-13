@@ -7,7 +7,6 @@ flatpickr.setDefaults({
     locale: Portuguese,
     dateFormat: 'd/m/Y'
 });
-
 // Inicializa inputs
 jQuery(function ($) {
     inicializeInputs()
