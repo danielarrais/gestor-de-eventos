@@ -1,5 +1,5 @@
 class EventRequestsController < ApplicationController
-  before_action :set_event_request, only: [:show, :edit, :update, :destroy, :forward_the_request, :generate_event]
+  before_action :set_event_request, only: [:show, :edit, :update, :destroy, :forward_the_request, :generate_event, :return_for_changes]
   before_action :set_list_for_select, only: [:new, :edit, :update, :create]
   before_action :verify_action, only: [:edit, :update, :destroy]
 
@@ -48,6 +48,12 @@ class EventRequestsController < ApplicationController
   # GET /event_requests/1
   def generate_event
     @event_request.generate_event
+    redirect_to my_requests_event_requests_path, success: 'Evento gerado com sucesso'
+  end
+
+  # GET /event_requests/1
+  def return_for_changes
+    @event_request.return_for_changes
     redirect_to my_requests_event_requests_path, success: 'Evento gerado com sucesso'
   end
 

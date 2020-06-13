@@ -110,6 +110,7 @@ class CertEventsFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def summernote_area(method, options = {})
+    options[:rows] = options[:rows] || 20
     add_class options, 'summernote'
 
     text_area method, options

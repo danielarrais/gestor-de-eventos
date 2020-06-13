@@ -2,6 +2,8 @@ class EventRequest < ApplicationRecord
   after_create :create_initial_situation
   after_create :set_current_situation
 
+  attr_accessor :justification_of_return
+
   belongs_to :event
   belongs_to :person, required: false
   belongs_to :situation, required: false
@@ -33,6 +35,17 @@ class EventRequest < ApplicationRecord
     self.event.save
 
     set_current_situation
+  end
+
+  def return_for_changes
+    if justification_of_return.nil? || justification_of_return.empty?
+      self.errors.add(:justification_of_return, 'é obrigatório')
+    else
+      self.situations.create(person: person,
+                             key_situation: KeySituation.find_by(key: :return_for_changes)).save if forwarded?
+
+      set_current_situation
+    end
   end
 
   def forwarded?

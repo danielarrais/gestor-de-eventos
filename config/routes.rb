@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     end
     collection do
       get 'my_requests'
+      post 'return_for_changes'
     end
   end
   resources :courses

@@ -10,6 +10,7 @@
         event_id: "Evento"
         situation: "Situação"
         additional_information: "Informações adicionais"
+        justification_of_return: "Justificativa para devolução"
   helpers:
     placeholder:
       event_category:

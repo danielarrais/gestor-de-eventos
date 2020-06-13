@@ -3,23 +3,27 @@ module LayoutHelper
     url ||= url_image_fake(text: 'IMAGEM NÃO ENCONTRADA', resolution: '500x500')
 
     content = link_to "<span><i class='fa fa-search #{'mr-1' unless button_text.blank?}'></i>#{button_text}</span>".html_safe, '#',
-                       class: 'btn btn-default btn-icon btn-1 btn-simple', data: { toggle: "modal", target: "##{id}-modal" }
+                      class: 'btn btn-default btn-icon btn-1 btn-simple', data: { toggle: "modal", target: "##{id}-modal" }
 
     content << modal(id, title, size: :lg) do
-      content_tag(:div, class: 'text-center') do
-        image_tag url, style: 'max-height: 500px; max-width: 750px;', id: "#{id}-image"
-      end
+      concat(modal_body do
+        content_tag(:div, class: 'text-center') do
+          image_tag url, style: 'max-height: 500px; max-width: 750px;', id: "#{id}-image"
+        end
+      end)
     end
   end
 
   def modal(id, title, options = nil, &block)
     close = options[:close] || true
     size = options[:size] || :default
+    keyboard = options[:outside_click] || false
+    backdrop = keyboard ? true : 'static'
 
     content_tag(:div, id: "#{id}-modal", class: 'modal fade',
-                            tabindex: '-1', role: 'dialog',
-                            'aria-labelledby' => "#{id}-label",
-                            'aria-hidden' => "true") do
+                tabindex: '-1', role: 'dialog', data: { backdrop: "#{backdrop}", keyboard: "#{keyboard}" },
+                'aria-labelledby' => "#{id}-label",
+                'aria-hidden' => "true") do
       content_tag :div, class: "modal-dialog modal-dialog-centered modal-#{size}", role: 'document' do
         content_tag :div, class: 'modal-content' do
           concat(content_tag(:div, class: 'modal-header') do
@@ -32,11 +36,21 @@ module LayoutHelper
               end
             end) if close
           end)
-          concat(content_tag(:div, class: 'modal-body') do
-            capture(&block)
-          end)
+          concat(capture(&block))
         end
       end
+    end
+  end
+
+  def modal_body(&block)
+    content_tag(:div, class: 'modal-body') do
+      capture(&block)
+    end
+  end
+
+  def modal_footer(&block)
+    content_tag(:div, class: 'modal-footer') do
+      capture(&block)
     end
   end
 
