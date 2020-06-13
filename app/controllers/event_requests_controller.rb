@@ -91,6 +91,7 @@ class EventRequestsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_event_request
     @event_request = EventRequest.find(params[:id])
+    @event_request.current_user = current_user if @event_request.present?
   end
 
   # Only allow a trusted parameter "white list" through.

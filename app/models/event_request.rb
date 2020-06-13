@@ -2,7 +2,7 @@ class EventRequest < ApplicationRecord
   after_create :create_initial_situation
   after_create :set_current_situation
 
-  attr_accessor :justification_of_return
+  attr_accessor :justification_of_return, :current_user
 
   belongs_to :event
   belongs_to :person, required: false
@@ -29,7 +29,7 @@ class EventRequest < ApplicationRecord
   end
 
   def generate_event
-    self.situations.create(person: person,
+    self.situations.create(person: current_user.person,
                            key_situation: KeySituation.find_by(key: :deferred)).save if forwarded?
     self.event.draft = false
     self.event.save
@@ -41,7 +41,8 @@ class EventRequest < ApplicationRecord
     if justification_of_return.nil? || justification_of_return.empty?
       self.errors.add(:justification_of_return, 'é obrigatório')
     else
-      self.situations.create(person: person,
+      self.situations.create(person: current_user.person,
+                             observation: justification_of_return,
                              key_situation: KeySituation.find_by(key: :returned_for_correction)).save if forwarded?
 
       set_current_situation
@@ -73,6 +74,10 @@ class EventRequest < ApplicationRecord
     else
       false
     end
+  end
+
+  def devolutions
+    self.situations.to_a.select { |x| x.key_situation.key.to_sym == :returned_for_correction }
   end
 
   private

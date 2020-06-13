@@ -17,6 +17,27 @@
     </div>
   </div>
 
+  <% if @event_request.devolutions.any? %>
+    <div class="col-sm-12">
+      <h4>Histórico de devoluções</h4>
+    </div>
+
+    <div class="col-sm-12">
+      <% @event_request.devolutions.each do |situation| %>
+        <div class="media-body mb-2">
+          <div class="p-4 media-comment-text">
+            <span>
+              Devolução realizada no dia <b><%= situation.created_at.strftime('%d/%m/%Y') %></b> por <b><%= situation.person.full_name %></b>
+            </span>
+            <% unless situation.observation.blank? %>
+              <p><%= situation.observation&.html_safe %></p>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
   <div class="col-sm-12">
     <h4>Dados do evento</h4>
   </div>
