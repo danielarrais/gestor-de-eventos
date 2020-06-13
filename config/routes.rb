@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  resources :event_requests, path: 'solicitacoes-eventos' do
+    member do
+      get 'forward_the_request', action: 'forward_the_request'
+      get 'generate_event', action: 'generate_event'
+      post 'return_for_changes', action: 'return_for_changes'
+    end
+    collection do
+      get 'my_requests'
+    end
+  end
   resources :courses
   resources :events
   resources :event_categories

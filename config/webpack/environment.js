@@ -10,7 +10,8 @@ environment.plugins.append(
         'window.jQuery': "jquery",
         'window.$': "jquery",
         'Popper': ["popper.js", "default"]
-    })
+    }),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
 );
 
 for (const exposeLoaderKey in exposeLoaders['exposeLoaders']) {

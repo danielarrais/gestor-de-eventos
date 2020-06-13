@@ -28,7 +28,7 @@ class CertificateSignaturesController < ApplicationController
 
     respond_to do |format|
       if @certificate_signature.save
-        format.html { redirect_to @certificate_signature, notice: 'Certificate signature was successfully created.' }
+        format.html { redirect_to @certificate_signature, success:'Certificate signature was successfully created.' }
         format.json { render :show, status: :created, location: @certificate_signature }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class CertificateSignaturesController < ApplicationController
   def update
     respond_to do |format|
       if @certificate_signature.update(certificate_signature_params)
-        format.html { redirect_to @certificate_signature, notice: 'Certificate signature was successfully updated.' }
+        format.html { redirect_to @certificate_signature, success:'Certificate signature was successfully updated.' }
         format.json { render :show, status: :ok, location: @certificate_signature }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class CertificateSignaturesController < ApplicationController
   def destroy
     @certificate_signature.destroy
     respond_to do |format|
-      format.html { redirect_to certificate_signatures_url, notice: 'Certificate signature was successfully destroyed.' }
+      format.html { redirect_to certificate_signatures_url, success:'Certificate signature was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

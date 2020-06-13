@@ -1,0 +1,16 @@
+'pt-BR':
+  activerecord:
+    models:
+      event_request:
+        one: 'Solicitação de Eventos'
+        other: 'Solicitações de Eventos'
+    attributes:
+      event_request:
+        person_id: "Solicitante"
+        event_id: "Evento"
+        situation: "Situação"
+        additional_information: "Informações adicionais"
+        justification_of_return: "Justificativa para devolução"
+  helpers:
+    placeholder:
+      event_category:

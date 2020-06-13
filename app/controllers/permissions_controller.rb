@@ -20,13 +20,13 @@ class PermissionsController < ApplicationController
     controllers = ApplicationController.subclasses
 
     if Permission::import_from_controllers(controllers)
-      notice = "Novas permissões foram encontradas e cadastradas."
+      notice = "Base de permissões atualizadas com sucesso."
     else
-      notice = "Nenhuma permissão nova foi encontrada."
+      notice = "Falha ao atualizar base de permissões."
     end
 
     respond_to do |format|
-      format.html { redirect_to permissions_path, notice: notice }
+      format.html { redirect_to permissions_path, success:notice }
     end
   end
 
@@ -35,7 +35,7 @@ class PermissionsController < ApplicationController
   def update
     respond_to do |format|
       if @permission.update(permission_params)
-        format.html { redirect_to @permission, notice: 'Action was successfully updated.' }
+        format.html { redirect_to @permission, success:'Action was successfully updated.' }
         format.json { render :show, status: :ok, location: @permission }
       else
         format.html { render :edit }

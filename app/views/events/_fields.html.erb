@@ -1,0 +1,192 @@
+<div class="col-md-6">
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control', placeholder: true %>
+  </div>
+</div>
+<div class="col-md-3">
+  <%= f.date_time_picker :start_date, placeholder: true %>
+</div>
+<div class="col-md-3">
+  <%= f.date_time_picker :closing_date, placeholder: true %>
+</div>
+<div class="col-md-6">
+  <div class="form-group">
+    <%= f.label :event_category_id %>
+    <%= f.select(:event_category_id, @event_categories,
+                 { include_blank: true },
+                 { size: 5,
+                   class: 'form-control choices',
+                   data: { trigger: '' }, }) %>
+  </div>
+</div>
+<div class="col">
+  <div class="form-group">
+    <%= f.label :workload %>
+    <%= f.number_field :workload, class: 'form-control', placeholder: true %>
+  </div>
+</div>
+<%= f.fields_for :image, f.object.image ||= f.object.build_image do |ff| %>
+  <div class="col-sm-auto">
+    <% url = ff.object.url %>
+
+    <%= ff.hidden_field :id %>
+    <%= ff.image_field(:file, 'Procurar', 'Alterar', value: url) %>
+  </div>
+<% end %>
+
+<div class="col-sm-12">
+  <h5>Atividades Orientadas</h5>
+</div>
+<div class="col-sm-12 mt-3">
+  <%= f.nested_fields_for :oriented_activities, f.object.oriented_activities do |ff| %>
+    <%= ff.hidden_field :id %>
+    <div class="col-sm-12 form-area bg-secondary mb-4">
+      <div class="row">
+        <div class="col-sm-6">
+          <%= ff.label :title %>
+          <%= ff.text_field :title, class: 'form-control', placeholder: true %>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <%= ff.label :event_category_id %>
+            <%= ff.select(:event_category_id, @event_categories,
+                          { include_blank: true },
+                          { size: 5,
+                            class: 'form-control choices' }) %>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="form-group">
+            <%= ff.label :person_ids %>
+            <%= ff.select(:person_ids, ff.object.people.map { |v| [v.full_name, v.id] },
+                          { include_blank: true },
+                          { size: 5,
+                            multiple: true,
+                            class: 'form-control choices-ajax',
+                            data: { 'search-text': 'Digite o CPF do orientador que deseja selecionar',
+                                    'search-mask': '000.000.000-00',
+                                    'search-min': 14,
+                                    'search-url': people_autocomplete_by_cpf_path }, }) %>
+          </div>
+        </div>
+
+        <div class="col-auto">
+          <%= ff.remove_nested_fields_link span_icon('', 'trash'), class: 'btn btn-danger no-label', role: 'button' %>
+        </div>
+        <div class="col-sm-12">
+          <h6>Orientandos</h6>
+        </div>
+        <div class="col-sm-12 mt-3">
+          <%= ff.nested_fields_for :guideds, ff.object.guideds do |fff| %>
+            <%= fff.hidden_field :id %>
+            <%= fff.hidden_field :person_id, class: 'person-hidden-field' %>
+            <div class="col-sm-12 form-area bg-white mb-4">
+              <div class="row">
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <% cpf = fff.object.person.cpf if fff.object.person.present? %>
+                    <%= label_tag :cpf, i18n_model(:person, :cpf) %>
+                    <%= text_field_tag :cpf, cpf, class: 'form-control cpf-mask cpf-guided-field' %>
+                  </div>
+                </div>
+                <div class="col-sm-9">
+                  <div class="form-group">
+                    <% full_name = fff.object.person.full_name if fff.object.person.present? %>
+                    <%= label_tag :nome, i18n_model(:person, :name) %>
+                    <%= text_field_tag :nome, full_name, class: 'form-control name-guided-field', disabled: true %>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <%= fff.label :course_id %>
+                    <%= fff.select(:course_id, @courses,
+                                   { include_blank: true },
+                                   { size: 5,
+                                     class: 'form-control choices',
+                                     data: { trigger: '' }, }) %>
+                  </div>
+                </div>
+                <div class="col-sm-auto">
+                  <div class="form-group">
+                    <%= fff.label :semester %>
+                    <%= fff.number_field :semester, class: 'form-control choices' %>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <%= fff.remove_nested_fields_link span_icon('', 'trash'), class: 'btn btn-danger no-label', role: 'button' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <div class="col-sm-12">
+          <%= ff.add_nested_fields_link :guideds, span_icon('Adicionar Orientando', 'plus'), class: 'btn btn-sm
+              btn-primary' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+<div class="col-sm-12">
+  <div class="form-group">
+    <%= f.add_nested_fields_link :oriented_activities, span_icon('Adicionar Atividade Orientada', 'plus'), class: 'btn btn-sm btn-default' %>
+  </div>
+</div>
+<div class="col-sm-12 mt-3">
+  <h5>Subeventos</h5>
+
+  <%= f.nested_fields_for :child_events, f.object.child_events do |ff| %>
+    <%= validations_errors(ff.object) %>
+    <%= ff.hidden_field :id %>
+    <div class="col-sm-12 form-area bg-secondary mb-4">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= ff.label :name %>
+            <%= ff.text_field :name, class: 'form-control', placeholder: true %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <%= ff.date_time_picker :start_date, placeholder: true %>
+        </div>
+        <div class="col-md-3">
+          <%= ff.date_time_picker :closing_date, placeholder: true %>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= ff.label :event_category_id %>
+            <%= ff.select(:event_category_id, @event_categories,
+                          { include_blank: true },
+                          { size: 5,
+                            class: 'form-control choices',
+                            data: { trigger: '' }, }) %>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <%= ff.label :workload %>
+            <%= ff.number_field :workload, class: 'form-control', placeholder: true %>
+          </div>
+        </div>
+        <div class="col-sm-auto">
+          <div class="form-group">
+            <div class="custom-control custom-checkbox">
+              <%= ff.check_box :own_certificate, class: 'custom-control-input' %>
+              <%= ff.label :own_certificate, 'teste', class: 'custom-control-label' %>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-auto">
+          <%= ff.remove_nested_fields_link span_icon('', 'trash'), class: 'btn btn-danger no-label', role: 'button' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+<div class="col-sm-12 mt-3">
+  <div class="form-group">
+    <%= f.add_nested_fields_link :child_events, span_icon('Adicionar Subevento', 'plus'), class: 'btn btn-sm btn-default' %>
+  </div>
+</div>

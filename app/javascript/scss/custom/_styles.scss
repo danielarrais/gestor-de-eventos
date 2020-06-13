@@ -12,6 +12,13 @@ body > .container {
   min-height: calc(100vh - #{$navbar-heigth} - #{$footer-heigth} - #{$breadcumb-heigth});
 }
 
+// Empurra o footer para baixo
+body > .container-spinner {
+  display: none;
+  vertical-align: middle;
+  height: calc(100vh - #{$navbar-heigth} - #{$footer-heigth});
+}
+
 .table thead th {
   font-size: 0.8rem;
   font-weight: bold;
@@ -61,7 +68,7 @@ body > .container {
 }
 
 label {
-  font-weight: 500;
+  font-weight: bold;
 }
 
 .scanned-signature {
@@ -161,4 +168,33 @@ input {
 // Ajusta estilo do choices
 .choices[data-type*="select-multiple"] .choices__inner {
   padding: 5px .75rem 0;
+}
+
+// Ajusta estilos do summernote
+.note-icon-caret {
+  display: none;
+}
+
+.note-btn {
+  background-color: #f4f5f7;
+  border: 0;
+  color: #172b4d;
+  box-shadow: none;
+  font-weight: normal;
+}
+
+.note-editor.note-frame, .note-editor.note-airframe {
+  border: 1px solid #cad1d7;
+  border-radius: 0.25rem;
+  box-shadow: none;
+  background-color: white;
+}
+
+.dropdown-fontname {
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
+.swal2-top-end {
+  margin-top: #{$navbar-heigth};
 }

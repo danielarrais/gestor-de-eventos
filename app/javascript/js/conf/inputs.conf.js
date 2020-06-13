@@ -7,10 +7,20 @@ flatpickr.setDefaults({
     locale: Portuguese,
     dateFormat: 'd/m/Y'
 });
-
 // Inicializa inputs
 jQuery(function ($) {
     inicializeInputs()
+
+    $(document).ready(function() {
+        $('.summernote').each((i, value) => {
+            const element = $(value)
+            console.log(element.prop('rows')*10)
+            const height = element.prop('rows')*10 || 200
+            element.summernote({
+                height: height
+            })
+        })
+    });
 
     // Inicializa input de forms nested
     $(document).on("fieldsadded", (event) => {

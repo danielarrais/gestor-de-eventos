@@ -19,15 +19,16 @@ import 'nouislider'
 import 'perfect-scrollbar'
 import 'headroom.js'
 import 'jquery-mask-plugin'
+import 'summernote/dist/summernote.min'
 
 // Import Locais
 import '../js/argon-design-system.js?v=1.0.0'
 
-import '../js/custom/ajax-functions' // Carrega funções ajax
-import '../js/custom/inputs-conf' // Definição das mascaras de input
+import './custom/ajax.utils' // Carrega funções ajax
+import './custom/utils' // Carrega funções ajax
+import './custom/nested-fields' // Fucnções para trabalhar com nested forms
 
-import '../js/custom/nested-fields' // Fucnções para trabalhar com nested forms
+import './conf/inputs.conf' // Definição das mascaras de input
+import './conf/swal.conf.js' // Fucnções para trabalhar com nested forms
 
 import '../scss/application.scss' // Stylsheet do sistema
-
-global.toastr = require('toastr'); // Mensagens de alerta
