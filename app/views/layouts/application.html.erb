@@ -81,17 +81,23 @@
     </div>
   </div>
 </nav>
-<nav aria-label="breadcrumb" role="navigation">
+<nav aria-label="breadcrumb" role="navigation" class="hide-for-spinner">
   <ol class="breadcrumb container mb-0">
     <li class="breadcrumb-item active" aria-current="page">Home</li>
     <li class="breadcrumb-item active" aria-current="page">Usuários</li>
     <li class="breadcrumb-item active" aria-current="page">Listagem</li>
   </ol>
 </nav>
-<div class="container mb-4">
+<div class="container-spinner">
+  <div class="spinner">
+    <div class="double-bounce1"></div>
+    <div class="double-bounce2"></div>
+  </div>
+</div>
+<div class="container mb-4 hide-for-spinner">
   <%= yield %>
 </div>
-<footer class="footer footer-simple bg-default text-white">
+<footer class="footer footer-simple bg-default text-white hide-for-spinner">
   <div class="container">
     <nav>
       <ul>

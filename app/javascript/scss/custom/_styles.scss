@@ -12,6 +12,13 @@ body > .container {
   min-height: calc(100vh - #{$navbar-heigth} - #{$footer-heigth} - #{$breadcumb-heigth});
 }
 
+// Empurra o footer para baixo
+body > .container-spinner {
+  display: none;
+  vertical-align: middle;
+  height: calc(100vh - #{$navbar-heigth} - #{$footer-heigth});
+}
+
 .table thead th {
   font-size: 0.8rem;
   font-weight: bold;
@@ -186,4 +193,8 @@ input {
 .dropdown-fontname {
   padding-left: 7px;
   padding-right: 7px;
+}
+
+.swal2-top-end {
+  margin-top: #{$navbar-heigth};
 }
