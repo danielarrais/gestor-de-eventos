@@ -38,19 +38,18 @@
   </div>
 </div>
 
-<%= form_with(model: @event_request, url: return_for_changes_event_requests_path, remote: true, local: true) do |f| %>
+<%= form_with(url: return_for_changes_event_request_path(@event_request), remote: true) do |f| %>
   <%= modal('return-for-changes', 'Retornar solicitação para alteração', size: :lg) do %>
     <%= modal_body do %>
-      <div class="col-sm-12">
-        <div class="form-group">
-          <%= f.label :justification_of_return %>
-          <%= f.summernote_area :justification_of_return, rows: "30" %>
-        </div>
+      <span id="errors-return-for-changes"></span>
+      <div class="form-group">
+        <%= label_tag :justification_of_return, i18n_model(:event_request, :justification_of_return) %>
+        <%= summernote_area_tag :justification_of_return, rows: "30" %>
       </div>
     <% end %>
     <%= modal_footer do %>
       <%= button_tag "<span><i class='fa fa-share-square fa-flip-horizontal mr-1'></i>#{i18n_word(:return)}</span>".html_safe,
-                  class: 'btn btn-primary btn-icon btn-1 btn-simple' if @event_request.can_action?(:generate_event) %>
+                     class: 'btn btn-primary btn-icon btn-1 btn-simple' if @event_request.can_action?(:generate_event) %>
     <% end %>
   <% end %>
 <% end %>

@@ -33,7 +33,7 @@ class EventRequestsController < ApplicationController
     @event_request.event.draft = true
 
     if @event_request.save
-      redirect_to @event_request, success: 'Event request was successfully created.'
+      redirect_to my_requests_event_requests_path, success: 'Event request was successfully created.'
     else
       render :new
     end
@@ -53,14 +53,16 @@ class EventRequestsController < ApplicationController
 
   # GET /event_requests/1
   def return_for_changes
+    @event_request.justification_of_return = params[:justification_of_return]
     @event_request.return_for_changes
-    redirect_to my_requests_event_requests_path, success: 'Evento gerado com sucesso'
+
+    flash[:success] = 'Solicitação devolvida com sucesso!' unless @event_request.errors.any?
   end
 
   # PATCH/PUT /event_requests/1
   def update
     if @event_request.update(event_request_params)
-      redirect_to @event_request, success: 'Event request was successfully updated.'
+      redirect_to my_requests_event_requests_path, success: 'Event request was successfully updated.'
     else
       render :edit
     end

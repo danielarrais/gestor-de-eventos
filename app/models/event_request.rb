@@ -42,7 +42,7 @@ class EventRequest < ApplicationRecord
       self.errors.add(:justification_of_return, 'é obrigatório')
     else
       self.situations.create(person: person,
-                             key_situation: KeySituation.find_by(key: :return_for_changes)).save if forwarded?
+                             key_situation: KeySituation.find_by(key: :returned_for_correction)).save if forwarded?
 
       set_current_situation
     end
@@ -68,6 +68,8 @@ class EventRequest < ApplicationRecord
       [:show].include?(action)
     when :draft
       [:show, :edit, :destroy, :forward_the_request].include?(action)
+    when :returned_for_correction
+      [:show, :edit, :forward_the_request].include?(action)
     else
       false
     end
@@ -76,6 +78,7 @@ class EventRequest < ApplicationRecord
   private
 
   def set_current_situation
+    self.situations.reload
     self.update_column(:situation_id, last_situation&.id)
   end
 end

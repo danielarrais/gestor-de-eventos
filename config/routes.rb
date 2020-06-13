@@ -3,10 +3,10 @@ Rails.application.routes.draw do
     member do
       get 'forward_the_request', action: 'forward_the_request'
       get 'generate_event', action: 'generate_event'
+      post 'return_for_changes', action: 'return_for_changes'
     end
     collection do
       get 'my_requests'
-      post 'return_for_changes'
     end
   end
   resources :courses
