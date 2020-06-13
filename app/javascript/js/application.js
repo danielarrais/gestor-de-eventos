@@ -21,6 +21,7 @@ import 'headroom.js'
 import 'jquery-mask-plugin'
 import 'toastr'
 import 'summernote/dist/summernote.min'
+import 'sweetalert2'
 
 // Import Locais
 import '../js/argon-design-system.js?v=1.0.0'

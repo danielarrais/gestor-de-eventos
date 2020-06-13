@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports.exposeLoaders = {
-    'jqueryExpose': {
+    'jquery': {
         test: require.resolve('jquery'),
         use: [{
             loader: 'expose-loader',
@@ -11,23 +11,27 @@ module.exports.exposeLoaders = {
             options: '$'
         }]
     },
-
-    'choisesExpose': {
+    'choises': {
         test: require.resolve('choices.js'),
         use: [{
             loader: 'expose-loader',
             options: 'Choices'
         }]
     },
-
-    'icheckExpose': {
+    'icheck': {
         "test": require.resolve('icheck', {path}),
         "use": [{
             "loader": 'expose-loader',
             "options": 'iCheck'
         }]
     },
-
+    'sweetalert2': {
+        "test": require.resolve('sweetalert2'),
+        "use": [{
+            "loader": 'expose-loader',
+            "options": 'sweetalert2'
+        }]
+    },
     'toastr': {
         "test": require.resolve('toastr'),
         "use": [{
