@@ -15,7 +15,7 @@ set :migration_role, :app
 
 set :unicorn_pid, "#{shared_path}/tmp/pids/unicorn.pid"
 
-set :rvm_ruby_version, '2.7.0'
+set :rbenv_ruby, '2.7.1'
 
 namespace :deploy do
   desc 'Seed the database using the db: seed rake'
@@ -29,7 +29,7 @@ namespace :deploy do
     end
   end
 
-  desc 'Creates the database using the db: create rake'
+  desc 'Executa rakes'
   task create: [:set_rails_env] do
     on release_roles([:db]) do
       within release_path do
