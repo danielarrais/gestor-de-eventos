@@ -1,9 +1,9 @@
 module FormHelper
   # Processa e exibe os conteúdos dos flash enviados pelas controllers
-  def validations_errors(model)
+  def validations_errors(model, margin: 4)
     return if model.errors.empty?
     content_tag :div do
-      concat content_tag(:strong, alert_messages(:error, model.errors.full_messages))
+      concat content_tag(:strong, alert_messages(:error, model.errors.full_messages, margin: margin))
     end
   end
 
@@ -16,8 +16,8 @@ module FormHelper
   end
 
   # Produz um alerta boostrap de acordo com o nível
-  def alert_messages(level, values)
-    content_tag(:div, class: "alert #{flash_level_class(level)} alert-dismissible mt-4 fade show", role: "alert") do
+  def alert_messages(level, values, margin: 4)
+    content_tag(:div, class: "alert #{flash_level_class(level)} alert-dismissible mt-#{margin} fade show", role: "alert") do
       concat(content_tag(:ul) do
         values.map do |item|
           concat content_tag(:li, item)
@@ -81,6 +81,19 @@ module FormHelper
   def url_image_fake(resolution:, text: nil, image_color: '0a0c0d', text_color: 'fff', text_size: '15')
     "https://fakeimg.pl/#{resolution}/#{image_color},100/#{text_color},255?retina=1&font_size=#{text_size}&text=#{text ||= resolution}"
   end
+
+  def summernote_area_tag(name, options = {})
+    options[:rows] = options[:rows] || 20
+    value = options[:value]
+    add_class options, 'summernote'
+
+    text_area_tag name, value, options
+  end
+
+  def add_class(options, css_class)
+    options[:class] = [] unless options[:class].present?
+    options[:class] << " #{css_class}"
+  end
 end
 
 class CertEventsFormBuilder < ActionView::Helpers::FormBuilder
@@ -89,7 +102,7 @@ class CertEventsFormBuilder < ActionView::Helpers::FormBuilder
     @object_class_name = object.class.to_s.underscore
   end
 
-  delegate :content_tag, :concat, :icon, to: :@template
+  delegate :content_tag, :concat, :icon, :add_class, to: :@template
 
   def label(method, text = nil, options = {}, &block)
     if @object_name.to_s.include? '['
@@ -177,12 +190,5 @@ class CertEventsFormBuilder < ActionView::Helpers::FormBuilder
         end)
       end)
     end
-  end
-
-  private
-
-  def add_class(options, css_class)
-    options[:class] = [] unless options[:class].present?
-    options[:class] << " #{css_class}"
   end
 end

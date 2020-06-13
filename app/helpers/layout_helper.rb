@@ -43,7 +43,7 @@ module LayoutHelper
   end
 
   def modal_body(&block)
-    content_tag(:div, class: 'modal-body') do
+    content_tag(:div, class: 'modal-body mt-0') do
       capture(&block)
     end
   end
