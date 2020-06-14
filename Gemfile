@@ -11,6 +11,7 @@ gem 'pg', '~> 0.18.4'
 gem 'unicorn', '~> 5.5', '>= 5.5.5'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
+gem 'sassc', '~> 2.4.0'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 4.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

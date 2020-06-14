@@ -15,6 +15,7 @@ set :migration_role, :app
 
 set :unicorn_pid, "#{shared_path}/tmp/pids/unicorn.pid"
 
+set :ruby_version, '2.7.1'
 set :rbenv_ruby, '2.7.1'
 
 namespace :deploy do

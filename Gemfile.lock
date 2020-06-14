@@ -346,6 +346,7 @@ DEPENDENCIES
   rails (~> 6.0, >= 6.0.3)
   rails-i18n
   sass-rails (>= 6)
+  sassc (~> 2.4.0)
   selenium-webdriver
   sentry-raven
   spring
