@@ -1,7 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   before_action :set_list_for_select, only: [:new, :edit, :update, :create]
-  before_action :set_list_for_select, only: [:new, :edit, :update, :create]
   before_action :verify_action, only: [:edit, :update, :destroy]
 
   # GET /events

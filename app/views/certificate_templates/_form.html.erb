@@ -1,0 +1,74 @@
+<div class="nav-wrapper">
+  <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link mb-sm-3 mb-md-0 active" id="form-tab" data-toggle="tab" href="#form" role="tab" 
+         aria-controls="form" aria-selected="true">
+        <i class="ni ni-ruler-pencil mr-2"></i>
+        Criar
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link mb-sm-3 mb-md-0" id="preview-tab" data-toggle="tab" href="#preview" role="tab" 
+         aria-controls="preview" aria-selected="false">
+        <i class="ni ni-image mr-2"></i>
+        Pré Visualizar
+      </a>
+    </li>
+  </ul>
+</div>
+<div class="card shadow">
+  <div class="card-body">
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="form" role="tabpanel" aria-labelledby="form-tab">
+        <%= form_with(model: certificate_template, local: true) do |f| %>
+          <%= validations_errors(f.object) %>
+          <div class="row">
+            <%= f.fields_for :image, f.object.image ||= f.object.build_image do |ff| %>
+              <div class="col-sm-auto">
+                <% url = ff.object.url %>
+
+                <%= ff.hidden_field :id %>
+                <%= ff.image_field(:file, 'Procurar', 'Alterar', value: url) %>
+              </div>
+            <% end %>
+            <div class="col-md-6">
+              <div class="form-group">
+                <%= f.label :event_category %>
+                <%= f.select(:event_category_id, @event_categories,
+                             { include_blank: true },
+                             { size: 5,
+                               class: 'form-control choices',
+                               data: { trigger: '' }, }) %>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <%= f.label :body %>
+                <%= f.summernote_area :body, class: 'form-control', placeholder: true %>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <%= f.label :person_id %>
+                <%= f.text_field :person_id, class: 'form-control', placeholder: true %>
+              </div>
+            </div>
+          </div>
+
+          <div class="clearfix">
+            <div class="float-right">
+              <%= link_to "<span><i class='fa fa-arrow-left mr-1'></i>#{i18n_word(:come_back)}</span>".html_safe, :back,
+                          class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
+              <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple") do %>
+                <span><i class="fa fa-floppy-o mr-1"></i> <%= i18n_word(:save) %></span>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="tab-pane fade" id="preview" role="tabpanel" aria-labelledby="preview-tab">
+
+      </div>
+    </div>
+  </div>
+</div>

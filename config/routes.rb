@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :certificate_templates
   resources :event_requests, path: 'solicitacoes-eventos' do
     member do
       get 'forward_the_request', action: 'forward_the_request'
