@@ -6,8 +6,8 @@
         other: 'Templates de Certificado'
     attributes:
       certificate_template:
-        image_id: "Plano de fundo"
-        image/file: "Fundo do Certificado"
+        image: "Plano de fundo"
+        image/file: "Plano de fundo"
         event_category: "Categoria de Evento"
         certificate_signatures: "Assinaturas"
         body: "Texto"

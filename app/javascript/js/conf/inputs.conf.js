@@ -14,7 +14,6 @@ jQuery(function ($) {
     $(document).ready(function() {
         $('.summernote').each((i, value) => {
             const element = $(value)
-            console.log(element.prop('rows')*10)
             const height = element.prop('rows')*10 || 200
             element.summernote({
                 height: height
@@ -56,7 +55,6 @@ function inicializeInputs(element = 'body') {
         element.addEventListener(
             'search',
             function (event) {
-                console.log(event.detail.value)
                 if (event.detail.value.length >= search_min) {
                     choices.clearChoices();
                     ajaxGet(search_url,

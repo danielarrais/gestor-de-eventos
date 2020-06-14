@@ -1,14 +1,14 @@
 <div class="nav-wrapper">
   <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
     <li class="nav-item">
-      <a class="nav-link mb-sm-3 mb-md-0 active" id="form-tab" data-toggle="tab" href="#form" role="tab" 
+      <a class="nav-link mb-sm-3 mb-md-0 active" id="form-tab" data-toggle="tab" href="#form" role="tab"
          aria-controls="form" aria-selected="true">
         <i class="ni ni-ruler-pencil mr-2"></i>
         Criar
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link mb-sm-3 mb-md-0" id="preview-tab" data-toggle="tab" href="#preview" role="tab" 
+      <a class="nav-link mb-sm-3 mb-md-0" id="preview-tab" data-toggle="tab" href="#preview" role="tab"
          aria-controls="preview" aria-selected="false">
         <i class="ni ni-image mr-2"></i>
         Pré Visualizar
@@ -28,7 +28,7 @@
                 <% url = ff.object.url %>
 
                 <%= ff.hidden_field :id %>
-                <%= ff.image_field(:file, 'Procurar', 'Alterar', value: url) %>
+                <%= ff.image_field(:file, 'Procurar', 'Alterar', id: 'fileinput', onchange: 'onChangeImage();', value: url) %>
               </div>
             <% end %>
             <div class="col-md-6">
@@ -44,7 +44,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <%= f.label :body %>
-                <%= f.summernote_area :body, class: 'form-control', placeholder: true %>
+                <%= f.summernote_area :body, class: 'form-control', placeholder: true, onchange: 'changeText(this)' %>
               </div>
             </div>
             <div class="col-md-12">
@@ -76,8 +76,49 @@
         <% end %>
       </div>
       <div class="tab-pane fade" id="preview" role="tabpanel" aria-labelledby="preview-tab">
-
+        <div id="certificate-frame" class="bg-primary">
+          <div id="certificate-text-frame">
+            fgks dçflgksçfk kldfgls kdfgçskdf çlsk dçglk sçfglksdfg sdfgsfgks dçflgksçfk kldfgls kdfgçskdf çlsk dçglk sçfglksdfg sdfgsfgks
+            dçflgksçfk kldfgls kdfgçskdf çlsk dçglk sçfglksdfg sdfgsfgks dçflgksçfk kldfgls kdfgçskdf çlsk dçglk sçfglksdfg sdfgsfgks
+            dçflgksçfk kldfgls kdfgçskdf çlsk dçglk sçfglksdfg sdfgsfgks dçflgksçfk kldfgls kdfgçskdf çlsk dçglk sçfglksdfg sdfgsfgks
+            dçflgksçfk kldfgls kdfgçskdf çlsk dçglk sçfglksdfg sdfgsfgks dçflgksçfk kldfgls kdfgçskdf çlsk dçglk sçfglksdfg sdfgsfgks
+            dçflgksçfk kldfgls kdfgçskdf çlsk dçglk sçfglksdfg sdfgs
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(() => {
+        $(".summernote").on("summernote.change", changeText);
+    })
+
+    function onChangeImage() {
+        debugger
+        setTimeout(() => {
+            $('#certificate-frame').css('background-image', `url(${$('#fileinput-preview > img').attr('src')})`)
+        }, 500)
+    }
+
+    $($('#preview')).ready(() => {
+        const certificate_frame = $('#certificate-frame')
+        const certificate_text_frame = $('#certificate-text-frame')
+
+        const width = $('#form').width()
+        const height = parseInt(width) * 210 / 297
+
+        certificate_frame.css('height', height)
+
+        certificate_text_frame.css('padding-top', '350px')
+        certificate_text_frame.css('padding-left', '100px')
+        certificate_text_frame.css('padding-right', '100px')
+    })
+
+    function changeText(target) {
+        const certificate_text_frame = $('#certificate-text-frame')
+        certificate_text_frame.html(target.currentTarget.value)
+    }
+
+</script>

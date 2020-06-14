@@ -1,0 +1,9 @@
+<div class="card shadow-none bg-light">
+  <div class="card-body shadow-none text-center">
+    <img id="scanned-signature" class="scanned-signature"
+         src="<%= certificate_signature.image.url %>"
+         alt="<%= certificate_signature.name %>"/>
+    <span id="name" class="d-block text-black font-weight-bold font-italic"><%= certificate_signature.name %></span>
+    <span id="role" class="d-block"><%= certificate_signature.role %></span>
+  </div>
+</div>
