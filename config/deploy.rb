@@ -1,5 +1,3 @@
-Dir.glob('lib/tasks/capistrano/*.rake').each { |r| import r }
-
 # config valid for current version and patch releases of Capistrano
 lock '~> 3.14.1'
 
@@ -20,3 +18,9 @@ set :unicorn_pid, "#{shared_path}/tmp/pids/unicorn.pid"
 set :ruby_version, '2.7.1'
 set :rvm_ruby_version, '2.7.1'
 
+namespace :deploy do
+  before :check, :upload_files
+  after :migrate, :rakes
+  after :rakes, :seed
+  after :publishing, :restart
+end

@@ -15,13 +15,16 @@ class Permission < ApplicationRecord
         saved_action = Permission.where(action: action, controller: controller_formated_name).first
 
         unless saved_action.present?
-          permissions << Permission.new(name: "#{controller_class.name}##{action}",
-                                           description: "#{controller_class.name}##{action}",
-                                           controller: controller_class.name.underscore,
-                                           action: action)
+          permissions << { name: "#{controller_class.name}##{action}",
+                           description: "#{controller_class.name}##{action}",
+                           controller: controller_class.name.underscore,
+                           action: action,
+                           created_at: Time.now,
+                           updated_at: Time.now }
         end
       end
     end
-    Permission.send(:import, permissions)
+    # p permissions.first.attributes
+    Permission.insert_all(permissions) if permissions.any?
   end
 end
