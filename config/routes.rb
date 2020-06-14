@@ -13,7 +13,11 @@ Rails.application.routes.draw do
   resources :courses
   resources :events
   resources :event_categories
-  resources :certificate_signatures
+  resources :certificate_signatures do
+    collection do
+      get 'autocomplete_by_name_or_role'
+    end
+  end
   resources :permissions, except: [:new, :destroy] do
     collection do
       get 'recreate_and_update_all'
@@ -32,7 +36,7 @@ Rails.application.routes.draw do
     end
   end
 
-  # get 'users/:id/complete_registration', to: 'users#complete_registration'
+# get 'users/:id/complete_registration', to: 'users#complete_registration'
 
   get 'people/name', to: 'people#name'
   get 'people/autocomplete_by_cpf', to: 'people#autocomplete_by_cpf'

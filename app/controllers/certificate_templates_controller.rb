@@ -23,6 +23,7 @@ class CertificateTemplatesController < ApplicationController
   # POST /certificate_templates
   def create
     @certificate_template = CertificateTemplate.new(certificate_template_params)
+    @certificate_template.person = current_user.person
 
     if @certificate_template.save
       redirect_to @certificate_template, success: 'Certificate template was successfully created.'
@@ -60,6 +61,7 @@ class CertificateTemplatesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def certificate_template_params
-    params.require(:certificate_template).permit(:image, :body, :person_id)
+    params.require(:certificate_template).permit(:body, :event_category_id, image_attributes: [:id, :file],
+                                                 certificate_signature_ids: [])
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_14_202542) do
+ActiveRecord::Schema.define(version: 2020_06_14_210858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,11 @@ ActiveRecord::Schema.define(version: 2020_06_14_202542) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "image_id", null: false
+  end
+
+  create_table "certificate_signatures_templates", id: false, force: :cascade do |t|
+    t.bigint "certificate_template_id", null: false
+    t.bigint "certificate_signature_id", null: false
   end
 
   create_table "certificate_templates", force: :cascade do |t|
@@ -195,6 +200,8 @@ ActiveRecord::Schema.define(version: 2020_06_14_202542) do
   end
 
   add_foreign_key "certificate_signatures", "images"
+  add_foreign_key "certificate_signatures_templates", "certificate_signatures"
+  add_foreign_key "certificate_signatures_templates", "certificate_templates"
   add_foreign_key "certificate_templates", "event_categories"
   add_foreign_key "certificate_templates", "images"
   add_foreign_key "certificate_templates", "people"

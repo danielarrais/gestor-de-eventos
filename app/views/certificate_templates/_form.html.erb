@@ -20,7 +20,7 @@
   <div class="card-body">
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="form" role="tabpanel" aria-labelledby="form-tab">
-        <%= form_with(model: certificate_template, local: true) do |f| %>
+        <%= form_with(model: certificate_template, local: true, html: { multipart: true }) do |f| %>
           <%= validations_errors(f.object) %>
           <div class="row">
             <%= f.fields_for :image, f.object.image ||= f.object.build_image do |ff| %>
@@ -49,8 +49,17 @@
             </div>
             <div class="col-md-12">
               <div class="form-group">
-                <%= f.label :person_id %>
-                <%= f.text_field :person_id, class: 'form-control', placeholder: true %>
+                <div class="form-group">
+                  <%= f.label :certificate_signatures %>
+                  <%= f.select(:certificate_signature_ids, f.object.certificate_signatures.map { |v| ["#{v.name} - #{v.role}", v.id] },
+                               { include_blank: true },
+                               { size: 5,
+                                 multiple: true,
+                                 class: 'form-control choices-ajax',
+                                 data: { 'search-text': 'Digite o nome da assinatura',
+                                         'search-min': 3,
+                                         'search-url': autocomplete_by_name_or_role_certificate_signatures_path }, }) %>
+                </div>
               </div>
             </div>
           </div>

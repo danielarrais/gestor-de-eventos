@@ -61,7 +61,7 @@ function inicializeInputs(element = 'body') {
                     choices.clearChoices();
                     ajaxGet(search_url,
                         {
-                            cpf: event.detail.value,
+                            value: event.detail.value,
                             selecteds: [choices.getValue(true)]
                         },
                         (response) => {

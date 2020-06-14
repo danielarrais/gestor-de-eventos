@@ -10,7 +10,7 @@ class PeopleController < ApplicationController
   def autocomplete_by_cpf
     @person = Person.select(:id, :name, :cpf, :surname)
                   .limit(10)
-                  .where(cpf: params[:cpf])
+                  .where(cpf: params[:value])
                   .where.not(id: params[:selecteds])
                   .map { |v| { label: v.full_name, value: v.id, id: v.id } }
 
