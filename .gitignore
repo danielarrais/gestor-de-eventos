@@ -33,6 +33,6 @@ yarn-debug.log*
 .idea/
 
 /config/credentials/production.key
-/config/scripts/setup.sh
 
 public/js/
+/scripts/setup.sh

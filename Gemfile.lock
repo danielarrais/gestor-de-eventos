@@ -147,6 +147,7 @@ GEM
       kaminari-core (= 1.2.1)
     kaminari-core (1.2.1)
     kgio (2.11.3)
+    liquid (4.0.3)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -338,6 +339,7 @@ DEPENDENCIES
   dotenv-rails
   jbuilder (~> 2.7)
   kaminari
+  liquid
   listen (>= 3.0.5, < 3.2)
   nested_form_fields
   nokogiri (~> 1.11.0.rc2)

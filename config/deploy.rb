@@ -19,8 +19,9 @@ set :ruby_version, '2.7.1'
 set :rvm_ruby_version, '2.7.1'
 
 namespace :deploy do
-  before :check, :upload_files
+  before :check, 'check:shared_files'
   after :migrate, :rakes
   after :rakes, :seed
-  after :publishing, :restart
+  after :publishing, 'app:restart'
+  after 'nginx:conf', 'app:restart'
 end

@@ -5,38 +5,35 @@ conf_cert_bot="true"
 conf_nginx="true"
 
 ruby_version="2.7.1"
-cert_enviroments_sh="/etc/profile.d/cert-enviroments.sh"
+cert_enviroments_sh="/etc/environment"
 
-# Google API credentials
 google_client_id=""
 google_app_token=""
-
-# App Parameters
 secret_key_base=""
 database_user=""
 database_password=""
 database_host=""
 database_name=""
 app_master_key=""
-
-# SSL Parameters
 server_name=""
 email_address=""
 
 echo "Set enviroments variables"
 {
-  touch $cert_enviroments_sh
+  sudo echo "export GOOGLE_CLIENT_ID=\"$google_client_id\"
+             export GOOGLE_APP_TOKEN=\"$google_app_token\"
+             export SECRET_KEY_BASE=\"$secret_key_base\"
+             export APP_MASTER_KEY=\"$app_master_key\"
+             export DATABASE_USER=\"$database_user\"
+             export DATABASE_PASSWORD=\"$database_password\"
+             export DATABASE_HOST=\"$database_host\"
+             export DATABASE_NAME=\"$database_name\"" | sudo tee $cert_enviroments_sh
 
-  echo "export GOOGLE_CLIENT_ID=\"$google_client_id\"" >$cert_enviroments_sh
-  echo "export GOOGLE_APP_TOKEN=\"$google_app_token\"" >$cert_enviroments_sh
-  echo "export SECRET_KEY_BASE=\"$secret_key_base\"" >$cert_enviroments_sh
-  echo "export APP_MASTER_KEY=\"$app_master_key\"" >$cert_enviroments_sh
-  echo "export DATABASE_USER=\"$database_user\"" >$cert_enviroments_sh
-  echo "export DATABASE_PASSWORD=\"$database_password\"" >$cert_enviroments_sh
-  echo "export DATABASE_HOST=\"$database_host\"" >$cert_enviroments_sh
-  echo "export DATABASE_NAME=\"$database_name\"" >$cert_enviroments_sh
+  echo '' >>"$HOME"/.zshrc
+  echo "source /etc/profile" >>"$HOME"/.zshrc
 
-  source $cert_enviroments_sh
+  echo '' >>"$HOME"/.bashrc
+  echo "source /etc/profile" >>"$HOME"/.bashrc
 } &>/dev/null
 
 echo "Installing git"
@@ -68,8 +65,8 @@ echo "Installing RVM"
 
 echo "Installing Ruby $ruby_version"
 {
-  rvm install $ruby_version
-  rvm use $ruby_version --default
+  rvm install "$ruby_version"
+  rvm use "$ruby_version" --default
   ruby -v
 } &>/dev/null
 
@@ -91,6 +88,8 @@ if [[ $conf_nginx == "true" ]]; then
   echo "Installing Nginx"
   {
     sudo apt install nginx -y
+    sudo chmod -R 777 /etc/nginx/sites-enabled
+    sudo chmod -R 777 /var/www
   } &>/dev/null
 fi
 

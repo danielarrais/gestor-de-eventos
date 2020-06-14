@@ -5,21 +5,21 @@ upstream puma_seu_production {
 # Remove or comment if not using SSL
 server {
     listen 80;
-    server_name site_address www.site_address;
+    server_name {{site_address}} www.{{site_address}};
     return 301 https://$host$1$request_uri;
 }
 
 server {
     listen 443; # Change to 80 if you are not going to use SSL
 
-    server_name site_address www.site_address;
+    server_name {{site_address}} www.{{site_address}};
     root /var/www/seu/current/public;
     try_files $uri/index.html $uri @puma_seu_production;
 
     # Remove the four lines below if you are not going to use SSL
     ssl on;
-    ssl_certificate /etc/letsencrypt/live/site_address/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/site_address/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/{{site_address}}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{site_address}}/privkey.pem;
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 

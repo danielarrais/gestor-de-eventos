@@ -48,6 +48,8 @@ gem "sentry-raven"
 
 gem 'nokogiri', '~> 1.11.0.rc2'
 
+gem 'liquid'
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
