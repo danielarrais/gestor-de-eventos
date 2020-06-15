@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :certificate_templates
+  resources :certificate_templates do
+    collection do
+      get :load_selected_signatures
+    end
+  end
   resources :event_requests, path: 'solicitacoes-eventos' do
     member do
       get 'forward_the_request', action: 'forward_the_request'

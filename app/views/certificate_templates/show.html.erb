@@ -22,13 +22,13 @@
   <div class="col-md-12">
     <div class="form-group">
       <%= label_tag :image, i18n_model(:certificate_template, :certificate_signatures) %>
+      <div class="row">
       <% @certificate_template.certificate_signatures.each do |certificate_signature| %>
-        <div class="row">
           <div class="col-md-4">
             <%= render 'certificate_signatures/components/preview', certificate_signature: certificate_signature %>
           </div>
-        </div>
       <% end %>
+        </div>
     </div>
   </div>
 </div>

@@ -47,6 +47,10 @@ class CertificateTemplatesController < ApplicationController
     redirect_to certificate_templates_url, success: 'Certificate template was successfully destroyed.'
   end
 
+  def load_selected_signatures
+    @certificate_signatures = CertificateSignature.where(id: params[:selecteds])
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -61,7 +65,7 @@ class CertificateTemplatesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def certificate_template_params
-    params.require(:certificate_template).permit(:body, :event_category_id, image_attributes: [:id, :file],
+    params.require(:certificate_template).permit(:body, :event_category_id, image_attributes: [:file],
                                                  certificate_signature_ids: [])
   end
 end

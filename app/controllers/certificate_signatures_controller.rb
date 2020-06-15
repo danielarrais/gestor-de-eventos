@@ -41,8 +41,9 @@ class CertificateSignaturesController < ApplicationController
     @certificate_signatures = CertificateSignature.select(:id, :name, :role)
                   .limit(10)
                   .where("certificate_signatures.name like ? or certificate_signatures.role like ? ", "%#{params[:value]}%", "%#{params[:value]}%")
-                  .where.not(id: params[:selecteds])
-                  .map { |v| { label: "#{v.name} - #{v.role}", value: v.id, id: v.id } }
+                  .map { |v| { label: "#{v.name} - #{v.role}",
+                               value: v.id,
+                               id: v.id } }
 
     respond_to do |format|
       format.json { render json: @certificate_signatures }
@@ -82,6 +83,6 @@ class CertificateSignaturesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def certificate_signature_params
-    params.require(:certificate_signature).permit(:name, :role, image_attributes: [:id, :file])
+    params.require(:certificate_signature).permit(:name, :role, image_attributes: [:file])
   end
 end

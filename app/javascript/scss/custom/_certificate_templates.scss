@@ -3,5 +3,11 @@
 }
 
 #certificate-text-frame {
+  position: relative;
   text-align: justify !important;
+}
+#certificate-signatures-frame {
+  position: relative;
+  text-align: center;
+  width: 100%;
 }

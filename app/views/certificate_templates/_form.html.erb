@@ -31,7 +31,7 @@
                 <%= ff.image_field(:file, 'Procurar', 'Alterar', id: 'fileinput', onchange: 'onChangeImage();', value: url) %>
               </div>
             <% end %>
-            <div class="col-md-6">
+            <div class="col-md">
               <div class="form-group">
                 <%= f.label :event_category %>
                 <%= f.select(:event_category_id, @event_categories,
@@ -76,13 +76,11 @@
         <% end %>
       </div>
       <div class="tab-pane fade" id="preview" role="tabpanel" aria-labelledby="preview-tab">
-        <div id="certificate-frame" class="bg-primary">
+        <div id="certificate-frame">
           <div id="certificate-text-frame">
-            fgks dçflgksçfk kldfgls kdfgçskdf çlsk dçglk sçfglksdfg sdfgsfgks dçflgksçfk kldfgls kdfgçskdf çlsk dçglk sçfglksdfg sdfgsfgks
-            dçflgksçfk kldfgls kdfgçskdf çlsk dçglk sçfglksdfg sdfgsfgks dçflgksçfk kldfgls kdfgçskdf çlsk dçglk sçfglksdfg sdfgsfgks
-            dçflgksçfk kldfgls kdfgçskdf çlsk dçglk sçfglksdfg sdfgsfgks dçflgksçfk kldfgls kdfgçskdf çlsk dçglk sçfglksdfg sdfgsfgks
-            dçflgksçfk kldfgls kdfgçskdf çlsk dçglk sçfglksdfg sdfgsfgks dçflgksçfk kldfgls kdfgçskdf çlsk dçglk sçfglksdfg sdfgsfgks
-            dçflgksçfk kldfgls kdfgçskdf çlsk dçglk sçfglksdfg sdfgs
+          </div>
+          <div id="certificate-signatures-frame">
+            <%= render 'view_certificate_signatures', certificate_signatures: certificate_template.certificate_signatures %>
           </div>
         </div>
       </div>
@@ -92,33 +90,78 @@
 
 <script type="text/javascript" charset="utf-8">
     $(document).ready(() => {
+        const choices_signatures = document.getElementById('certificate_template_certificate_signature_ids')
+
+        choices_signatures.addEventListener('removeItem', onChangeSignatures, true,);
+        choices_signatures.addEventListener('addItem', onChangeSignatures, true,);
+
+        <% unless certificate_template.new_record? %>
+        $('#certificate-frame').css('background-image', `url(<%= certificate_template.image.url %>)`)
+        $('#certificate-text-frame').html('<%= j certificate_template.body %>')
+        <% end %>
+
         $(".summernote").on("summernote.change", changeText);
+
+        loadPreview();
     })
 
     function onChangeImage() {
         debugger
         setTimeout(() => {
-            $('#certificate-frame').css('background-image', `url(${$('#fileinput-preview > img').attr('src')})`)
+            $('#certificate-frame').css('background-image', `url(${$('#fileinput-preview > img').attr('src')})`);
         }, 500)
+        loadPreview();
     }
 
-    $($('#preview')).ready(() => {
-        const certificate_frame = $('#certificate-frame')
-        const certificate_text_frame = $('#certificate-text-frame')
+    function loadPreview() {
+        const heigth_a4_ref = 807.467
+        const width_a4_ref = 1142
 
-        const width = $('#form').width()
-        const height = parseInt(width) * 210 / 297
+        const certificate_frame = $('#certificate-frame');
+        const certificate_text_frame = $('#certificate-text-frame');
+        const certificate_signatures_frame = $('#certificate-signatures-frame');
 
-        certificate_frame.css('height', height)
+        const width = $('#form').width();
+        const height = parseInt(width) * heigth_a4_ref / width_a4_ref;
 
-        certificate_text_frame.css('padding-top', '350px')
-        certificate_text_frame.css('padding-left', '100px')
-        certificate_text_frame.css('padding-right', '100px')
-    })
+        certificate_frame.css('height', height);
+
+        const top_text = parseInt(height) * 330 / heigth_a4_ref;
+        const min_height_text = parseInt(height) * 200 / heigth_a4_ref;
+
+        console.log(top_text)
+        certificate_text_frame.css({
+            'top': `${top_text}px`,
+            'max-height': `${min_height_text}px`,
+            'padding-left': '100px',
+            'padding-right': '100px',
+        });
+
+        const top_signatures = parseInt(top_text + min_height_text) * 520 / 740;
+
+        certificate_signatures_frame.css({
+            'top': `${top_signatures}px`,
+            'padding-left': '100px',
+            'padding-right': '100px',
+        });
+
+    }
 
     function changeText(target) {
-        const certificate_text_frame = $('#certificate-text-frame')
-        certificate_text_frame.html(target.currentTarget.value)
+        const certificate_text_frame = $('#certificate-text-frame');
+        certificate_text_frame.html(target.currentTarget.value);
+        loadPreview();
+    }
+
+    function onChangeSignatures(event) {
+        $.ajax({
+            data: {
+                selecteds: $(event.target).val()
+            },
+            type: "GET",
+            url: "<%= load_selected_signatures_certificate_templates_path %>",
+            dataType: "script"
+        });
     }
 
 </script>
