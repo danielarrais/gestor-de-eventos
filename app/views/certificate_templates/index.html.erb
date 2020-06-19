@@ -1,39 +1,53 @@
-<div class="float-left">
-  <%= page_title(i18n_model(:certificate_template, plural: true)) %>
-</div>
-<div class="float-right pt-2">
-  <%= icon_link i18n_word(:register), 'plus', new_certificate_template_path %>
+<div class="clearfix">
+  <div class="float-left">
+    <%= page_title(i18n_model(:certificate_template, plural: true)) %>
+  </div>
+  <div class="float-right pt-2">
+    <%= icon_link i18n_word(:register), 'plus', new_certificate_template_path %>
+  </div>
 </div>
 
-<table class="table">
-  <thead>
-    <tr class="bg-primary">
-      <th class="text-white bold"><%= i18n_model(:certificate_template, :image) %></th>
-      <th class="text-white bold"><%= i18n_model(:certificate_template, :body) %></th>
-      <th class="text-white bold"><%= i18n_model(:certificate_template, :person_id) %></th>
-      <th class="text-white text-center bold" colspan="3"><%= i18n_word(:actions) %></th>
-    </tr>
-  </thead>
+<div class="row">
+  <DIV class="col-sm-12">
+    <table class="table">
+      <thead>
+      <tr class="bg-primary">
+        <th class="text-white bold"><%= i18n_model(:certificate_template, :event_category) %></th>
+        <th class="text-white bold break-text"><%= i18n_model(:certificate_template, :body) %></th>
+        <th class="text-white bold"><%= i18n_model(:certificate_template, :certificate_signatures) %></th>
+        <th class="text-white text-center bold" colspan="3"><%= i18n_word(:actions) %></th>
+      </tr>
+      </thead>
 
-  <tbody>
-    <% @certificate_templates.each do |certificate_template| %>
-    <tr>
-      <td><%= certificate_template.image %></td>
-      <td><%= certificate_template.body %></td>
-      <td><%= certificate_template.person_id %></td>
-      <td class="text-center">
-        <%= link_to '<span><i class="fa fa-search"></i></span>'.html_safe, certificate_template,
-                    class: 'btn btn-primary btn-icon btn-sm btn-simple'%>
-        <%= link_to '<span><i class="fa fa-edit"></i></span>'.html_safe, edit_certificate_template_path(certificate_template),
-                    class: 'btn btn-icon btn-sm btn-warning' %>
-        <%= link_to '<span><i class="fa fa-trash"></i></span>'.html_safe, certificate_template,
-                    method: :delete, data: { confirm: 'Are you sure?' },
-                    class: 'btn btn-icon btn-sm btn-danger' %>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+      <tbody>
+      <% @certificate_templates.each do |certificate_template| %>
+        <tr>
+          <td>
+            <%= certificate_template.event_category.name %>
+          </td>
+          <td class="break-text">
+            <%= truncate(strip_tags(certificate_template.body), length: 170) %>
+          </td>
+          <td>
+            <% certificate_template.certificate_signatures.each do |certificate_signature| %>
+              <span class="badge badge-default"><%= certificate_signature.name %></span>
+            <% end %>
+          </td>
+          <td class="text-center">
+            <%= link_to '<span><i class="fa fa-search"></i></span>'.html_safe, certificate_template,
+                        class: 'btn btn-primary btn-icon btn-sm btn-simple' %>
+            <%= link_to '<span><i class="fa fa-edit"></i></span>'.html_safe, edit_certificate_template_path(certificate_template),
+                        class: 'btn btn-icon btn-sm btn-warning' %>
+            <%= link_to '<span><i class="fa fa-trash"></i></span>'.html_safe, certificate_template,
+                        method: :delete, data: { confirm: 'Are you sure?' },
+                        class: 'btn btn-icon btn-sm btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </DIV>
+</div>
 
 <div class="row justify-content-center">
   <%= paginate @certificate_templates %>

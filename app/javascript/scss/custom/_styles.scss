@@ -105,7 +105,11 @@ label {
 }
 
 .nowrap {
-  white-space: nowrap
+  white-space: nowrap;
+}
+
+.break-text {
+  white-space: normal !important;./
 }
 
 // Aumenta largura do container
