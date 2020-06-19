@@ -96,6 +96,22 @@ label {
   transition: all .5s;
 }
 
+.note-editor > .tooltip {
+  display: none;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.break-text {
+  white-space: normal !important;./
+}
+
 // Aumenta largura do container
 .container, .container-sm, .container-md, .container-lg, .container-xl {
   max-width: 1220px;

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_12_033324) do
+ActiveRecord::Schema.define(version: 2020_06_14_210858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,13 +23,21 @@ ActiveRecord::Schema.define(version: 2020_06_12_033324) do
     t.bigint "image_id", null: false
   end
 
+  create_table "certificate_signatures_templates", id: false, force: :cascade do |t|
+    t.bigint "certificate_template_id", null: false
+    t.bigint "certificate_signature_id", null: false
+  end
+
   create_table "certificate_templates", force: :cascade do |t|
-    t.string "name", null: false
-    t.bigint "image_id", null: false
     t.text "body", null: false
-    t.boolean "disabled", default: false, null: false
+    t.bigint "image_id", null: false
+    t.bigint "person_id", null: false
+    t.bigint "event_category_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_category_id"], name: "index_certificate_templates_on_event_category_id"
+    t.index ["image_id"], name: "index_certificate_templates_on_image_id"
+    t.index ["person_id"], name: "index_certificate_templates_on_person_id"
   end
 
   create_table "courses", force: :cascade do |t|
@@ -192,7 +200,11 @@ ActiveRecord::Schema.define(version: 2020_06_12_033324) do
   end
 
   add_foreign_key "certificate_signatures", "images"
+  add_foreign_key "certificate_signatures_templates", "certificate_signatures"
+  add_foreign_key "certificate_signatures_templates", "certificate_templates"
+  add_foreign_key "certificate_templates", "event_categories"
   add_foreign_key "certificate_templates", "images"
+  add_foreign_key "certificate_templates", "people"
   add_foreign_key "event_requests", "situations"
   add_foreign_key "events", "event_categories"
   add_foreign_key "events", "events"

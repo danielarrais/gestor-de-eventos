@@ -167,7 +167,7 @@ class CertEventsFormBuilder < ActionView::Helpers::FormBuilder
     content_tag('div', class: 'form-group') do
       concat(content_tag('div') do
         label method
-      end)
+      end) unless options[:hide_label]
       concat(content_tag('div',
                          class: "fileinput #{new ? 'fileinput-new' : 'fileinput-exists'} text-center",
                          data: { provides: 'fileinput' }) do

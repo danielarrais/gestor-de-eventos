@@ -11,13 +11,22 @@ flatpickr.setDefaults({
 jQuery(function ($) {
     inicializeInputs()
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.summernote').each((i, value) => {
             const element = $(value)
-            console.log(element.prop('rows')*10)
-            const height = element.prop('rows')*10 || 200
+            const height = element.prop('rows') * 10 || 200
+
             element.summernote({
-                height: height
+                height: height,
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['fontname', 'strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['8', '9', '10', '11', '12', '14', '18', '20', '22', '24', '26', '28', '30']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']],
+                    ['tags', ['tags']]
+                ]
             })
         })
     });
@@ -56,12 +65,11 @@ function inicializeInputs(element = 'body') {
         element.addEventListener(
             'search',
             function (event) {
-                console.log(event.detail.value)
                 if (event.detail.value.length >= search_min) {
                     choices.clearChoices();
                     ajaxGet(search_url,
                         {
-                            cpf: event.detail.value,
+                            value: event.detail.value,
                             selecteds: [choices.getValue(true)]
                         },
                         (response) => {

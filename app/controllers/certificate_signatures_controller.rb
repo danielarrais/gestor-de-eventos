@@ -28,7 +28,7 @@ class CertificateSignaturesController < ApplicationController
 
     respond_to do |format|
       if @certificate_signature.save
-        format.html { redirect_to @certificate_signature, success:'Certificate signature was successfully created.' }
+        format.html { redirect_to @certificate_signature, success: 'Certificate signature was successfully created.' }
         format.json { render :show, status: :created, location: @certificate_signature }
       else
         format.html { render :new }
@@ -37,12 +37,25 @@ class CertificateSignaturesController < ApplicationController
     end
   end
 
+  def autocomplete_by_name_or_role
+    @certificate_signatures = CertificateSignature.select(:id, :name, :role)
+                  .limit(10)
+                  .where("certificate_signatures.name like ? or certificate_signatures.role like ? ", "%#{params[:value]}%", "%#{params[:value]}%")
+                  .map { |v| { label: "#{v.name} - #{v.role}",
+                               value: v.id,
+                               id: v.id } }
+
+    respond_to do |format|
+      format.json { render json: @certificate_signatures }
+    end
+  end
+
   # PATCH/PUT /certificate_signatures/1
   # PATCH/PUT /certificate_signatures/1.json
   def update
     respond_to do |format|
       if @certificate_signature.update(certificate_signature_params)
-        format.html { redirect_to @certificate_signature, success:'Certificate signature was successfully updated.' }
+        format.html { redirect_to @certificate_signature, success: 'Certificate signature was successfully updated.' }
         format.json { render :show, status: :ok, location: @certificate_signature }
       else
         format.html { render :edit }
@@ -56,19 +69,20 @@ class CertificateSignaturesController < ApplicationController
   def destroy
     @certificate_signature.destroy
     respond_to do |format|
-      format.html { redirect_to certificate_signatures_url, success:'Certificate signature was successfully destroyed.' }
+      format.html { redirect_to certificate_signatures_url, success: 'Certificate signature was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_certificate_signature
-      @certificate_signature = CertificateSignature.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def certificate_signature_params
-      params.require(:certificate_signature).permit(:name, :role, image_attributes: [:file])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_certificate_signature
+    @certificate_signature = CertificateSignature.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def certificate_signature_params
+    params.require(:certificate_signature).permit(:name, :role, image_attributes: [:file])
+  end
 end
