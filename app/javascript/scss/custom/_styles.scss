@@ -100,6 +100,14 @@ label {
   display: none;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.nowrap {
+  white-space: nowrap
+}
+
 // Aumenta largura do container
 .container, .container-sm, .container-md, .container-lg, .container-xl {
   max-width: 1220px;
