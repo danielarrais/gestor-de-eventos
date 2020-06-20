@@ -6,6 +6,15 @@
   position: relative;
   text-align: justify !important;
 }
+
+#certificate-text-content {
+  position: relative;
+  text-align: justify !important;
+  line-height: 1.5;
+  display: inline-block;
+  vertical-align: middle;
+}
+
 #certificate-signatures-frame {
   position: relative;
   text-align: center;

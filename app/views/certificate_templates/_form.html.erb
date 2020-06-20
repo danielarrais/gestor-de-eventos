@@ -78,6 +78,8 @@
       <div class="tab-pane fade" id="preview" role="tabpanel" aria-labelledby="preview-tab">
         <div id="certificate-frame">
           <div id="certificate-text-frame">
+            <div id="certificate-text-content">
+            </div>
           </div>
           <div id="certificate-signatures-frame">
             <%= render 'view_certificate_signatures', certificate_signatures: certificate_template.certificate_signatures %>
@@ -97,7 +99,7 @@
 
         <% unless certificate_template.new_record? %>
         $('#certificate-frame').css('background-image', `url(<%= certificate_template.image.url %>)`)
-        $('#certificate-text-frame').html('<%= j certificate_template.body.html_safe %>')
+        $('#certificate-text-content').html('<%= j certificate_template.body.html_safe %>')
         <% end %>
 
         $(".summernote").on("summernote.change", changeText);
@@ -147,7 +149,7 @@
         }
 
         $('#certificate_template_body').summernote({
-            height: 500,
+            height: 200,
             fontSizes: ['8', '9', '10', '11', '12', '14', '18', '20', '22', '24', '26', '28', '30'],
             toolbar: [
                 ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -201,6 +203,7 @@
             'top': `${top_text}px`,
             'height': `${height_text}px`,
             'padding-left': '100px',
+            'line-height': `${height_text}px`,
             'padding-right': '100px',
         });
 
@@ -216,7 +219,7 @@
 
     // Event that updates the text in the template preview
     function changeText(target) {
-        const certificate_text_frame = $('#certificate-text-frame');
+        const certificate_text_frame = $('#certificate-text-content');
         certificate_text_frame.html(target.currentTarget.value);
     }
 
