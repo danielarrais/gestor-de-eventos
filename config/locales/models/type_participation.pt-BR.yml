@@ -1,0 +1,13 @@
+'pt-BR':
+  activerecord:
+    models:
+      type_participation:
+        one: 'Tipo de Participação'
+        other: 'Tipos de Participação'
+    attributes:
+      type_participation:
+        name: "Nome"
+  helpers:
+    placeholder:
+      type_participation:
+        name: "Nome"

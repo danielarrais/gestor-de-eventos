@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :type_participations
   resources :certificate_templates do
     collection do
       get :load_selected_signatures

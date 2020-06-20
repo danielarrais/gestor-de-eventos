@@ -1,0 +1,23 @@
+<%= form_with(model: type_participation, local: true) do |f| %>
+  <%= validations_errors(f.object) %>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control', placeholder: true %>
+      </div>
+    </div>
+  </div>
+
+  <div class="clearfix">
+    <div class="float-right">
+      <%= link_to "<span><i class='fa fa-arrow-left mr-1'></i>#{i18n_word(:come_back)}</span>".html_safe, :back,
+                  class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
+      <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple") do %>
+        <span><i class="fa fa-floppy-o mr-1"></i> <%= i18n_word(:save) %></span>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+
