@@ -2,6 +2,7 @@ class Event < ApplicationRecord
   belongs_to :image, required: false
   belongs_to :parent_event, class_name: 'Event', foreign_key: 'event_id', required: false
   belongs_to :event_category
+  belongs_to :participants
 
   has_many :child_events, :class_name => "Event"
 

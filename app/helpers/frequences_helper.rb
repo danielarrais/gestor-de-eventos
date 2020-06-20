@@ -1,0 +1,2 @@
+module FrequencesHelper
+end

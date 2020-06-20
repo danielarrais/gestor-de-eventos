@@ -1,0 +1,148 @@
+<%= form_with(model: frequence, local: true) do |f| %>
+  <%= validations_errors(f.object) %>
+  <%= f.hidden_field :event_id %>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= output_tag :name, frequence.event, frequence.event.name %>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= output_tag :start_date, frequence.event, frequence.event.start_date.strftime('%d/%m/%Y %H:%M') %>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= output_tag :closing_date, frequence.event, frequence.event.start_date.strftime('%d/%m/%Y %H:%M') %>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="form-group">
+        <%= output_tag :event_category_id, frequence.event, frequence.event.event_category.name %>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <%= output_tag :workload, frequence.event, "#{frequence.event.workload} Horas" %>
+      </div>
+    </div>
+    <div class="col-auto">
+      <div class="form-group">
+        <%= label_tag :image, i18n_model(:event, :image) %>
+        <div>
+          <%= view_image_button(frequence.event.image.url, i18n_model(:event, :image), button_text: 'Visualizar') %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <% id_accordion = "accordion-#{frequence.event.id}" %>
+      <% id_collapse = "collapse-#{frequence.event.id}" %>
+      <% id_heading = "heading-#{frequence.event.id}" %>
+      <div class="accordion mb-0" id="<%= id_accordion %>">
+        <div class="card shadow-none mb-0 bg-secondary">
+          <div class="card-header bg-secondary p-0" id="<%= id_heading %>">
+            <h5 class="mb-0">
+              <button class="btn btn-link w-100 text-primary text-left" type="button" data-toggle="collapse" data-target="#<%= id_collapse %>" aria-expanded="true" aria-controls="<%= id_collapse %>">
+                <i class="fa fa-list mr-2 mt-1 float-left"></i>
+                Frequência
+                <i class="ni ni-bold-down mt-1 float-right"></i>
+              </button>
+            </h5>
+          </div>
+          <div id="<%= id_collapse %>" class="collapse" aria-labelledby="<%= id_heading %>" data-parent="#<%= id_accordion %>">
+            <div class="card-body opacity-8">
+              <%= f.nested_fields_for :participants, f.object.participants || f.object.build_participants do |participant| %>
+                <%= form_with(model: participant.object, remote: true) do |f_participant| %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <% if frequence.event.child_events.any? %>
+      <div class="col-sm-12 mt-3">
+        <h5>Subeventos</h5>
+        <% frequence.event.child_events.each do |child_event| %>
+          <div class="col-sm-12 form-area bg-secondary mb-4">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= output_tag :name, child_event, child_event.name %>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <%= output_tag :start_date, child_event, child_event.start_date.strftime('%d/%m/%Y %H:%M') %>
+              </div>
+              <div class="col-md-3">
+                <%= output_tag :closing_date, child_event, child_event.closing_date.strftime('%d/%m/%Y %H:%M') %>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= output_tag :event_category_id, child_event, child_event.event_category.name %>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <%= output_tag :workload, child_event, "#{child_event.workload} Hora (s)" %>
+                </div>
+              </div>
+              <div class="col-sm-auto">
+                <div class="form-group">
+                  <div class="custom-control custom-checkbox">
+                    <%= check_box_tag "own_certificate_#{child_event.id}", false,
+                                      child_event.own_certificate,
+                                      class: 'custom-control-input d-none', disabled: true %>
+                    <%= label_tag "own_certificate_#{child_event.id}", i18n_model(:event, :own_certificate), class: 'custom-control-label' %>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <% id_accordion = "accordion-#{child_event.id}" %>
+                <% id_collapse = "collapse-#{child_event.id}" %>
+                <% id_heading = "heading-#{child_event.id}" %>
+                <div class="accordion mb-0" id="<%= id_accordion %>">
+                  <div class="card shadow-none mb-0">
+                    <div class="card-header p-0" id="<%= id_heading %>">
+                      <h5 class="mb-0">
+                        <button class="btn btn-link w-100 text-primary text-left" type="button" data-toggle="collapse" data-target="#<%= id_collapse %>" aria-expanded="true" aria-controls="<%= id_collapse %>">
+                          <i class="fa fa-list mr-2 mt-1 float-left"></i>
+                          Frequência
+                          <i class="ni ni-bold-down mt-1 float-right"></i>
+                        </button>
+                      </h5>
+                    </div>
+
+                    <div id="<%= id_collapse %>" class="collapse" aria-labelledby="<%= id_heading %>" data-parent="#<%= id_accordion %>">
+                      <div class="card-body opacity-8">
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="clearfix">
+    <div class="float-right">
+      <%= link_to "<span><i class='fa fa-arrow-left mr-1'></i>#{i18n_word(:come_back)}</span>".html_safe, :back,
+                  class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
+      <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple") do %>
+        <span><i class="fa fa-floppy-o mr-1"></i> <%= i18n_word(:save) %></span>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+

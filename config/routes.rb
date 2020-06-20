@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :frequences, except: [:edit, :destroy, :create] do
+    collection do
+      get :edit
+    end
+  end
   resources :type_participations
   resources :certificate_templates do
     collection do
