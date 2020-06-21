@@ -30,7 +30,7 @@ class ParticipantsController < ApplicationController
   def create
     @form_id = params[:id_form]
     @participant = Participant.new(participant_params)
-    @participant.status = 1
+    @participant.status = :confirmed_presence
     if @participant.save
       flash[:success] = 'Participante adicionado com sucesso'
     end
@@ -80,7 +80,7 @@ class ParticipantsController < ApplicationController
         participant.email = data[2]
         participant.workload = @event.workload
         participant.type_participation = @type_participation
-        participant.status = 1
+        participant.status = :confirmed_presence
 
         participant.save
       end

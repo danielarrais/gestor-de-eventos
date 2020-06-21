@@ -8,6 +8,10 @@ class Participant < ApplicationRecord
 
   before_validation :set_person
 
+  enum status: { confirmed_subscription: 1,
+                 confirmed_presence: 2,
+                 unsubscribed: 3 }
+
   private
 
   def set_person

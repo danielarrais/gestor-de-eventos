@@ -1,5 +1,5 @@
 <%= form_with(model: participant, remote: true) do |fp| %>
-  <%= modal("#{fp.object.id || 'new-participant'}", "#{participant.new_record? ? 'Adicionar' : 'Editar'} Participante", size: :lg) do %>
+  <%= modal("#{fp.object.id || 'new-participant'}", "#{participant.new_record? ? 'Adicionar' : 'Editar'} Participante", size: :xl) do %>
     <%= modal_body do %>
       <%= fp.hidden_field :event_id %>
       <%= fp.hidden_field :frequence_id %>

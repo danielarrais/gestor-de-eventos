@@ -8,3 +8,8 @@
       participant:
         type_participation: "Tipo de Participação"
         workload: "Carga Horária"
+        status: "Status2"
+        status_enum:
+          confirmed_subscription: "Inscrição Confirmada"
+          confirmed_presence: "Presença Confirmada"
+          unsubscribed: "Incrição Cancelada"
