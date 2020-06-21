@@ -1,30 +1,32 @@
 <table class="table" id="<%= id %>">
   <thead>
   <tr>
-    <th class="bold">Nome Completo</th>
-    <th class="bold">Email</th>
-    <th class="bold">C. Horária</th>
-    <th class="bold">Matrícula</th>
-    <th class="bold">CPF</th>
-    <th class="text-center bold">Participação</th>
-    <td style="width: 1%" class="text-center bold" colspan="3">Ações</td>
+    <th class="pt-3 pb-3 pl-2 pr2 bold">Nome Completo</th>
+    <th class="pt-3 pb-3 pl-2 pr2 bold">Email</th>
+    <th class="pt-3 pb-3 pl-2 pr2 bold">C. Horária</th>
+    <th class="pt-3 pb-3 pl-2 pr2 bold">Matrícula</th>
+    <th class="pt-3 pb-3 pl-2 pr2 bold">CPF</th>
+    <th class="pt-3 pb-3 pl-2 pr2 text-center bold">Participação</th>
+    <th style="width: 1%;" class="pt-3 pb-3 pl-2 pr2 text-center bold">Ações</th>
   </tr>
   </thead>
   <tbody>
   <% participants.each do |participant| %>
     <tr id="<%= participant.id %>'">
-      <td><%= participant.name %> <%= participant.surname %></td>
-      <td><%= participant.email %></td>
-      <td><%= participant.workload %> Horas</td>
-      <td><%= participant.registration %></td>
-      <td><%= participant.cpf %></td>
-      <td class="text-center"><%= participant.type_participation.name %></td>
-      <td style="width: 1%" class="text-center bold" colspan="3">
+      <td class="p-2"><%= participant.name %> <%= participant.surname %></td>
+      <td class="p-2"><%= participant.email %></td>
+      <td class="p-2"><%= participant.workload %> Horas</td>
+      <td class="p-2"><%= participant.registration %></td>
+      <td class="p-2"><%= participant.cpf %></td>
+      <td class="p-2"><%= participant.type_participation.name %></td>
+      <td style="width: 1%" class="p-2 text-center" colspan="3">
         <% url = participant.id.present? ? participant_path(id: participant.id) : '#' %>
-        <%= link_to '<span><i class="fa fa-pencil"></i></span>'.html_safe, edit_participant_path(participant),
-                    class: 'btn btn-primary btn-icon btn-sm', remote: true %>
+        <%= link_to '<span><i class="fa fa-edit"></i></span>'.html_safe, edit_participant_path(participant),
+                    class: 'btn btn-primary btn-icon btn-sm', remote: true,
+                    data: { toggle: 'tooltip', placement: 'bottom' }, title: "Editar" %>
         <%= link_to '<span><i class="fa fa-trash"></i></span>'.html_safe, 'javascript:void(0)', onclick: 'remove(this)',
-                    data: { url: url }, class: 'btn btn-danger btn-icon btn-sm' %>
+                    class: 'btn btn-danger btn-icon btn-sm',
+                    data: { toggle: 'tooltip', placement: 'bottom', url: url }, title: "Excluir" %>
       </td>
     </tr>
   <% end %>

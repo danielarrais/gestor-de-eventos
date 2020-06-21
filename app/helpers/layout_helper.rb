@@ -2,8 +2,10 @@ module LayoutHelper
   def view_image_button(url, title, button_text: '', id: Util::genarate_random_string(25))
     url ||= url_image_fake(text: 'IMAGEM NÃO ENCONTRADA', resolution: '500x500')
 
-    content = link_to "<span><i class='fa fa-search #{'mr-1' unless button_text.blank?}'></i>#{button_text}</span>".html_safe, '#',
-                      class: 'btn btn-default btn-icon btn-1 btn-simple', data: { toggle: "modal", target: "##{id}-modal" }
+    content = content_tag :label, data: { toggle: 'tooltip', placement: 'bottom' }, title: "Visualizar Imagem" do
+      link_to "<span><i class='fa fa-search #{'mr-1' unless button_text.blank?}'></i>#{button_text}</span>".html_safe, '#',
+              class: 'btn btn-default btn-icon btn-1 btn-simple', data: { toggle: "modal", target: "##{id}-modal" }
+    end
 
     content << modal(id, title, size: :lg) do
       concat(modal_body do

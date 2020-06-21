@@ -25,9 +25,9 @@
         <%%= link_to '<span><i class="fa fa-search"></i></span>'.html_safe, <%= model_resource_name %>,
                     class: 'btn btn-primary btn-icon btn-sm btn-simple'%>
         <%%= link_to '<span><i class="fa fa-edit"></i></span>'.html_safe, edit_<%= singular_route_name %>_path(<%= singular_table_name %>),
-                    class: 'btn btn-icon btn-sm btn-warning' %>
+                    class: 'btn btn-icon btn-sm btn-warning', data: { toggle: 'tooltip', placement: 'bottom' }, title: "Editar" %>
         <%%= link_to '<span><i class="fa fa-trash"></i></span>'.html_safe, <%= model_resource_name %>,
-                    method: :delete, data: { confirm: 'Você tem certeza?' },
+                    method: :delete, data: { confirm: 'Você tem certeza?', toggle: 'tooltip', placement: 'bottom' }, title: "Excluir",
                     class: 'btn btn-icon btn-sm btn-danger' %>
       </td>
     </tr>

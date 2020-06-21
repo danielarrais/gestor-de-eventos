@@ -14,7 +14,7 @@
     <th class="text-white bold">
       Descrição
     </th>
-    <th class="text-white text-center bold">
+    <th style="width: 1%;" class="text-white text-center bold">
       Ações
     </th>
   </tr>
@@ -30,9 +30,11 @@
       </td>
       <td class="text-center">
         <%= link_to '<span><i class="fa fa-search"></i></span>'.html_safe, action,
-                    class: 'btn btn-primary btn-icon btn-sm btn-simple' %>
+                    class: 'btn btn-primary btn-icon btn-sm btn-simple',
+                    data: { toggle: 'tooltip', placement: 'bottom' }, title: "Visualizar" %>
         <%= link_to '<span><i class="fa fa-edit"></i></span>'.html_safe, edit_permission_path(action),
-                    class: 'btn btn-icon btn-sm btn-warning' %>
+                    class: 'btn btn-icon btn-sm btn-warning',
+                    data: { toggle: 'tooltip', placement: 'bottom' }, title: "Editar" %>
       </td>
     </tr>
 

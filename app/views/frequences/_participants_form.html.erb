@@ -24,7 +24,10 @@
         <div class="form-group ml-2 ">
           <%= link_to span_icon('Adicionar Participante', 'plus', margin: 2), new_participant_path(event: event.id, frequence: frequence.id),
                       class: 'btn btn-sm btn-default', remote: true %>
-          <%= label_tag "planilha-#{event.id}", span_icon('Importar', 'file', margin: 2), class: 'btn btn-sm m-0 btn-default' %>
+          <%= label_tag "planilha-#{event.id}",
+                        span_icon('Importar', 'file-excel-o', margin: 2),
+                        class: 'btn btn-sm m-0 btn-default',
+                        data: { toggle: 'tooltip', placement: 'bottom' }, title: "Importar de uma planilha CSV" %>
         </div>
         <%= form_for(:arquive, url: import_from_csv_participants_path, remote: true) do |f| %>
           <%= hidden_field_tag :event, event.id %>
