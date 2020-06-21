@@ -28,7 +28,7 @@
                 <% url = ff.object.url %>
 
                 <%= ff.hidden_field :id %>
-                <%= ff.image_field(:file, 'Procurar', 'Alterar', id: 'fileinput', onchange: 'onChangeImage();', value: url) %>
+                <%= ff.image_field(:file, 'Procurar', 'Alterar', id: 'fileinput', value: url) %>
               </div>
             <% end %>
             <div class="col-md">
@@ -76,15 +76,7 @@
         <% end %>
       </div>
       <div class="tab-pane fade" id="preview" role="tabpanel" aria-labelledby="preview-tab">
-        <div id="certificate-frame">
-          <div id="certificate-text-frame">
-            <div id="certificate-text-content">
-            </div>
-          </div>
-          <div id="certificate-signatures-frame">
-            <%= render 'view_certificate_signatures', certificate_signatures: certificate_template.certificate_signatures %>
-          </div>
-        </div>
+        <%= render 'show', certificate_template: certificate_template %>
       </div>
     </div>
   </div>
@@ -97,20 +89,16 @@
         choices_signatures.addEventListener('removeItem', onChangeSignatures, true,);
         choices_signatures.addEventListener('addItem', onChangeSignatures, true,);
 
-        <% unless certificate_template.new_record? %>
-        $('#certificate-frame').css('background-image', `url(<%= certificate_template.image.url %>)`)
-        $('#certificate-text-content').html('<%= j certificate_template.body.html_safe %>')
-        <% end %>
+        $("#preview-tab").on("click", function() {
+            changeText();
+            changeImage();
+        });
 
-        $(".summernote").on("summernote.change", changeText);
-
-        startSummernoteWithCustomMenu();
-
-        loadPreview();
+        createSummernoteWithCustomMenu();
     })
 
     // Creates a customized summernote for editing templates
-    function startSummernoteWithCustomMenu() {
+    function createSummernoteWithCustomMenu() {
         const contents = '<%= j CertificateTemplate::TAGS_TEMPLATES.to_a.map{ |tag, descricao|
                               content_tag(:li, descricao, class: 'pl-3 pr-3 cursor-pointer nowrap',  data: {tag: "#{tag}"},  style: '')
                           }.join('').html_safe %>'
@@ -173,54 +161,19 @@
 
         newRange.sc.textContent = newRange.sc.textContent.substring(0, newRange.so) + text + newRange.sc.textContent.substring(newRange.so, newRange.sc.textContent.length);
         templateInput.summernote('setLastRange', $.summernote.range.create(newRange.sc, newRange.so + text.length).select());
+
+        $(".summernote").triggerHandler("summernote.change");
     }
 
-    function onChangeImage() {
-        setTimeout(() => {
-            $('#certificate-frame').css('background-image', `url(${$('#fileinput-preview > img').attr('src')})`);
-        }, 500)
-        loadPreview();
-    }
-
-    // Generates template preview layout
-    function loadPreview() {
-        const heigth_a4_ref = 807.467
-        const width_a4_ref = 1142
-
-        const certificate_frame = $('#certificate-frame');
-        const certificate_text_frame = $('#certificate-text-frame');
-        const certificate_signatures_frame = $('#certificate-signatures-frame');
-
-        const width = $('#form').width();
-        const height = parseInt(width) * heigth_a4_ref / width_a4_ref;
-
-        certificate_frame.css('height', height);
-
-        const top_text = parseInt(height) * 310 / heigth_a4_ref;
-        const height_text = parseInt(height) * 220 / heigth_a4_ref;
-
-        certificate_text_frame.css({
-            'top': `${top_text}px`,
-            'height': `${height_text}px`,
-            'padding-left': '100px',
-            'line-height': `${height_text}px`,
-            'padding-right': '100px',
-        });
-
-        const top_signatures = (parseInt(height) * 570 / heigth_a4_ref) - height_text;
-
-        certificate_signatures_frame.css({
-            'top': `${top_signatures}px`,
-            'padding-left': '100px',
-            'padding-right': '100px',
-        });
-
+    function changeImage() {
+        const url = $('#fileinput-image').attr('src')
+        $('#certificate-frame').css('background-image', `url(${url})`);
     }
 
     // Event that updates the text in the template preview
-    function changeText(target) {
+    function changeText() {
         const certificate_text_frame = $('#certificate-text-content');
-        certificate_text_frame.html(target.currentTarget.value);
+        certificate_text_frame.html($('#certificate_template_body').val());
     }
 
     // Event that updates the signatures of the template preview

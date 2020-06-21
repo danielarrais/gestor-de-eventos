@@ -1,0 +1,58 @@
+<div id="certificate-frame">
+  <div id="certificate-text-frame">
+    <div id="certificate-text-content">
+    </div>
+  </div>
+  <div id="certificate-signatures-frame">
+    <%= render 'view_certificate_signatures', certificate_signatures: certificate_template.certificate_signatures %>
+  </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(() => {
+        loadPreview();
+        loadData();
+    })
+
+    function loadData() {
+        <% unless certificate_template.new_record? %>
+          $('#certificate-frame').css('background-image', `url(<%= certificate_template.image.url %>)`)
+          $('#certificate-text-content').html('<%= j certificate_template.body.html_safe %>')
+        <% end %>
+    }
+
+    // Generates template preview layout
+    function loadPreview() {
+        const heigth_a4_ref = 807.467
+        const width_a4_ref = 1142
+
+        const certificate_frame = $('#certificate-frame');
+        const certificate_text_frame = $('#certificate-text-frame');
+        const certificate_signatures_frame = $('#certificate-signatures-frame');
+
+        const width = $('#form').width() || certificate_frame.parent().width();
+        const height = parseInt(width) * heigth_a4_ref / width_a4_ref;
+
+        certificate_frame.css('height', height);
+
+        const top_text = parseInt(height) * 310 / heigth_a4_ref;
+        const height_text = parseInt(height) * 220 / heigth_a4_ref;
+
+        certificate_text_frame.css({
+            'top': `${top_text}px`,
+            'height': `${height_text}px`,
+            'padding-left': '100px',
+            'line-height': `${height_text}px`,
+            'padding-right': '100px',
+        });
+
+        const top_signatures = (parseInt(height) * 570 / heigth_a4_ref) - height_text;
+
+        certificate_signatures_frame.css({
+            'top': `${top_signatures}px`,
+            'padding-left': '100px',
+            'padding-right': '100px',
+        });
+
+    }
+</script>
