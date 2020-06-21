@@ -5,7 +5,15 @@
   <div class="float-right pt-2">
     <%= icon_link i18n_word(:register), 'plus', new_certificate_template_path %>
   </div>
+  <div class="float-right pt-2 mr-4">
+    <%= icon_link i18n_word(:filter), 'filter', "#collapseFilter", data: { toggle: 'collapse' },
+                  aria: { expanded: "false", controls: "collapseFilter" } %>
+  </div>
 </div>
+
+<%= card_filter do %>
+  filtros
+<% end %>
 
 <div class="row">
   <DIV class="col-sm-12">

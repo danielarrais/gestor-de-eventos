@@ -1,9 +1,19 @@
-<div class="float-left">
-  <%= page_title('Permissões do Sistema') %>
+<div class="clearfix">
+  <div class="float-left">
+    <%= page_title('Permissões do Sistema') %>
+  </div>
+  <div class="float-right pt-2">
+    <%= link_to '<span><i class="fa fa-repeat"></i> Importar</span>'.html_safe, recreate_and_update_all_permissions_path %>
+  </div>
+  <div class="float-right pt-2 mr-4">
+    <%= icon_link i18n_word(:filter), 'filter', "#collapseFilter", data: { toggle: 'collapse' },
+                  aria: { expanded: "false", controls: "collapseFilter" } %>
+  </div>
 </div>
-<div class="float-right pt-2">
-  <%= link_to '<span><i class="fa fa-repeat"></i> Importar</span>'.html_safe, recreate_and_update_all_permissions_path %>
-</div>
+
+<%= card_filter do %>
+  filtros
+<% end %>
 
 <table class="table">
   <thead>

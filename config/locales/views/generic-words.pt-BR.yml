@@ -15,3 +15,4 @@
     generate_event: 'Gerar Evento'
     return: 'Devolver'
     return_for_changes: 'Devolver para alterações'
+    filter: 'Filtrar'

@@ -62,8 +62,20 @@ module LayoutHelper
     end
   end
 
-  def icon_link(text, icon, path)
-    link_to span_icon(text, icon).html_safe, path
+  def icon_link(text, icon, path, options = nil)
+    link_to span_icon(text, icon, margin: 2).html_safe, path, options
+  end
+
+  def card_filter(id = 'collapseFilter', &block)
+    content_tag('div', class: 'row') do
+      content_tag('div', class: 'col') do
+        content_tag('div', class: 'collapse', id: 'collapseFilter') do
+          content_tag('div', class: 'card bg-secondary card-body shadow-none') do
+            capture(&block)
+          end
+        end
+      end
+    end
   end
 
   def span_icon(text, icon, margin: 0)

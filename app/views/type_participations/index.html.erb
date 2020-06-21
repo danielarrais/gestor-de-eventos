@@ -1,9 +1,19 @@
-<div class="float-left">
-  <%= page_title(i18n_model(:type_participation, plural: true)) %>
+<div class="clearfix">
+  <div class="float-left">
+    <%= page_title(i18n_model(:type_participation, plural: true)) %>
+  </div>
+  <div class="float-right pt-2">
+    <%= icon_link i18n_word(:register), 'plus', new_type_participation_path %>
+  </div>
+  <div class="float-right pt-2 mr-4">
+    <%= icon_link i18n_word(:filter), 'filter', "#collapseFilter", data: { toggle: 'collapse' },
+                  aria: { expanded: "false", controls: "collapseFilter" } %>
+  </div>
 </div>
-<div class="float-right pt-2">
-  <%= icon_link i18n_word(:register), 'plus', new_type_participation_path %>
-</div>
+
+<%= card_filter do %>
+  filtros
+<% end %>
 
 <table class="table">
   <thead>
