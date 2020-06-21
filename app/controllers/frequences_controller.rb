@@ -1,6 +1,5 @@
 class FrequencesController < ApplicationController
   before_action :set_frequence, only: [:show, :edit, :update]
-  before_action :set_list_for_select, only: [:edit]
 
   # GET /frequences/1/edit
   def edit
@@ -20,9 +19,6 @@ class FrequencesController < ApplicationController
   end
 
   private
-  def set_list_for_select
-    @type_participations = TypeParticipation.select(:name, :id).map { |k, v| [k.name, k.id] }
-  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_frequence

@@ -1,5 +1,6 @@
 class ParticipantsController < ApplicationController
   before_action :set_participant, only: [:show, :edit, :update, :destroy]
+  before_action :set_list_for_select, only: [:edit, :new]
 
   # GET /participants
   def index
@@ -12,7 +13,11 @@ class ParticipantsController < ApplicationController
 
   # GET /participants/new
   def new
-    @participant = Participant.new
+    if params[:event].present? && params[:frequence].present?
+      @participant = Participant.new(event_id: params[:event], frequence_id: params[:frequence])
+    else
+      flash[:error] = "Evento ou frequência não encontrados"
+    end
   end
 
   # GET /participants/1/edit
@@ -31,15 +36,12 @@ class ParticipantsController < ApplicationController
   # PATCH/PUT /participants/1
   def update
     if @participant.update(participant_params)
-      redirect_to @participant, success: 'Participant was successfully updated.'
-    else
-      render :edit
+      flash[:success] = 'Participante atualizado com sucesso'
     end
   end
 
   # DELETE /participants/1
   def destroy
-    @form_id = params[:id_form]
     if @participant.present?
       @participant.destroy
       flash[:success] = 'Participante removido com sucesso'
@@ -49,6 +51,9 @@ class ParticipantsController < ApplicationController
   end
 
   private
+  def set_list_for_select
+    @type_participations = TypeParticipation.select(:name, :id).map { |k, v| [k.name, k.id] }
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_participant
@@ -59,7 +64,7 @@ class ParticipantsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def participant_params
-    params.require(:participant).permit(:person_id, :frequence_id, :type_participation_id,
-                                        :event_id, :status, :workload, person_attributes: [:cpf, :name])
+    params.require(:participant).permit(:person_id, :frequence_id, :type_participation_id, :email,
+                                        :event_id, :status, :workload, person_attributes: [:cpf, :name, :registration])
   end
 end

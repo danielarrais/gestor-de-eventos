@@ -1,43 +1,67 @@
-<%= form_for participant, remote: true do |fp| %>
-  <%= hidden_field_tag :id_form %>
-
-  <%= fp.hidden_field :id %>
-  <%= fp.hidden_field :event_id, value: event.id %>
-  <%= fp.hidden_field :frequence_id, value: form.object.id %>
-  <div class="row pt-3" style="z-index: 100000">
-    <div class="col-sm-12">
-      <span id="errors"></span>
-    </div>
-    <% person = fp.object.person || fp.object.build_person %>
-    <%= fp.fields_for :person, person do |fpe| %>
-      <div class="col-sm-3">
-        <div class="form-group">
-          <%#= fpe.label :name %>
-          <%= fpe.text_field :name, class: 'form-control', placeholder: true %>
+<%= form_with(model: participant, remote: true) do |fp| %>
+  <%= modal("#{fp.object.id || 'new-participant'}", "#{participant.new_record? ? 'Adicionar' : 'Editar'} Participante", size: :lg) do %>
+    <%= modal_body do %>
+      <%= fp.hidden_field :event_id %>
+      <%= fp.hidden_field :frequence_id %>
+      <div class="row pl-2 pr-2" style="z-index: 100000">
+        <div class="col-sm-12">
+          <span id="errors"></span>
         </div>
-      </div>
-      <div class="col-sm-2">
-        <div class="form-group">
-          <%#= fpe.label :cpf %>
-          <%= fpe.text_field :cpf, class: 'form-control cpf-mask', placeholder: true %>
+        <% person = fp.object.person || fp.object.build_person %>
+        <%= fp.fields_for :person, person do |fpe| %>
+          <%= fpe.hidden_field :id %>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <%= fpe.label :name %>
+              <%= fpe.text_field :name, class: 'form-control', placeholder: true %>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <%= fpe.label :surname %>
+              <%= fpe.text_field :surname, class: 'form-control', placeholder: true %>
+            </div>
+          </div>
+          <div class="col-sm-5">
+            <div class="form-group">
+              <%= fp.label :email %>
+              <%= fp.text_field :email, class: 'form-control', placeholder: true %>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <% workload = participant.workload || participant.event.workload %>
+              <%= fp.label :workload %>
+              <%= fp.text_field :workload, value: workload, class: 'form-control', placeholder: true %>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <%= fpe.label :registration %>
+              <%= fpe.text_field :registration, class: 'form-control', placeholder: true %>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <%= fpe.label :cpf %>
+              <%= fpe.text_field :cpf, class: 'form-control cpf-mask', placeholder: true %>
+            </div>
+          </div>
+        <% end %>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <%= fp.label :type_participation %>
+            <%= fp.select(:type_participation_id, @type_participations,
+                          { include_blank: true },
+                          { size: 5, class: 'form-control choices' }) %>
+          </div>
         </div>
       </div>
     <% end %>
-    <div class="col">
-      <div class="form-group">
-        <%#= fp.label :type_participation %>
-        <%= fp.select(:type_participation_id, @type_participations,
-                      { include_blank: true },
-                      { size: 5, class: 'form-control choices' }) %>
-      </div>
-    </div>
-    <div class="col-auto">
-      <%= link_to('javascript:void(0)', class: 'btn btn-primary btn-icon btn-1 btn-simple', onclick: 'submit(this)') do %>
-        <i class="fa fa-floppy-o mr-1"></i>
+    <%= modal_footer do %>
+      <%= button_tag(class: 'btn btn-primary btn-icon btn-1 btn-simple') do %>
+        <i class="fa fa-floppy-o"></i> Salvar
       <% end %>
-      <% url = participant.id.present? ? participant_path(id: participant.id) : '#' %>
-      <%= link_to '<span><i class="fa fa-trash"></i></span>'.html_safe, 'javascript:void(0)', onclick: 'remove(this)',
-                  data: { url: "#{url}" }, class: 'btn btn-danger btn-icon btn-1 btn-simple' %>
-    </div>
-  </div>
+    <% end %>
+  <% end %>
 <% end %>

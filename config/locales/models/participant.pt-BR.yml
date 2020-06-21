@@ -7,3 +7,4 @@
     attributes:
       participant:
         type_participation: "Tipo de Participação"
+        workload: "Carga Horária"

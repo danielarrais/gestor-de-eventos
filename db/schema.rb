@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_14_210858) do
+ActiveRecord::Schema.define(version: 2020_06_20_161246) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,13 @@ ActiveRecord::Schema.define(version: 2020_06_14_210858) do
     t.bigint "oriented_activity_id", null: false
   end
 
+  create_table "frequences", force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_frequences_on_event_id"
+  end
+
   create_table "guideds", force: :cascade do |t|
     t.bigint "person_id", null: false
     t.bigint "course_id", null: false
@@ -125,13 +132,29 @@ ActiveRecord::Schema.define(version: 2020_06_14_210858) do
     t.index ["person_id"], name: "index_oriented_activities_people_on_person_id"
   end
 
+  create_table "participants", force: :cascade do |t|
+    t.bigint "person_id", null: false
+    t.bigint "frequence_id", null: false
+    t.bigint "type_participation_id", null: false
+    t.bigint "event_id", null: false
+    t.string "email"
+    t.integer "status"
+    t.integer "workload"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_participants_on_event_id"
+    t.index ["frequence_id"], name: "index_participants_on_frequence_id"
+    t.index ["person_id"], name: "index_participants_on_person_id"
+    t.index ["type_participation_id"], name: "index_participants_on_type_participation_id"
+  end
+
   create_table "people", force: :cascade do |t|
     t.string "registration"
     t.string "cpf", null: false
     t.string "name", null: false
-    t.string "surname", null: false
+    t.string "surname"
     t.string "cellphone"
-    t.datetime "date_of_birth", null: false
+    t.datetime "date_of_birth"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -181,6 +204,12 @@ ActiveRecord::Schema.define(version: 2020_06_14_210858) do
     t.index ["person_id"], name: "index_situations_on_person_id"
   end
 
+  create_table "type_participations", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "encrypted_password"
@@ -211,11 +240,16 @@ ActiveRecord::Schema.define(version: 2020_06_14_210858) do
   add_foreign_key "events", "images"
   add_foreign_key "events_oriented_activities", "events"
   add_foreign_key "events_oriented_activities", "oriented_activities"
+  add_foreign_key "frequences", "events"
   add_foreign_key "guideds", "people"
   add_foreign_key "guideds_oriented_activities", "guideds"
   add_foreign_key "guideds_oriented_activities", "oriented_activities"
   add_foreign_key "oriented_activities_people", "oriented_activities"
   add_foreign_key "oriented_activities_people", "people"
+  add_foreign_key "participants", "events"
+  add_foreign_key "participants", "frequences"
+  add_foreign_key "participants", "people"
+  add_foreign_key "participants", "type_participations"
   add_foreign_key "permissions_profiles", "permissions"
   add_foreign_key "permissions_profiles", "profiles"
   add_foreign_key "profiles_users", "profiles"

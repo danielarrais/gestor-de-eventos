@@ -1,35 +1,33 @@
-<div class="col-md-12">
-  <% id_accordion = "accordion-#{event.id}" %>
-  <% id_collapse = "collapse-#{event.id}" %>
-  <% id_heading = "heading-#{event.id}" %>
-  <div class="accordion mb-0" id="<%= id_accordion %>">
-    <div class="card shadow-none mb-0 bg-secondary overflow-visible">
-      <div class="card-header bg-secondary p-0" id="<%= id_heading %>">
-        <h5 class="mb-0">
-          <button class="btn btn-link w-100 text-primary text-left" type="button" data-toggle="collapse" data-target="#<%= id_collapse %>" aria-expanded="true" aria-controls="<%= id_collapse %>">
-            <i class="fa fa-list mr-2 mt-1 float-left"></i>
-            Frequência
-            <i class="ni ni-bold-down mt-1 float-right"></i>
-          </button>
-        </h5>
+<% event ||= frequence.event %>
+<% id_accordion = "accordion-#{event.id}" %>
+<% id_collapse = "collapse-#{event.id}" %>
+<% id_heading = "heading-#{event.id}" %>
+<% background ||= 'bg-secondary' %>
+<div class="accordion mb-0" id="<%= id_accordion %>">
+  <div class="card shadow-none mb-0 <%= background %> overflow-visible">
+    <div class="card-header <%= background %> p-0" id="<%= id_heading %>">
+      <h5 class="mb-0">
+        <button class="btn btn-link w-100 text-dark text-left" type="button" data-toggle="collapse" data-target="#<%= id_collapse %>"
+                aria-expanded="true" aria-controls="<%= id_collapse %>">
+          <i class="fa fa-list mr-2 mt-1 float-left"></i>
+          Frequência
+          <i class="ni ni-bold-down mt-1 float-right"></i>
+        </button>
+      </h5>
+    </div>
+    <div id="<%= id_collapse %>" class="collapse" aria-labelledby="<%= id_heading %>" data-parent="#<%= id_accordion %>">
+      <div class="card-body pb-0 pt-4 overflow-visible">
+        <% participants = frequence.participants&.select { |x| x.event_id == event.id } || [] %>
+        <%= render 'participants/table', participants: participants, id: event.id %>
       </div>
-      <div id="<%= id_collapse %>" class="collapse" aria-labelledby="<%= id_heading %>" data-parent="#<%= id_accordion %>">
-        <div class="card-body pb-0 pt-0 overflow-visible">
-          <% form_nested_id = SecureRandom.uuid %>
-          <!-- Cria div em volta de onde ficará o template para ter o ID substituído vios JS após a redenrização -->
-          <div id='<%= "nested_#{form_nested_id}" %>'> fgf
-            <%= form.nested_fields_for :participants, form.object.participants || [] do |participant| %>
-              <%= render 'participants/form', participant: participant.object, form: form, event: event, frequence: form.object.id %>
-            <% end %>
-          </div>
-        </div>
-        <div class="col-sm-12 ml-2 mt-3">
-          <div class="form-group">
-            <%= form.add_nested_fields_link :participants, span_icon('Novo Participante', 'plus'), id: "#{form_nested_id}",
-                                            class: 'btn btn-sm btn-default' %>
-          </div>
+      <div class="col-sm-12 ml-2 mt-3">
+        <div class="form-group ml-2 ">
+          <%= link_to span_icon('Novo Participante', 'plus', margin: 2), new_participant_path(event: event.id, frequence: frequence.id),
+                      class: 'btn btn-sm btn-default', remote: true %>
+          <%= link_to span_icon('Importar', 'file', margin: 2), '#', class: 'btn btn-sm btn-default' %>
         </div>
       </div>
     </div>
   </div>
 </div>
+<div id="modal"></div>

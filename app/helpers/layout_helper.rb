@@ -64,9 +64,7 @@ module LayoutHelper
     link_to span_icon(text, icon).html_safe, path
   end
 
-  def span_icon(text, icon)
-    margin = text.blank? ? 0 : 1
-
+  def span_icon(text, icon, margin: 0)
     content_tag 'span' do
       concat icon icon, margin: margin
       concat text
