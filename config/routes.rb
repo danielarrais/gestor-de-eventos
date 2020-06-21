@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :participants
   resources :frequences, except: [:edit, :destroy, :create] do
     collection do
       get :edit

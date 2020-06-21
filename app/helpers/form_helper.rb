@@ -2,7 +2,7 @@ module FormHelper
   # Processa e exibe os conteúdos dos flash enviados pelas controllers
   def validations_errors(model, margin: 4)
     return if model.errors.empty?
-    content_tag :div do
+    content_tag :div, class: 'errors' do
       concat content_tag(:strong, alert_messages(:error, model.errors.full_messages, margin: margin))
     end
   end

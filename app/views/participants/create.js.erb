@@ -1,0 +1,21 @@
+<% if @participant.errors.any? %>
+  $('#<%= @form_id %>').find('#errors').html('<%= j validations_errors(@participant, margin: 0) %>')
+<% else %>
+  $('#<%= @form_id %>').find('#errors').children().remove()
+
+  $('#<%= @form_id %>').find('#participant_person_attributes_name').val('<%= @participant.person.name %>')
+  $('#<%= @form_id %>').find('#participant_person_attributes_cpf').val('<%= @participant.person.cpf %>')
+  $('#<%= @form_id %>').find('#participant_type_participation_id').val(<%= @participant.type_participation_id %>)
+  $('#<%= @form_id %>').find('#participant_id').val(<%= @participant.id %>)
+  $('#<%= @form_id %>').find('#participant_event_id').val(<%= @participant.event_id %>)
+  $('#<%= @form_id %>').find('#participant_frequence_id').val('<%= @participant.frequence_id %>')
+
+  $(function () {
+      <% flash.each do |flash, message| %>
+      Toast.fire({
+          icon: '<%= flash %>',
+          title: '<%= message %>'
+      })
+      <% end %>
+  });
+<% end %>

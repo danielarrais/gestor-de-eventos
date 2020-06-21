@@ -1,0 +1,10 @@
+<%= if @participant.present? %>
+  $('#<%= @form_id %>').remove()
+<% else %>
+  <% flash.each do |flash, message| %>
+    Toast.fire({
+        icon: '<%= flash %>',
+        title: '<%= message %>'
+    })
+  <% end %>
+<% end %>
