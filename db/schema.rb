@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_20_161246) do
+ActiveRecord::Schema.define(version: 2020_06_21_034645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "archives", force: :cascade do |t|
+    t.string "origin_type", null: false
+    t.bigint "origin_id", null: false
+    t.string "name", null: false
+    t.binary "content", null: false
+    t.string "format", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["origin_type", "origin_id"], name: "index_archives_on_origin_type_and_origin_id"
+  end
 
   create_table "certificate_signatures", force: :cascade do |t|
     t.string "name", null: false
