@@ -118,4 +118,18 @@
             }
         })
     }
+
+    function importCSV(event) {
+        debugger
+        const formData = new FormData($(event).parent().get(0));
+
+        $.ajax({
+            url: '<%= import_from_csv_participants_path %>',
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: 'script'
+        })
+    }
 </script>

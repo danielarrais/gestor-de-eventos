@@ -144,18 +144,20 @@ ActiveRecord::Schema.define(version: 2020_06_21_034645) do
   end
 
   create_table "participants", force: :cascade do |t|
-    t.bigint "person_id", null: false
-    t.bigint "frequence_id", null: false
-    t.bigint "type_participation_id", null: false
-    t.bigint "event_id", null: false
+    t.bigint "frequence_id"
+    t.bigint "type_participation_id"
+    t.bigint "event_id"
     t.string "email"
+    t.string "name"
+    t.string "surname"
+    t.string "registration"
+    t.string "cpf"
     t.integer "status"
     t.integer "workload"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_participants_on_event_id"
     t.index ["frequence_id"], name: "index_participants_on_frequence_id"
-    t.index ["person_id"], name: "index_participants_on_person_id"
     t.index ["type_participation_id"], name: "index_participants_on_type_participation_id"
   end
 
@@ -217,6 +219,7 @@ ActiveRecord::Schema.define(version: 2020_06_21_034645) do
 
   create_table "type_participations", force: :cascade do |t|
     t.string "name", null: false
+    t.string "key", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -259,7 +262,6 @@ ActiveRecord::Schema.define(version: 2020_06_21_034645) do
   add_foreign_key "oriented_activities_people", "people"
   add_foreign_key "participants", "events"
   add_foreign_key "participants", "frequences"
-  add_foreign_key "participants", "people"
   add_foreign_key "participants", "type_participations"
   add_foreign_key "permissions_profiles", "permissions"
   add_foreign_key "permissions_profiles", "profiles"

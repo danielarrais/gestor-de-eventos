@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :participants
+  resources :participants do
+    collection do
+      post :import_from_csv
+    end
+  end
   resources :frequences, except: [:edit, :destroy, :create] do
     collection do
       get :edit

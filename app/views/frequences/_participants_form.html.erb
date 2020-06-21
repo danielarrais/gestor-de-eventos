@@ -3,6 +3,7 @@
 <% id_collapse = "collapse-#{event.id}" %>
 <% id_heading = "heading-#{event.id}" %>
 <% background ||= 'bg-secondary' %>
+<% participants = frequence.participants&.select { |x| x.event_id == event.id } || [] %>
 <div class="accordion mb-0" id="<%= id_accordion %>">
   <div class="card shadow-none mb-0 <%= background %> overflow-visible">
     <div class="card-header <%= background %> p-0" id="<%= id_heading %>">
@@ -17,15 +18,19 @@
     </div>
     <div id="<%= id_collapse %>" class="collapse" aria-labelledby="<%= id_heading %>" data-parent="#<%= id_accordion %>">
       <div class="card-body pb-0 pt-4 overflow-visible">
-        <% participants = frequence.participants&.select { |x| x.event_id == event.id } || [] %>
         <%= render 'participants/table', participants: participants, id: event.id %>
       </div>
       <div class="col-sm-12 ml-2 mt-3">
         <div class="form-group ml-2 ">
-          <%= link_to span_icon('Novo Participante', 'plus', margin: 2), new_participant_path(event: event.id, frequence: frequence.id),
+          <%= link_to span_icon('Adicionar Participante', 'plus', margin: 2), new_participant_path(event: event.id, frequence: frequence.id),
                       class: 'btn btn-sm btn-default', remote: true %>
-          <%= link_to span_icon('Importar', 'file', margin: 2), '#', class: 'btn btn-sm btn-default' %>
+          <%= label_tag "planilha-#{event.id}", span_icon('Importar', 'file', margin: 2), class: 'btn btn-sm m-0 btn-default' %>
         </div>
+        <%= form_for(:arquive, url: import_from_csv_participants_path, remote: true) do |f| %>
+          <%= hidden_field_tag :event, event.id %>
+          <%= hidden_field_tag :frequence, frequence.id %>
+          <%= f.file_field :file, accept: 'text/csv', class: 'btn d-none btn-sm btn-default', id: "planilha-#{event.id}", onchange: 'importCSV(this)' %>
+        <% end %>
       </div>
     </div>
   </div>

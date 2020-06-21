@@ -7,47 +7,43 @@
         <div class="col-sm-12">
           <span id="errors"></span>
         </div>
-        <% person = fp.object.person || fp.object.build_person %>
-        <%= fp.fields_for :person, person do |fpe| %>
-          <%= fpe.hidden_field :id %>
-          <div class="col-sm-3">
-            <div class="form-group">
-              <%= fpe.label :name %>
-              <%= fpe.text_field :name, class: 'form-control', placeholder: true %>
-            </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <%= fp.label :name %>
+            <%= fp.text_field :name, class: 'form-control', placeholder: true %>
           </div>
-          <div class="col-sm-4">
-            <div class="form-group">
-              <%= fpe.label :surname %>
-              <%= fpe.text_field :surname, class: 'form-control', placeholder: true %>
-            </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <%= fp.label :surname %>
+            <%= fp.text_field :surname, class: 'form-control', placeholder: true %>
           </div>
-          <div class="col-sm-5">
-            <div class="form-group">
-              <%= fp.label :email %>
-              <%= fp.text_field :email, class: 'form-control', placeholder: true %>
-            </div>
+        </div>
+        <div class="col-sm-5">
+          <div class="form-group">
+            <%= fp.label :email %>
+            <%= fp.text_field :email, class: 'form-control', placeholder: true %>
           </div>
-          <div class="col-sm-3">
-            <div class="form-group">
-              <% workload = participant.workload || participant.event.workload %>
-              <%= fp.label :workload %>
-              <%= fp.text_field :workload, value: workload, class: 'form-control', placeholder: true %>
-            </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <% workload = participant.workload || participant.event.workload %>
+            <%= fp.label :workload %>
+            <%= fp.text_field :workload, value: workload, class: 'form-control', placeholder: true %>
           </div>
-          <div class="col-sm-2">
-            <div class="form-group">
-              <%= fpe.label :registration %>
-              <%= fpe.text_field :registration, class: 'form-control', placeholder: true %>
-            </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <%= fp.label :registration %>
+            <%= fp.text_field :registration, class: 'form-control', placeholder: true %>
           </div>
-          <div class="col-sm-3">
-            <div class="form-group">
-              <%= fpe.label :cpf %>
-              <%= fpe.text_field :cpf, class: 'form-control cpf-mask', placeholder: true %>
-            </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <%= fp.label :cpf %>
+            <%= fp.text_field :cpf, class: 'form-control cpf-mask', placeholder: true %>
           </div>
-        <% end %>
+        </div>
         <div class="col-sm-4">
           <div class="form-group">
             <%= fp.label :type_participation %>

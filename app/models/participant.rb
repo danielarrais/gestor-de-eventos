@@ -1,8 +1,8 @@
 class Participant < ApplicationRecord
   belongs_to :person, required: false
-  belongs_to :frequence
-  belongs_to :type_participation
-  belongs_to :event
+  belongs_to :frequence, required: false
+  belongs_to :type_participation, required: false
+  belongs_to :event, required: false
 
   accepts_nested_attributes_for :person, allow_destroy: true
 

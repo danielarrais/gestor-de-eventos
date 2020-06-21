@@ -1,0 +1,10 @@
+<% if  @participants.present? %>
+  $('#<%= @event.id %>').replaceWith('<%= j render 'participants/table', participants: @participants, id: @event.id %>');
+<% end %>
+
+<% flash.each do |flash, message| %>
+  Toast.fire({
+      icon: '<%= flash %>',
+      title: '<%= message %>'
+  })
+<% end %>
