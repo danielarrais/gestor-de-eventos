@@ -56,7 +56,8 @@
                     method: :delete, data: { confirm: 'Você tem certeza?', toggle: 'tooltip', placement: 'bottom' },
                     class: 'btn btn-icon btn-sm btn-danger' if event_request.can_action?(:destroy) %>
         <%= link_to '<span><i class="fa fa-paper-plane"></i></span>'.html_safe, forward_the_request_event_request_path(event_request),
-                    data: { confirm: 'Enviar solitação de evento?' },
+                    data: { confirm: 'Enviar solitação de evento?', toggle: 'tooltip', placement: 'bottom' },
+                    title: 'Enviar solicitação para análise',
                     class: 'btn btn-icon btn-sm btn-primary' if event_request.can_action?(:forward_the_request) %>
       </td>
     </tr>

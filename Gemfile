@@ -22,6 +22,7 @@ gem 'devise'
 
 # Gem de paginacao
 gem 'kaminari'
+gem 'pdfkit'
 
 # Gem para adicionar formulários nested
 gem 'nested_form_fields'

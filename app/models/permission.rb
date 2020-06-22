@@ -24,7 +24,7 @@ class Permission < ApplicationRecord
         end
       end
     end
-    # p permissions.first.attributes
+
     Permission.insert_all(permissions) if permissions.any?
   end
 end

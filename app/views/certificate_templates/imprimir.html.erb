@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <title>Cert</title>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+
+  <style>
+    .row {
+      display: -webkit-box; /* wkhtmltopdf uses this one */
+      display: flex;
+      -webkit-box-pack: center; /* wkhtmltopdf uses this one */
+      justify-content: center;
+    }
+
+    .row > div {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+      flex: 1;
+    }
+
+    .row > div:last-child {
+      /*margin-right: 0;*/
+    }
+
+    h1 {
+      text-align: center;
+      margin: 20px 0 0 0;
+      font-size: 1.25em;
+      font-weight: normal;
+    }
+
+    body {
+      font-family: monospace;
+      color: #333;
+    }
+
+    body {
+      padding: 0;
+      margin: 0;
+      display: inline-block;
+    }
+
+    #certificate-frame {
+      overflow: auto;
+      margin: 0;
+      height: 209.8mm;
+      width: 297mm;
+      background-image: url('<%= certificate_template.image.url %>');
+      background-size: 100%;
+    }
+
+    #certificate-text-frame {
+      position: relative;
+      text-align: justify !important;
+      margin-top: 80mm !important;
+      height: 200px;
+      line-height: 200px;
+    }
+
+    #certificate-signatures-frame, #certificate-text-frame {
+      padding-left: 100px;
+      padding-right: 100px;
+    }
+
+    #certificate-text-content {
+      position: relative;
+      text-align: justify !important;
+      line-height: 1.5;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .scanned-signature {
+      width: 170px;
+      height: 50px;
+      margin-bottom: 5px;
+    }
+
+    #certificate-signatures-frame {
+      margin-top: 18mm !important;
+    }
+
+    .scanned-signature {
+      width: 200px;
+      height: 50px;
+      margin-bottom: 5px;
+    }
+
+    .certificate-signature {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<div id="certificate-frame">
+  <div id="certificate-text-frame">
+    <div id="certificate-text-content">
+      <%= certificate_template.body.html_safe %>
+    </div>
+  </div>
+  <div id="certificate-signatures-frame">
+    <div class="row">
+      <% certificate_template.certificate_signatures.each do |certificate_signature| %>
+        <div class="certificate-signature">
+          <img class="scanned-signature"
+               src="<%= certificate_signature.image.url %>" alt="<%= certificate_signature.name %>"/>
+          <span id="name" class="d-block text-black font-weight-bold font-italic"><%= certificate_signature.name %></span>
+          <span id="role" class="d-block"><%= certificate_signature.role %></span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+

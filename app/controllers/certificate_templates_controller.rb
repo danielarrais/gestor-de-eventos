@@ -9,6 +9,12 @@ class CertificateTemplatesController < ApplicationController
 
   # GET /certificate_templates/1
   def show
+    # render_to_string("imprimir", :locals => { certificate_template: @certificate_template })
+    # pdf = render_to_string(pdf: 'imprimir', layout: false)
+    html_string = render_to_string('imprimir', layout: false, locals: { certificate_template: @certificate_template })
+    pdf = PDFKit.new(html_string)
+    pdf.stylesheets << "/mnt/nvme/Projetos/Ruby/seu/node_modules/bootstrap/dist/css/bootstrap-grid.min.css"
+    send_data(pdf.to_pdf, filename: "file.pdf", type: "application/pdf", :disposition => 'attachment')
   end
 
   # GET /certificate_templates/new
@@ -67,5 +73,12 @@ class CertificateTemplatesController < ApplicationController
   def certificate_template_params
     params.require(:certificate_template).permit(:body, :event_category_id, image_attributes: [:file],
                                                  certificate_signature_ids: [])
+  end
+
+  def send_invoice_pdf
+    send_file invoice_pdf.to_pdf,
+              filename: invoice_pdf.filename,
+              type: "application/pdf",
+              disposition: "inline"
   end
 end

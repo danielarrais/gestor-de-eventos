@@ -16,6 +16,11 @@ module LayoutHelper
     end
   end
 
+  def pdf_javascript_pack_tag(name)
+    javascript_include_tag(Rails.public_path.to_s + sources_from_manifest_entries([name], type: :javascript)[0])
+  end
+
+
   def modal(id, title, options = nil, &block)
     close = options[:close] || true
     size = options[:size] || :default
