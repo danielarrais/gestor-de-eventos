@@ -45,7 +45,7 @@
       margin: 0;
       height: 209.8mm;
       width: 297mm;
-      background-image: url('<%= certificate_template.image.url %>');
+      background-image: url('<%= url %>');
       background-size: 100%;
     }
 
@@ -95,12 +95,12 @@
 <div id="certificate-frame">
   <div id="certificate-text-frame">
     <div id="certificate-text-content">
-      <%= certificate_template.body.html_safe %>
+      <%= text.html_safe %>
     </div>
   </div>
   <div id="certificate-signatures-frame">
     <div class="row">
-      <% certificate_template.certificate_signatures.each do |certificate_signature| %>
+      <% certificate_signatures.each do |certificate_signature| %>
         <div class="certificate-signature">
           <img class="scanned-signature"
                src="<%= certificate_signature.image.url %>" alt="<%= certificate_signature.name %>"/>

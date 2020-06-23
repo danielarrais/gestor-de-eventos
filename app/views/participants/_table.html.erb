@@ -6,7 +6,7 @@
     <th class="pt-3 pb-3 pl-2 pr2 bold">C. Horária</th>
     <th class="pt-3 pb-3 pl-2 pr2 bold">Matrícula</th>
     <th class="pt-3 pb-3 pl-2 pr2 bold">CPF</th>
-    <th class="pt-3 pb-3 pl-2 pr2 text-center bold">Participação</th>
+    <th class="pt-3 pb-3 pl-2 pr2 bold">Participação</th>
     <th style="width: 1%;" class="pt-3 pb-3 pl-2 pr2 text-center bold">Ações</th>
   </tr>
   </thead>
@@ -19,14 +19,14 @@
       <td class="p-2"><%= participant.registration %></td>
       <td class="p-2"><%= participant.cpf %></td>
       <td class="p-2"><%= participant.type_participation.name %></td>
-      <td style="width: 1%" class="p-2 text-center" colspan="3">
+      <td style="width: 1%" class="p-2" colspan="3">
         <% url = participant.id.present? ? participant_path(id: participant.id) : '#' %>
         <%= link_to '<span><i class="fa fa-edit"></i></span>'.html_safe, edit_participant_path(participant),
                     class: 'btn btn-primary btn-icon btn-sm', remote: true,
                     data: { toggle: 'tooltip', placement: 'bottom' }, title: "Editar" %>
         <%= link_to '<span><i class="fa fa-trash"></i></span>'.html_safe, 'javascript:void(0)', onclick: 'remove(this)',
                     class: 'btn btn-danger btn-icon btn-sm',
-                    data: { toggle: 'tooltip', placement: 'bottom', url: url }, title: "Excluir" %>
+                    data: { toggle: 'tooltip', placement: 'bottom', url: url }, title: "Excluir" unless participant.certified? %>
       </td>
     </tr>
   <% end %>

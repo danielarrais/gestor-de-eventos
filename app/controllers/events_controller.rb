@@ -1,11 +1,11 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :release_issuing_certificates]
   before_action :set_list_for_select, only: [:new, :edit, :update, :create]
   before_action :verify_action, only: [:edit, :update, :destroy]
 
   # GET /events
   def index
-    @events = Event.all.where(draft: false, parent_event: nil).page(params[:page]).per(10)
+    @events = Event.all.no_draft.where(parent_event: nil).page(params[:page]).per(10)
   end
 
   # GET /events/1
@@ -21,13 +21,24 @@ class EventsController < ApplicationController
   def edit
   end
 
+  # GET /events/1/edit
+  def release_issuing_certificates
+    if @event.frequence.present? && @event.frequence.participants.any?
+      @event.current_user = current_user
+      @event.release_issuing_certificates
+    else
+      @event.errors.add(:base, "Preeencha a frequencia antes de liberar a emissão de certificados")
+    end
+  end
+
   # POST /events
   def create
     @event = Event.new(event_params)
+    @event.current_user = current_user
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to @event, success:'Event was successfully created.' }
+        format.html { redirect_to @event, success: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
       else
         format.html { render :new }
@@ -38,9 +49,10 @@ class EventsController < ApplicationController
 
   # PATCH/PUT /events/1
   def update
+    @event.current_user = current_user
     respond_to do |format|
       if @event.update(event_params)
-        format.html { redirect_to @event, success:'Event was successfully updated.' }
+        format.html { redirect_to @event, success: 'Event was successfully updated.' }
         format.json { render :show, status: :ok, location: @event }
       else
         format.html { render :edit }
@@ -53,7 +65,7 @@ class EventsController < ApplicationController
   def destroy
     @event.destroy
     respond_to do |format|
-      format.html { redirect_to events_url, success:'Event was successfully destroyed.' }
+      format.html { redirect_to events_url, success: 'Event was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -61,7 +73,7 @@ class EventsController < ApplicationController
   private
 
   def verify_action
-    redirect_to events_url, warning:'A solicitação não pode ser alterada após o envio' if @event.draft?
+    redirect_to events_url, warning: 'A solicitação não pode ser alterada após o envio' if @event.draft?
   end
 
   private

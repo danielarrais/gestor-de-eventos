@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_21_034645) do
+ActiveRecord::Schema.define(version: 2020_06_22_221921) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 2020_06_21_034645) do
     t.bigint "event_category_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "default", default: false
     t.index ["event_category_id"], name: "index_certificate_templates_on_event_category_id"
     t.index ["image_id"], name: "index_certificate_templates_on_image_id"
     t.index ["person_id"], name: "index_certificate_templates_on_person_id"
@@ -86,7 +87,10 @@ ActiveRecord::Schema.define(version: 2020_06_21_034645) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "event_id"
     t.boolean "own_certificate", default: false
-    t.boolean "draft", default: false
+    t.bigint "certificate_template_id", null: false
+    t.bigint "situation_id"
+    t.index ["certificate_template_id"], name: "index_events_on_certificate_template_id"
+    t.index ["situation_id"], name: "index_events_on_situation_id"
   end
 
   create_table "events_oriented_activities", id: false, force: :cascade do |t|
@@ -249,9 +253,11 @@ ActiveRecord::Schema.define(version: 2020_06_21_034645) do
   add_foreign_key "certificate_templates", "images"
   add_foreign_key "certificate_templates", "people"
   add_foreign_key "event_requests", "situations"
+  add_foreign_key "events", "certificate_templates"
   add_foreign_key "events", "event_categories"
   add_foreign_key "events", "events"
   add_foreign_key "events", "images"
+  add_foreign_key "events", "situations"
   add_foreign_key "events_oriented_activities", "events"
   add_foreign_key "events_oriented_activities", "oriented_activities"
   add_foreign_key "frequences", "events"

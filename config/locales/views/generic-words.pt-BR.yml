@@ -16,3 +16,4 @@
     return: 'Devolver'
     return_for_changes: 'Devolver para alterações'
     filter: 'Filtrar'
+    download: 'Baixar'

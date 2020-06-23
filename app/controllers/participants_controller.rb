@@ -1,12 +1,12 @@
 require "csv"
 
 class ParticipantsController < ApplicationController
-  before_action :set_participant, only: [:show, :edit, :update, :destroy]
+  before_action :set_participant, only: [:show, :edit, :update, :destroy, :certificate_download]
   before_action :set_list_for_select, only: [:edit, :new]
 
   # GET /participants
   def index
-    @participants = Participant.all.page(params[:page]).per(10)
+    @participants = Participant.all.where(cpf: current_user.person.cpf, status: :certified).page(params[:page]).per(10)
   end
 
   # GET /participants/1
@@ -34,6 +34,29 @@ class ParticipantsController < ApplicationController
     if @participant.save
       flash[:success] = 'Participante adicionado com sucesso'
     end
+  end
+
+  def certificate_download
+    event = @participant.event
+    certificate_template = event.certificate_template
+    url_image = @participant.event.parent_event&.image&.url || certificate_template.image&.url
+
+    name_file = "#{event.event_category.name} - #{event.name} - #{event.start_date.strftime('%d%m%Y')}.pdf"
+
+    text = CertificateTemplate::process_template_for_participant(@participant)
+
+    html_string = render_to_string('imprimir',
+                     layout: false,
+                     locals: { text: text,
+                               certificate_signatures: certificate_template.certificate_signatures,
+                               url: url_image })
+
+    pdf = PDFKit.new(html_string)
+    pdf.stylesheets << "#{Rails.root}/node_modules/bootstrap/dist/css/bootstrap-grid.min.css"
+    pdf = pdf.to_pdf
+
+    flash[:success] = "Certificado gerado com sucesso"
+    send_data(pdf, filename: name_file.upcase, type: "application/pdf", :disposition => 'attachment')
   end
 
   # PATCH/PUT /participants/1

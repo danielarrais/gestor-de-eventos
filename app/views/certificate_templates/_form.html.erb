@@ -41,6 +41,14 @@
                                data: { trigger: '' }, }) %>
               </div>
             </div>
+            <div class="col-sm-auto">
+              <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                  <%= f.check_box :default, class: 'custom-control-input' %>
+                  <%= f.label :default, class: 'custom-control-label' %>
+                </div>
+              </div>
+            </div>
             <div class="col-md-12">
               <div class="form-group">
                 <%= f.label :body %>
@@ -126,7 +134,7 @@
                     contents: contents,
                     callback: function ($dropdown) {
                         $dropdown.find("li").click(function (target) {
-                            insertAtTemplate(`${$(target.currentTarget).data('tag')} `)
+                            insertAtTemplate(`{{${$(target.currentTarget).data('tag')}}} `)
                         });
                     },
                 }),

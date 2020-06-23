@@ -9,5 +9,7 @@ namespace :seeder do
         .update(description: 'Devolvido para correção', description_female: 'Devolvida para correção')
     KeySituation.find_or_create_by(key: :deferred)
         .update(description: 'Aprovado', description_female: 'Aprovada')
+    KeySituation.find_or_create_by(key: :released_certificates)
+        .update(description: 'Certificados liberados', description_female: 'Certificados liberados')
   end
 end

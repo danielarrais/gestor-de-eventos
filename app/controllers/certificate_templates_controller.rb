@@ -20,12 +20,6 @@ class CertificateTemplatesController < ApplicationController
   def edit
   end
 
-  def print_certificate
-    html_string = render_to_string('imprimir', layout: false, locals: { certificate_template: @certificate_template })
-    pdf = PDFKit.new(html_string)
-    send_data(pdf.to_pdf, filename: "file.pdf", type: "application/pdf", :disposition => 'attachment')
-  end
-
   # POST /certificate_templates
   def create
     @certificate_template = CertificateTemplate.new(certificate_template_params)
@@ -71,7 +65,7 @@ class CertificateTemplatesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def certificate_template_params
-    params.require(:certificate_template).permit(:body, :event_category_id, image_attributes: [:file],
+    params.require(:certificate_template).permit(:body, :event_category_id, :default, image_attributes: [:file],
                                                  certificate_signature_ids: [])
   end
 

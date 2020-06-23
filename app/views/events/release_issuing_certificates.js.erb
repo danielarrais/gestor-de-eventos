@@ -1,0 +1,10 @@
+<% if @event.errors.any? %>
+  Swal.fire({
+      icon: 'error',
+      title: 'Impossível Liberar',
+      html: '<%= j @event.errors.full_messages.join(', ').html_safe %>',
+  })
+<% else %>
+  showSpinner();
+  window.location.replace('<%= events_path %>');
+<% end %>
