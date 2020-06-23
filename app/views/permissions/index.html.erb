@@ -6,7 +6,7 @@
     <%= link_to '<span><i class="fa fa-repeat"></i> Importar</span>'.html_safe, recreate_and_update_all_permissions_path %>
   </div>
   <div class="float-right pt-2 mr-4">
-    <%= icon_link i18n_word(:filter), 'filter', "#collapseFilter", data: { toggle: 'collapse' },
+    <%= icon_link i18n_word(:filter), 'filter', "#collapseFilter", class: 'text-dark', data: { toggle: 'collapse' },
                   aria: { expanded: "false", controls: "collapseFilter" } %>
   </div>
 </div>
