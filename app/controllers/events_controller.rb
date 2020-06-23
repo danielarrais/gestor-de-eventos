@@ -26,6 +26,7 @@ class EventsController < ApplicationController
     if @event.frequence.present? && @event.frequence.participants.any?
       @event.current_user = current_user
       @event.release_issuing_certificates
+      flash[:success] = "Emissão de certificado liberada com sucesso"
     else
       @event.errors.add(:base, "Preeencha a frequencia antes de liberar a emissão de certificados")
     end
@@ -113,7 +114,6 @@ class EventsController < ApplicationController
                                                             :start_date,
                                                             :closing_date,
                                                             :event_category_id,
-                                                            :own_certificate,
                                                             :workload],
                                   people_attributes: [:id, :_destroy])
   end

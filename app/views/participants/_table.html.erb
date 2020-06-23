@@ -21,10 +21,10 @@
       <td class="p-2"><%= participant.type_participation.name %></td>
       <td style="width: 1%" class="p-2" colspan="3">
         <% url = participant.id.present? ? participant_path(id: participant.id) : '#' %>
-        <%= link_to '<span><i class="fa fa-edit"></i></span>'.html_safe, edit_participant_path(participant),
+        <%= link_to span_icon('', 'edit'), edit_participant_path(participant),
                     class: 'btn btn-primary btn-icon btn-sm', remote: true,
                     data: { toggle: 'tooltip', placement: 'bottom' }, title: "Editar" %>
-        <%= link_to '<span><i class="fa fa-trash"></i></span>'.html_safe, 'javascript:void(0)', onclick: 'remove(this)',
+        <%= link_to span_icon('', 'trash'), 'javascript:void(0)', onclick: 'remove(this)',
                     class: 'btn btn-danger btn-icon btn-sm',
                     data: { toggle: 'tooltip', placement: 'bottom', url: url }, title: "Excluir" unless participant.certified? %>
       </td>

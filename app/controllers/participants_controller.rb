@@ -30,7 +30,7 @@ class ParticipantsController < ApplicationController
   def create
     @form_id = params[:id_form]
     @participant = Participant.new(participant_params)
-    @participant.status = :confirmed_presence
+    @participant.status = :awaiting_certificate
     if @participant.save
       flash[:success] = 'Participante adicionado com sucesso'
     end
@@ -55,7 +55,6 @@ class ParticipantsController < ApplicationController
     pdf.stylesheets << "#{Rails.root}/node_modules/bootstrap/dist/css/bootstrap-grid.min.css"
     pdf = pdf.to_pdf
 
-    flash[:success] = "Certificado gerado com sucesso"
     send_data(pdf, filename: name_file.upcase, type: "application/pdf", :disposition => 'attachment')
   end
 
@@ -103,7 +102,7 @@ class ParticipantsController < ApplicationController
         participant.email = data[2]
         participant.workload = @event.workload
         participant.type_participation = @type_participation
-        participant.status = :confirmed_presence
+        participant.status = :awaiting_certificate
 
         participant.save
       end

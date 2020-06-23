@@ -2,7 +2,7 @@ class Event < ApplicationRecord
   after_create :create_initial_situation
   before_validation :set_file_extensions
 
-  attr_accessor :current_user
+  attr_accessor :current_user, :draft
 
   belongs_to :image, required: false
   belongs_to :parent_event, class_name: 'Event', foreign_key: 'event_id', required: false
@@ -26,7 +26,16 @@ class Event < ApplicationRecord
   }
 
   def create_initial_situation
-    return if situation.present? || parent_event.present? || deferred?
+    return if situation.present? || parent_event.present? || deferred? || !current_user.present?
+
+    self.situations.create(person: current_user.person,
+                           key_situation: KeySituation.find_by(key: :deferred))
+
+    set_current_situation
+  end
+
+  def approve_event
+    return if deferred?
 
     self.situations.create(person: current_user.person,
                            key_situation: KeySituation.find_by(key: :deferred))

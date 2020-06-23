@@ -17,7 +17,7 @@ class EventRequest < ApplicationRecord
 
   def create_initial_situation
     self.situations.create(person: person,
-                           key_situation: KeySituation.find_by(key: :draft))
+                           key_situation: KeySituation.find_by(key: self.draft ? :draft : :deferred))
     set_current_situation
   end
 
@@ -29,10 +29,11 @@ class EventRequest < ApplicationRecord
   end
 
   def generate_event
+
     self.situations.create(person: current_user.person,
                            key_situation: KeySituation.find_by(key: :deferred)).save if forwarded?
-    self.event.draft = false
-    self.event.save
+
+    self.event.approve_event
 
     set_current_situation
   end

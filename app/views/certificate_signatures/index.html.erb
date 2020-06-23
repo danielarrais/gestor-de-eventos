@@ -39,13 +39,13 @@
         <%= certificate_signature.role %>
       </td>
       <td class="text-center">
-        <%= link_to '<span><i class="fa fa-search"></i></span>'.html_safe, certificate_signature,
+        <%= link_to span_icon('', 'search'), certificate_signature,
                     class: 'btn btn-primary btn-icon btn-sm btn-simple',
                     data: { toggle: 'tooltip', placement: 'bottom' }, title: "Visualizar" %>
-        <%= link_to '<span><i class="fa fa-edit"></i></span>'.html_safe, edit_certificate_signature_path(certificate_signature),
+        <%= link_to span_icon('', 'edit'), edit_certificate_signature_path(certificate_signature),
                     class: 'btn btn-icon btn-sm btn-warning',
                     data: { toggle: 'tooltip', placement: 'bottom' }, title: "Editar" %>
-        <%= link_to '<span><i class="fa fa-trash"></i></span>'.html_safe, certificate_signature,
+        <%= link_to span_icon('', 'trash'), certificate_signature,
                     method: :delete, data: { confirm: 'Você tem certeza?', toggle: 'tooltip', placement: 'bottom' }, title: "Excluir",
                     class: 'btn btn-icon btn-sm btn-danger' %>
       </td>

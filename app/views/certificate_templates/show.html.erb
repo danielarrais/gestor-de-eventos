@@ -8,9 +8,9 @@
 
 <div class="clearfix mt-4">
   <div class="float-right">
-    <%= link_to "<span><i class='fa fa-arrow-left mr-1'></i>#{i18n_word(:come_back)}</span>".html_safe, :back,
+    <%= link_to span_icon(i18n_word(:come_back), 'arrow-left'), :back,
                 class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
-    <%= link_to "<span><i class='fa fa-edit mr-1'></i>#{i18n_word(:edit)}</span>".html_safe, edit_certificate_template_path(@certificate_template),
+    <%= link_to span_icon(i18n_word(:edit), 'search'), edit_certificate_template_path(@certificate_template),
                 class: 'btn btn-primary btn-icon btn-1 btn-simple',
                 data: { toggle: 'tooltip', placement: 'bottom' }, title: "Editar" %>
   </div>

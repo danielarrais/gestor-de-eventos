@@ -51,20 +51,20 @@
         <%= event.closing_date.strftime('%d/%m/%Y') %>
       </td>
       <td class="text-center">
-        <%= link_to '<span><i class="fa fa-search"></i></span>'.html_safe, event,
+        <%= link_to span_icon('', 'search'), event,
                     class: 'btn btn-primary btn-icon btn-sm btn-simple', title: "Visualizar",
                     data: { toggle: 'tooltip', placement: 'bottom' } if event.can_action?(:show) %>
-        <%= link_to '<span><i class="fa fa-list"></i></span>'.html_safe, edit_frequences_path(event: event),
+        <%= link_to span_icon('', 'list'), edit_frequences_path(event: event),
                     class: 'btn btn-icon btn-sm btn-default', title: "Visualizar ou preencher frequência",
                     data: { toggle: 'tooltip', placement: 'bottom' } if event.can_action?(:edit_frequences) %>
-        <%= link_to '<span><i class="fa fa-certificate "></i></span>'.html_safe, release_issuing_certificates_event_path(event),
+        <%= link_to span_icon('', 'certificate'), release_issuing_certificates_event_path(event),
                     class: 'btn btn-icon btn-sm btn-success', remote: true,
                     data: { toggle: 'tooltip', placement: 'bottom', confirm: 'Você tem certeza?' },
                     title: "Liberar emissão de certificados" if event.can_action?(:release_issuing_certificates) %>
-        <%= link_to '<span><i class="fa fa-edit"></i></span>'.html_safe, edit_event_path(event),
+        <%= link_to span_icon('', 'edit'), edit_event_path(event),
                     class: 'btn btn-icon btn-sm btn-primary',
                     data: { toggle: 'tooltip', placement: 'bottom' }, title: "Editar" if event.can_action?(:edit) %>
-        <%= link_to '<span><i class="fa fa-trash"></i></span>'.html_safe, event,
+        <%= link_to span_icon('', 'trash'), event,
                     method: :delete, data: { confirm: 'Você tem certeza?', toggle: 'tooltip', placement: 'bottom' }, title: "Excluir",
                     class: 'btn btn-icon btn-sm btn-danger' if event.can_action?(:destroy) %>
       </td>

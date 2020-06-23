@@ -86,7 +86,6 @@ ActiveRecord::Schema.define(version: 2020_06_22_221921) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "event_id"
-    t.boolean "own_certificate", default: false
     t.bigint "certificate_template_id", null: false
     t.bigint "situation_id"
     t.index ["certificate_template_id"], name: "index_events_on_certificate_template_id"

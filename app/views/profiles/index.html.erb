@@ -39,13 +39,13 @@
         <%= profile.description %>
       </td>
       <td class="text-center">
-        <%= link_to '<span><i class="fa fa-search"></i></span>'.html_safe, profile,
+        <%= link_to span_icon('', 'search'), profile,
                     class: 'btn btn-primary btn-icon btn-sm btn-simple',
                     data: { toggle: 'tooltip', placement: 'bottom' }, title: "Visualizar" %>
-        <%= link_to '<span><i class="fa fa-edit"></i></span>'.html_safe, edit_profile_path(profile),
+        <%= link_to span_icon('', 'edit'), edit_profile_path(profile),
                     class: 'btn btn-icon btn-sm btn-warning',
                     data: { toggle: 'tooltip', placement: 'bottom' }, title: "Editar" %>
-        <%= link_to '<span><i class="fa fa-trash"></i></span>'.html_safe, profile,
+        <%= link_to span_icon('', 'trash'), profile,
                     method: :delete, data: { confirm: 'Você tem certeza?', toggle: 'tooltip', placement: 'bottom' }, title: "Excluir",
                     class: 'btn btn-icon btn-sm btn-danger' %>
       </td>

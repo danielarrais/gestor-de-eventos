@@ -12,5 +12,5 @@
         status: "Status2"
         status_enum:
           confirmed_subscription: "Inscrição Confirmada"
-          confirmed_presence: "Presença Confirmada"
+          awaiting_certificate: "Presença Confirmada"
           unsubscribed: "Incrição Cancelada"

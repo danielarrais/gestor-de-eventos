@@ -14,9 +14,9 @@
 </div>
 
 <div class="float-right">
-  <%= link_to '<span><i class="fa fa-arrow-left mr-1"></i>Voltar</span>'.html_safe, :back,
+  <%= link_to span_icon(i18n_word(:come_back), 'arrow-left'), :back,
               class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
-  <%= link_to '<span><i class="fa fa-edit mr-1"></i>Editar</span>'.html_safe, edit_course_path(@course),
+  <%= link_to span_icon(i18n_word(:edit), 'edit'), edit_course_path(@course),
               class: 'btn btn-primary btn-icon btn-1 btn-simple',
               data: { toggle: 'tooltip', placement: 'bottom' }, title: "Editar" %>
 </div>
