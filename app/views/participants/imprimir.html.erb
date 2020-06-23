@@ -89,6 +89,17 @@
     .certificate-signature {
       text-align: center;
     }
+
+    .signature-name {
+      font-weight: bold;
+      color: #000000;
+      font-size: 11pt;
+    }
+
+    .role-name {
+      text-transform: uppercase;
+      font-size: 7pt;
+    }
   </style>
 </head>
 <body>
@@ -104,8 +115,8 @@
         <div class="certificate-signature">
           <img class="scanned-signature"
                src="<%= certificate_signature.image.url %>" alt="<%= certificate_signature.name %>"/>
-          <span id="name" class="d-block text-black font-weight-bold font-italic"><%= certificate_signature.name %></span>
-          <span id="role" class="d-block"><%= certificate_signature.role %></span>
+          <span id="name" class="d-block signature-namec"><%= certificate_signature.name %></span>
+          <span id="role" class="d-block role-name"><%= certificate_signature.role %></span>
         </div>
       <% end %>
     </div>

@@ -11,7 +11,5 @@ PDFKit.configure do |config|
       orientation: 'Landscape',
       :disable_smart_shrinking => false,
   }
-  # Use only if your external hostname is unavailable on the server.
-  # config.root_url = "http://0.0.0.0/"
   config.verbose = true
 end
