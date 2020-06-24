@@ -5,6 +5,7 @@ PDFKit.configure do |config|
       :encoding => "UTF-8",
       :page_size => "A5", #or "Letter" or whatever needed
       :margin_top => "0",
+      dpi: 300,
       :margin_right => "0",
       :margin_bottom => "0",
       :margin_left => "0",

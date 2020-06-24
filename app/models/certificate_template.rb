@@ -23,21 +23,6 @@ class CertificateTemplate < ApplicationRecord
     CertificateTemplate.where(default: true, event_category_id: event_category_id).order(updated_at: :desc).limit(1).first
   end
 
-  def self.process_template_for_participant(participant)
-    event = participant.event
-    certificate_template = event.certificate_template
-
-    values = { 'nome_aluno' => participant.full_name,
-               'carga_horaria' => participant.workload_s,
-               'nome_evento_pai' => event.full_name,
-               'nome_evento' => event.name,
-               'tipo_participacao' => participant.type_participation.name,
-               'data_inicio' => event.start_date.strftime('%d/%m/%Y'),
-               'data_encerramento' => event.closing_date.strftime('%d/%m/%Y') }
-
-    return Liquid::Template.parse(certificate_template.body).render(values)
-  end
-
   private
 
   # Defines the allowed image formats

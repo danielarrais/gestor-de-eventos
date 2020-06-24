@@ -1,7 +1,7 @@
 require "csv"
 
 class ParticipantsController < ApplicationController
-  before_action :set_participant, only: [:show, :edit, :update, :destroy, :certificate_download]
+  before_action :set_participant, only: [:show, :edit, :update, :destroy, :certificates_download]
   before_action :set_list_for_select, only: [:edit, :new]
 
   # GET /participants
@@ -36,26 +36,14 @@ class ParticipantsController < ApplicationController
     end
   end
 
-  def certificate_download
-    event = @participant.event
-    certificate_template = event.certificate_template
-    url_image = @participant.event.parent_event&.image&.url || certificate_template.image&.url
+  def certificates_download
+    participants = Participant.where(id: [@participant.id])
 
-    name_file = "#{event.event_category.name} - #{event.name} - #{event.start_date.strftime('%d%m%Y')}.pdf"
+    @certificates = CertificateGenerator.call(participants)
 
-    text = CertificateTemplate::process_template_for_participant(@participant)
+    s_certificates = render_to_string(partial: 'participants/reports/certificate', layout: false, locals: { certificates: @certificates })
 
-    html_string = render_to_string('imprimir',
-                     layout: false,
-                     locals: { text: text,
-                               certificate_signatures: certificate_template.certificate_signatures,
-                               url: url_image })
-
-    pdf = PDFKit.new(html_string)
-    pdf.stylesheets << "#{Rails.root}/node_modules/bootstrap/dist/css/bootstrap-grid.min.css"
-    pdf = pdf.to_pdf
-
-    send_data(pdf, filename: name_file.upcase, type: "application/pdf", :disposition => 'attachment')
+    send_pdf(s_certificates, 'certificates.pdf')
   end
 
   # PATCH/PUT /participants/1

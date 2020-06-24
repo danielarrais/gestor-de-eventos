@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <title>Cert</title>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+
+  <style>
+
+  </style>
+</head>
+<body>
+<% certificates.each do |cert|%>
+  <div class="page">
+    <div class="certificate-frame" style="background-image: url('<%= cert[:url_backgroud] %>');">
+      <div class="certificate-text-frame">
+        <div class="certificate-text-content">
+          <%= cert[:text].html_safe %>
+        </div>
+      </div>
+      <div class="certificate-signatures-frame">
+        <div class="row">
+          <% cert[:certificate_signatures].each do |signature| %>
+            <div class="certificate-signature">
+              <img class="scanned-signature" src="<%= signature[:url] %>" alt="<%= signature[:name] %>"/>
+              <span class="name d-block signature-name"><%= signature[:name] %></span>
+              <span class="role d-block role-name"><%= signature[:role] %></span>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+</body>
+</html>
+
+

@@ -15,7 +15,7 @@
 <table class="table">
   <thead>
   <tr class="bg-primary">
-    <th class="text-white bold"><%= i18n_model(:participant, :event) %></th>
+    <th class="text-white bold break-text"><%= i18n_model(:participant, :event) %></th>
     <th class="text-white bold"><%= i18n_model(:event, :event_category_id) %></th>
     <th class="text-white bold"><%= i18n_model(:participant, :type_participation) %></th>
     <th class="text-white bold"><%= i18n_model(:event, :start_date) %></th>
@@ -28,14 +28,14 @@
   <tbody>
   <% @participants.each do |participant| %>
     <tr>
-      <td><%= participant.event.name %></td>
+      <td class="break-text"><%= participant.event.name %></td>
       <td><%= participant.event.event_category.name %></td>
       <td><%= participant.type_participation.name %></td>
       <td><%= participant.event.start_date.strftime('%d/%m/%Y %H:%M') %></td>
       <td><%= participant.event.closing_date.strftime('%d/%m/%Y %H:%M') %></td>
       <td><%= participant.workload %> Hora (s)</td>
       <td class="text-center">
-        <%= link_to '<span><i class="fa fa-download"></i></span>'.html_safe, certificate_download_participant_path(participant),
+        <%= link_to '<span><i class="fa fa-download"></i></span>'.html_safe, certificates_download_participant_path(participant),
                     class: 'btn btn-primary btn-icon btn-sm btn-simple',
                     data: { toggle: 'tooltip', placement: 'bottom' }, title:  "Baixar certificado" %>
       </td>

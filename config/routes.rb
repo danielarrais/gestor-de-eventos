@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :participants, path: 'paticipantes', except: [:index] do
     member do
-      get :certificate_download, action: 'certificate_download'
+      get :certificates_download, action: 'certificates_download'
     end
     collection do
       get :index
