@@ -12,13 +12,41 @@
 </div>
 
 <%= card_filter do %>
-  filtros
+  <%= form_with(model: @event, local: true, method: :get) do |f| %>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.text_field :name, class: 'form-control', placeholder: true %>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <%= f.select(:event_category_id, @event_categories,
+                       { include_blank: true },
+                       { size: 5,
+                         class: 'form-control choices',
+                         data: { trigger: '' }, }) %>
+        </div>
+      </div>
+      <div class="col-md">
+        <%= f.date_picker :start_date, placeholder: true, hide_label: true %>
+      </div>
+      <div class="col-md">
+        <%= f.date_picker :closing_date, placeholder: true, hide_label: true  %>
+      </div>
+      <div class="col-md-auto">
+        <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple") do %>
+          <span><i class="fa fa-search mr-1"></i></span>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 <% end %>
 
 <table class="table">
   <thead class="thead-light">
   <tr class="bg-primary">
-    <th class="bold">
+    <th class="bold break-text">
       Nome
     </th>
     <th class="bold">
@@ -38,7 +66,7 @@
   <tbody>
   <% @events.each do |event| %>
     <tr>
-      <td>
+      <td class="break-text">
         <%= event.name %>
       </td>
       <td>

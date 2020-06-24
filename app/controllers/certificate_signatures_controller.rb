@@ -4,6 +4,7 @@ class CertificateSignaturesController < ApplicationController
   # GET /certificate_signatures
   # GET /certificate_signatures.json
   def index
+    @certificate_signature = CertificateSignature.new
     @certificate_signatures = CertificateSignature.all.page(params[:page]).per(10)
   end
 

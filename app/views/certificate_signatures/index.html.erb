@@ -12,7 +12,25 @@
 </div>
 
 <%= card_filter do %>
-  filtros
+  <%= form_with(model: @certificate_signature, local: true, method: :get) do |f| %>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <%= f.text_field :name, class: 'form-control', placeholder: true %>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <%= f.text_field :role, class: 'form-control', placeholder: true %>
+        </div>
+      </div>
+      <div class="col-md-auto">
+        <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple pull") do %>
+          <span><i class="fa fa-search mr-1"></i></span>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 <% end %>
 
 <table class="table">

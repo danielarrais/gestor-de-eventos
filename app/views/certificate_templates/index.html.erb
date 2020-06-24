@@ -11,8 +11,43 @@
   </div>
 </div>
 
-<%= card_filter do %>
-  filtros
+<%= card_filter(params[:show_filter]) do %>
+  <%= form_with(model: @certificate_template, local: true, method: :get) do |f| %>
+    <%= hidden_field_tag :show_filter, value: true %>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.select(:event_category_id, @event_categories,
+                       { include_blank: true },
+                       { size: 5,
+                         class: 'form-control choices',
+                         data: { trigger: '' }, }) %>
+        </div>
+      </div>
+      <div class="col-md-6 mr-auto ">
+        <div class="form-group">
+          <div class="form-group">
+            <%= f.select(:certificate_signature_ids, f.object.certificate_signatures.map { |v| ["#{v.name} - #{v.role}", v.id] },
+                         { include_blank: true },
+                         { size: 5,
+                           multiple: true,
+                           placeholder: 'Assinaturas',
+                           class: 'form-control choices-ajax',
+                           data: { 'search-text': 'Digite o nome da assinatura', 'search-min': 3,
+                                   'search-url': autocomplete_by_name_or_role_certificate_signatures_path }, }) %>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-auto nowrap">
+        <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple pull") do %>
+          <span><i class="fa fa-search"></i></span>
+        <% end %>
+        <%= button_tag(:class => "btn btn-light btn-icon btn-1 btn-simple pull", type: 'reset') do %>
+          <span><i class="fa fa-refresh"></i></span>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 <% end %>
 
 <div class="row">

@@ -1,10 +1,11 @@
 class CertificateTemplatesController < ApplicationController
-  before_action :set_list_for_select, only: [:new, :edit, :update, :create]
+  before_action :set_list_for_select, only: [:index, :new, :edit, :update, :create]
   before_action :set_certificate_template, only: [:show, :edit, :update, :destroy]
 
   # GET /certificate_templates
   def index
-    @certificate_templates = CertificateTemplate.all.page(params[:page]).per(10)
+    @certificate_template = CertificateTemplate.new(certificate_template_params)
+    @certificate_templates = FindCertificateTemplate.find(certificate_template_params, page_params)
   end
 
   # GET /certificate_templates/1
@@ -65,7 +66,8 @@ class CertificateTemplatesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def certificate_template_params
-    params.require(:certificate_template).permit(:body, :event_category_id, :default, image_attributes: [:file],
+    params.require(:certificate_template)&.permit(:body, :event_category_id, :default,
+                                                 image_attributes: [:file],
                                                  certificate_signature_ids: [])
   end
 
