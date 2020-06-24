@@ -62,7 +62,7 @@ module LayoutHelper
   end
 
   def page_title(title)
-    content_tag 'div', class: 'ct-page-title' do
+    content_tag 'div', class: 'mb-4' do
       content_tag 'h1', title, class: 'ct-title mt-0'
     end
   end

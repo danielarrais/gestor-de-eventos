@@ -6,12 +6,12 @@
 </div>
 
 <table class="table">
-  <thead>
+  <thead class="thead-light">
     <tr class="bg-primary">
 <% attributes.reject(&:password_digest?).each do |attribute| -%>
-      <th class="text-white bold"><%%= i18n_model(:<%= singular_table_name %>, :<%= attribute.column_name %>) %></th>
+      <th class="bold"><%%= i18n_model(:<%= singular_table_name %>, :<%= attribute.column_name %>) %></th>
 <% end -%>
-      <th class="text-white text-center bold" colspan="3"><%%= i18n_word(:actions) %></th>
+      <th class="text-center bold" colspan="3"><%%= i18n_word(:actions) %></th>
     </tr>
   </thead>
 

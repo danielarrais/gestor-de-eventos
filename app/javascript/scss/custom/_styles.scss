@@ -1,6 +1,5 @@
 $navbar-heigth: 64px;
 $footer-heigth: 124px;
-$breadcumb-heigth: 43.68px;
 
 #logo {
   font-size: 18pt;
@@ -9,7 +8,7 @@ $breadcumb-heigth: 43.68px;
 
 // Empurra o footer para baixo
 body > .container {
-  min-height: calc(100vh - #{$navbar-heigth} - #{$footer-heigth} - #{$breadcumb-heigth});
+  min-height: calc(100vh - #{$navbar-heigth} - #{$footer-heigth} - 1.5rem);
 }
 
 // Empurra o footer para baixo
