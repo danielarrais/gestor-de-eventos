@@ -1,5 +1,20 @@
 Rails.application.routes.draw do
-  resources :certificate_templates do
+  resources :participants, path: 'paticipantes', except: [:index] do
+    member do
+      get :certificate_download, action: 'certificate_download'
+    end
+    collection do
+      get :index
+      post :import_from_csv
+    end
+  end
+  resources :frequences, path: 'frequencia', except: [:edit, :destroy, :create] do
+    collection do
+      get :edit
+    end
+  end
+  resources :type_participations, path: 'tipos-participacao'
+  resources :certificate_templates, path: 'templates-de-certificados' do
     collection do
       get :load_selected_signatures
     end
@@ -14,25 +29,29 @@ Rails.application.routes.draw do
       get 'my_requests'
     end
   end
-  resources :courses
-  resources :events
-  resources :event_categories
-  resources :certificate_signatures do
+  resources :courses, path: 'cursos'
+  resources :events, path: 'eventos' do
+    member do
+      get 'release_issuing_certificates', action: 'release_issuing_certificates'
+    end
+  end
+  resources :event_categories, path: 'categorias-de-eventos'
+  resources :certificate_signatures, path: 'assinaturas-de-certificado' do
     collection do
       get 'autocomplete_by_name_or_role'
     end
   end
-  resources :permissions, except: [:new, :destroy] do
+  resources :permissions, path: 'permissoes', except: [:new, :destroy] do
     collection do
       get 'recreate_and_update_all'
     end
   end
-  resources :profiles
+  resources :profiles, path: 'perfis'
   devise_for :users,
              controllers: { omniauth_callbacks: "omniauth_callbacks" },
              :skip => [:registrations]
 
-  resources :users do
+  resources :users, path: 'usuarios' do
     collection do
       get 'new_registration'
       get 'success_registration'

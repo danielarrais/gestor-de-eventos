@@ -1,0 +1,63 @@
+<%= form_with(model: participant, remote: true) do |fp| %>
+  <%= modal("#{fp.object.id || 'new-participant'}", "#{participant.new_record? ? 'Adicionar' : 'Editar'} Participante", size: :xl) do %>
+    <%= modal_body do %>
+      <%= fp.hidden_field :event_id %>
+      <%= fp.hidden_field :frequence_id %>
+      <div class="row pl-2 pr-2" style="z-index: 100000">
+        <div class="col-sm-12">
+          <span id="errors"></span>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <%= fp.label :name %>
+            <%= fp.text_field :name, class: 'form-control', placeholder: true %>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <%= fp.label :surname %>
+            <%= fp.text_field :surname, class: 'form-control', placeholder: true %>
+          </div>
+        </div>
+        <div class="col-sm-5">
+          <div class="form-group">
+            <%= fp.label :email %>
+            <%= fp.text_field :email, class: 'form-control', placeholder: true %>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <% workload = participant.workload || participant.event.workload %>
+            <%= fp.label :workload %>
+            <%= fp.text_field :workload, value: workload, class: 'form-control', placeholder: true %>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <%= fp.label :registration %>
+            <%= fp.text_field :registration, class: 'form-control', placeholder: true %>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <%= fp.label :cpf %>
+            <%= fp.text_field :cpf, class: 'form-control cpf-mask', placeholder: true %>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <%= fp.label :type_participation %>
+            <%= fp.select(:type_participation_id, @type_participations,
+                          { include_blank: true },
+                          { size: 5, class: 'form-control choices' }) %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <%= modal_footer do %>
+      <%= button_tag(class: 'btn btn-primary btn-icon btn-1 btn-simple') do %>
+        <i class="fa fa-floppy-o"></i> Salvar
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

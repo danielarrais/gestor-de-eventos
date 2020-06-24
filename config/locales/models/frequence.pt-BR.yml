@@ -1,0 +1,9 @@
+'pt-BR':
+  activerecord:
+    models:
+      frequence:
+        one: 'Frequência'
+        other: 'Frequências'
+    attributes:
+      frequence:
+        event: "Evento"

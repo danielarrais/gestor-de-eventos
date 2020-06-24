@@ -113,16 +113,6 @@
               <%= output_tag :workload, child_event, "#{child_event.workload} Hora (s)" %>
             </div>
           </div>
-          <div class="col-sm-auto">
-            <div class="form-group">
-              <div class="custom-control custom-checkbox">
-                <%= check_box_tag "own_certificate_#{child_event.id}", false,
-                                  child_event.own_certificate,
-                                  class: 'custom-control-input d-none', disabled: true %>
-                <%= label_tag "own_certificate_#{child_event.id}", i18n_model(:event, :own_certificate), class: 'custom-control-label' %>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     <% end %>

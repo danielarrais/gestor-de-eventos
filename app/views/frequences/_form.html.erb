@@ -1,0 +1,125 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= output_tag :name, frequence.event, frequence.event.name %>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <%= output_tag :start_date, frequence.event, frequence.event.start_date.strftime('%d/%m/%Y %H:%M') %>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <%= output_tag :closing_date, frequence.event, frequence.event.start_date.strftime('%d/%m/%Y %H:%M') %>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <div class="form-group">
+      <%= output_tag :event_category_id, frequence.event, frequence.event.event_category.name %>
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <%= output_tag :workload, frequence.event, "#{frequence.event.workload} Horas" %>
+    </div>
+  </div>
+  <div class="col-auto">
+    <div class="form-group">
+      <%= label_tag :image, i18n_model(:event, :image) %>
+      <div>
+        <%= view_image_button(frequence.event.image.url, i18n_model(:event, :image), button_text: 'Visualizar') %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <%= render 'participants_form', frequence: frequence %>
+  </div>
+</div>
+
+
+<div class="row static-childs-cols">
+  <% if frequence.event.child_events.any? %>
+    <div class="col-sm-12 mt-3">
+      <h5>Subeventos</h5>
+      <% frequence.event.child_events.each do |child_event| %>
+        <div class="col-sm-12 static form-area bg-secondary mb-4">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <%= output_tag :name, child_event, child_event.name %>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <%= output_tag :start_date, child_event, child_event.start_date.strftime('%d/%m/%Y %H:%M') %>
+            </div>
+            <div class="col-md-3">
+              <%= output_tag :closing_date, child_event, child_event.closing_date.strftime('%d/%m/%Y %H:%M') %>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <%= output_tag :event_category_id, child_event, child_event.event_category.name %>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <%= output_tag :workload, child_event, "#{child_event.workload} Hora (s)" %>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <%= render 'participants_form', frequence: frequence, event: child_event, background: 'bg-white' %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<div class="clearfix">
+  <div class="float-right">
+    <%= link_to span_icon(i18n_word(:come_back), 'arrow-left'), :back,
+                class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
+  </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+    function remove(button) {
+        button = $(button)
+
+        debugger
+        Swal.fire({
+            title: 'Remover participante?',
+            icon: 'question',
+            iconHtml: '?',
+            confirmButtonText: 'Sim',
+            cancelButtonText: 'Cancelar',
+            showCancelButton: true,
+            showCloseButton: true
+        }).then(function (result) {
+            if (result.value === true) {
+                $.ajax({
+                    url: `${button.data('url')}`,
+                    type: "DELETE",
+                    processData: false,
+                    contentType: false,
+                    dataType: 'script'
+                });
+            }
+        })
+    }
+
+    function importCSV(event) {
+        debugger
+        const formData = new FormData($(event).parent().get(0));
+
+        $.ajax({
+            url: '<%= import_from_csv_participants_path %>',
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: 'script'
+        })
+    }
+</script>

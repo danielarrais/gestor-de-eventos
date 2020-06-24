@@ -22,6 +22,10 @@ gem 'devise'
 
 # Gem de paginacao
 gem 'kaminari'
+gem 'pdfkit'
+
+# instalar o 'sudo apt install imagemagick'
+gem 'rmagick', '~> 2.15', '>= 2.15.4'
 
 # Gem para adicionar formulários nested
 gem 'nested_form_fields'

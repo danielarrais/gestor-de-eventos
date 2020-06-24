@@ -2,7 +2,7 @@ module FormHelper
   # Processa e exibe os conteúdos dos flash enviados pelas controllers
   def validations_errors(model, margin: 4)
     return if model.errors.empty?
-    content_tag :div do
+    content_tag :div, class: 'errors' do
       concat content_tag(:strong, alert_messages(:error, model.errors.full_messages, margin: margin))
     end
   end
@@ -63,9 +63,15 @@ module FormHelper
     end
   end
 
-  def i18n_model(class_name, method = nil, plural: false)
-    return I18n.translate("activerecord.attributes.#{class_name}.#{method}", default: humanize(method)) if method.present?
-    I18n.translate("activerecord.models.#{class_name}.#{plural ? :other : :one }", default: humanize(class_name, plural))
+  def i18n_model(class_name, method = nil, plural: false, enum: nil)
+    case true
+    when method.present? && !enum.present?
+      I18n.translate("activerecord.attributes.#{class_name}.#{method}", default: humanize(method))
+    when method.present? && enum.present?
+      I18n.translate("activerecord.attributes.#{class_name}.#{method}_enum.#{enum}", default: humanize(enum))
+    else
+      I18n.translate("activerecord.models.#{class_name}.#{plural ? :other : :one }", default: humanize(class_name, plural))
+    end
   end
 
   def humanize(simbol, plural = false)

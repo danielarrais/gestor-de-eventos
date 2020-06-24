@@ -30,6 +30,7 @@ class EventRequestsController < ApplicationController
   def create
     @event_request = EventRequest.new(event_request_params)
     @event_request.person = current_user.person
+    @event_request.event.current_user = current_user
     @event_request.event.draft = true
 
     if @event_request.save
@@ -105,7 +106,7 @@ class EventRequestsController < ApplicationController
                                                                                                                    :course_id, :_destroy,
                                                                                                                    :semester],],
                                                              child_events_attributes: [:id, :_destroy, :name, :start_date, :closing_date,
-                                                                                       :event_category_id, :own_certificate, :workload],
+                                                                                       :event_category_id, :workload],
                                                              people_attributes: [:id, :_destroy]])
   end
 end

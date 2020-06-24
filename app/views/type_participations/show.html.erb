@@ -1,0 +1,17 @@
+<%= page_title("#{i18n_word(:view)} #{i18n_model(:type_participation)}") %>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="form-group">
+      <%= output_tag :name, @type_participation, @type_participation.name %>
+    </div>
+  </div>
+</div>
+
+<div class="float-right">
+  <%= link_to span_icon(i18n_word(:come_back), 'arrow-left'), :back,
+              class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
+  <%= link_to span_icon(i18n_word(:edit), 'search'), edit_type_participation_path(@type_participation),
+              class: 'btn btn-primary btn-icon btn-1 btn-simple',
+              data: { toggle: 'tooltip', placement: 'bottom' }, title: "Editar" %>
+</div>

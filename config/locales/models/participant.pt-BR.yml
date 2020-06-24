@@ -1,0 +1,16 @@
+'pt-BR':
+  activerecord:
+    models:
+      participant:
+        one: 'Participante'
+        other: 'Participantes'
+    attributes:
+      participant:
+        type_participation: "Tipo de Participação"
+        event: "Evento/Atividade"
+        workload: "Carga Horária"
+        status: "Status2"
+        status_enum:
+          confirmed_subscription: "Inscrição Confirmada"
+          awaiting_certificate: "Presença Confirmada"
+          unsubscribed: "Incrição Cancelada"

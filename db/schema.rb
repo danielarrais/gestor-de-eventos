@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_14_210858) do
+ActiveRecord::Schema.define(version: 2020_06_22_221921) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "archives", force: :cascade do |t|
+    t.string "origin_type", null: false
+    t.bigint "origin_id", null: false
+    t.string "name", null: false
+    t.binary "content", null: false
+    t.string "format", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["origin_type", "origin_id"], name: "index_archives_on_origin_type_and_origin_id"
+  end
 
   create_table "certificate_signatures", force: :cascade do |t|
     t.string "name", null: false
@@ -35,6 +46,7 @@ ActiveRecord::Schema.define(version: 2020_06_14_210858) do
     t.bigint "event_category_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "default", default: false
     t.index ["event_category_id"], name: "index_certificate_templates_on_event_category_id"
     t.index ["image_id"], name: "index_certificate_templates_on_image_id"
     t.index ["person_id"], name: "index_certificate_templates_on_person_id"
@@ -74,13 +86,22 @@ ActiveRecord::Schema.define(version: 2020_06_14_210858) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "event_id"
-    t.boolean "own_certificate", default: false
-    t.boolean "draft", default: false
+    t.bigint "certificate_template_id", null: false
+    t.bigint "situation_id"
+    t.index ["certificate_template_id"], name: "index_events_on_certificate_template_id"
+    t.index ["situation_id"], name: "index_events_on_situation_id"
   end
 
   create_table "events_oriented_activities", id: false, force: :cascade do |t|
     t.bigint "event_id", null: false
     t.bigint "oriented_activity_id", null: false
+  end
+
+  create_table "frequences", force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_frequences_on_event_id"
   end
 
   create_table "guideds", force: :cascade do |t|
@@ -125,13 +146,31 @@ ActiveRecord::Schema.define(version: 2020_06_14_210858) do
     t.index ["person_id"], name: "index_oriented_activities_people_on_person_id"
   end
 
+  create_table "participants", force: :cascade do |t|
+    t.bigint "frequence_id"
+    t.bigint "type_participation_id"
+    t.bigint "event_id"
+    t.string "email"
+    t.string "name"
+    t.string "surname"
+    t.string "registration"
+    t.string "cpf"
+    t.integer "status"
+    t.integer "workload"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_participants_on_event_id"
+    t.index ["frequence_id"], name: "index_participants_on_frequence_id"
+    t.index ["type_participation_id"], name: "index_participants_on_type_participation_id"
+  end
+
   create_table "people", force: :cascade do |t|
     t.string "registration"
     t.string "cpf", null: false
     t.string "name", null: false
-    t.string "surname", null: false
+    t.string "surname"
     t.string "cellphone"
-    t.datetime "date_of_birth", null: false
+    t.datetime "date_of_birth"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -181,6 +220,13 @@ ActiveRecord::Schema.define(version: 2020_06_14_210858) do
     t.index ["person_id"], name: "index_situations_on_person_id"
   end
 
+  create_table "type_participations", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "key", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "encrypted_password"
@@ -206,16 +252,22 @@ ActiveRecord::Schema.define(version: 2020_06_14_210858) do
   add_foreign_key "certificate_templates", "images"
   add_foreign_key "certificate_templates", "people"
   add_foreign_key "event_requests", "situations"
+  add_foreign_key "events", "certificate_templates"
   add_foreign_key "events", "event_categories"
   add_foreign_key "events", "events"
   add_foreign_key "events", "images"
+  add_foreign_key "events", "situations"
   add_foreign_key "events_oriented_activities", "events"
   add_foreign_key "events_oriented_activities", "oriented_activities"
+  add_foreign_key "frequences", "events"
   add_foreign_key "guideds", "people"
   add_foreign_key "guideds_oriented_activities", "guideds"
   add_foreign_key "guideds_oriented_activities", "oriented_activities"
   add_foreign_key "oriented_activities_people", "oriented_activities"
   add_foreign_key "oriented_activities_people", "people"
+  add_foreign_key "participants", "events"
+  add_foreign_key "participants", "frequences"
+  add_foreign_key "participants", "type_participations"
   add_foreign_key "permissions_profiles", "permissions"
   add_foreign_key "permissions_profiles", "profiles"
   add_foreign_key "profiles_users", "profiles"

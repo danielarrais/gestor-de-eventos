@@ -7,3 +7,7 @@ window.hideSpinner = function showSpinner() {
     $('.hide-for-spinner').show()
     $('.container-spinner').css( 'display', 'none')
 }
+
+window.submit = function submit(form) {
+    $(`#${form}`).submit();
+}

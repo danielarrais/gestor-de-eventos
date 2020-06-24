@@ -65,7 +65,14 @@ class CertificateTemplatesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def certificate_template_params
-    params.require(:certificate_template).permit(:body, :event_category_id, image_attributes: [:file],
+    params.require(:certificate_template).permit(:body, :event_category_id, :default, image_attributes: [:file],
                                                  certificate_signature_ids: [])
+  end
+
+  def send_invoice_pdf
+    send_file invoice_pdf.to_pdf,
+              filename: invoice_pdf.filename,
+              type: "application/pdf",
+              disposition: "inline"
   end
 end

@@ -1,0 +1,41 @@
+<% event ||= frequence.event %>
+<% id_accordion = "accordion-#{event.id}" %>
+<% id_collapse = "collapse-#{event.id}" %>
+<% id_heading = "heading-#{event.id}" %>
+<% background ||= 'bg-secondary' %>
+<% participants = frequence.participants&.select { |x| x.event_id == event.id } || [] %>
+<div class="accordion mb-0" id="<%= id_accordion %>">
+  <div class="card shadow-none mb-0 <%= background %> overflow-visible">
+    <div class="card-header <%= background %> p-0" id="<%= id_heading %>">
+      <h5 class="mb-0">
+        <button class="btn btn-link w-100 text-dark text-left" type="button" data-toggle="collapse" data-target="#<%= id_collapse %>"
+                aria-expanded="true" aria-controls="<%= id_collapse %>">
+          <i class="fa fa-list mr-2 mt-1 float-left"></i>
+          Frequência
+          <i class="ni ni-bold-down mt-1 float-right"></i>
+        </button>
+      </h5>
+    </div>
+    <div id="<%= id_collapse %>" class="collapse" aria-labelledby="<%= id_heading %>" data-parent="#<%= id_accordion %>">
+      <div class="card-body pb-0 pt-4 overflow-visible">
+        <%= render 'participants/table', participants: participants, id: event.id %>
+      </div>
+      <div class="col-sm-12 ml-2 mt-3">
+        <div class="form-group ml-2 ">
+          <%= link_to span_icon('Adicionar Participante', 'plus', margin: 2), new_participant_path(event: event.id, frequence: frequence.id),
+                      class: 'btn btn-sm btn-default', remote: true %>
+          <%= label_tag "planilha-#{event.id}",
+                        span_icon('Importar', 'file-excel-o', margin: 2),
+                        class: 'btn btn-sm m-0 btn-default',
+                        data: { toggle: 'tooltip', placement: 'bottom' }, title: "Importar de uma planilha CSV" %>
+        </div>
+        <%= form_for(:arquive, url: import_from_csv_participants_path, remote: true) do |f| %>
+          <%= hidden_field_tag :event, event.id %>
+          <%= hidden_field_tag :frequence, frequence.id %>
+          <%= f.file_field :file, accept: 'text/csv', class: 'btn d-none btn-sm btn-default', id: "planilha-#{event.id}", onchange: 'importCSV(this)' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="modal"></div>

@@ -1,43 +1,17 @@
 <%= page_title("#{i18n_word(:view)} #{i18n_model(:certificate_template)}") %>
 
 <div class="row">
-  <div class="col-md-3">
-    <div class="form-group">
-      <%= label_tag :image, i18n_model(:certificate_template, :image) %>
-      <div>
-        <%= view_image_button(@certificate_template.image.url, i18n_model(:certificate_template, :image), button_text: 'Visualizar') %>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-9">
-    <div class="form-group">
-      <%= output_tag :event_category, @certificate_template, @certificate_template.event_category.name %>
-    </div>
-  </div>
-  <div class="col-md-12">
-    <div class="form-group">
-      <%= text_output_tag :body, @certificate_template, @certificate_template.body %>
-    </div>
-  </div>
-  <div class="col-md-12">
-    <div class="form-group">
-      <%= label_tag :image, i18n_model(:certificate_template, :certificate_signatures) %>
-      <div class="row">
-      <% @certificate_template.certificate_signatures.each do |certificate_signature| %>
-          <div class="col-md-4">
-            <%= render 'certificate_signatures/components/preview', certificate_signature: certificate_signature %>
-          </div>
-      <% end %>
-        </div>
-    </div>
+  <div class="col-sm-12">
+    <%= render 'show', certificate_template: @certificate_template %>
   </div>
 </div>
 
-<div class="clearfix">
+<div class="clearfix mt-4">
   <div class="float-right">
-    <%= link_to "<span><i class='fa fa-arrow-left mr-1'></i>#{i18n_word(:come_back)}</span>".html_safe, :back,
+    <%= link_to span_icon(i18n_word(:come_back), 'arrow-left'), :back,
                 class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
-    <%= link_to "<span><i class='fa fa-edit mr-1'></i>#{i18n_word(:edit)}</span>".html_safe, edit_certificate_template_path(@certificate_template),
-                class: 'btn btn-primary btn-icon btn-1 btn-simple' %>
+    <%= link_to span_icon(i18n_word(:edit), 'search'), edit_certificate_template_path(@certificate_template),
+                class: 'btn btn-primary btn-icon btn-1 btn-simple',
+                data: { toggle: 'tooltip', placement: 'bottom' }, title: "Editar" %>
   </div>
 </div>
