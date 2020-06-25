@@ -5,8 +5,8 @@ class EventsController < ApplicationController
 
   # GET /events
   def index
-    @event = Event.new
-    @events = Event.all.no_draft.where(parent_event: nil).page(params[:page]).per(10)
+    @event = Event.new(event_params)
+    @events = FindEvent.find(event_params, page_params)
   end
 
   # GET /events/1
@@ -98,6 +98,7 @@ class EventsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
+    return unless params[:event].present?
     params.require(:event).permit(:name,
                                   :start_date,
                                   :closing_date,

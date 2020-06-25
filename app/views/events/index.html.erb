@@ -11,8 +11,9 @@
   </div>
 </div>
 
-<%= card_filter do %>
-  <%= form_with(model: @event, local: true, method: :get) do |f| %>
+<%= card_filter(params[:show_filter]) do %>
+  <%= form_with(model: @event, local: true, method: :get, id: 'form-filter') do |f| %>
+    <%= hidden_field_tag :show_filter, value: true %>
     <div class="row">
       <div class="col-md-4">
         <div class="form-group">
@@ -31,13 +32,14 @@
       <div class="col-md">
         <%= f.date_picker :start_date, placeholder: true, hide_label: true %>
       </div>
-      <div class="col-md">
+      <div class="col-md mr-auto">
         <%= f.date_picker :closing_date, placeholder: true, hide_label: true  %>
       </div>
-      <div class="col-md-auto">
-        <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple") do %>
-          <span><i class="fa fa-search mr-1"></i></span>
+      <div class="col-md-auto nowrap">
+        <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple pull") do %>
+          <span><i class="fa fa-search"></i></span>
         <% end %>
+        <%= clear_form_button %>
       </div>
     </div>
   <% end %>
@@ -48,6 +50,9 @@
   <tr class="bg-primary">
     <th class="bold break-text">
       Nome
+    </th>
+    <th class="bold break-text">
+      Categoria
     </th>
     <th class="bold">
       Situação
@@ -68,6 +73,9 @@
     <tr>
       <td class="break-text">
         <%= event.name %>
+      </td>
+      <td>
+        <%= event.event_category.name%>
       </td>
       <td>
         <%= event.situation.situation_description %>
