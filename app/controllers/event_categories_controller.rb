@@ -4,7 +4,8 @@ class EventCategoriesController < ApplicationController
   # GET /event_categories
   # GET /event_categories.json
   def index
-    @event_categories = EventCategory.all.page(params[:page]).per(10)
+    @event_category = EventCategory.new(event_category_params)
+    @event_categories = FindEventCategory.find(event_category_params, page_params)
   end
 
   # GET /event_categories/1
@@ -64,6 +65,7 @@ class EventCategoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_category_params
+      return unless params[:event_category].present?
       params.require(:event_category).permit(:name, :description)
     end
 end
