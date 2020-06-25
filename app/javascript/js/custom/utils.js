@@ -28,5 +28,9 @@ window.clearForm = function clearForm(form) {
         }
     });
 
+    $(form).find('select').each(function(i, element) {
+        $(element).val('');
+    });
+
     $(form).submit();
 }

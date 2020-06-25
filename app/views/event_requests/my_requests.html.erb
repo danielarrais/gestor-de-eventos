@@ -1,9 +1,30 @@
-<div class="float-left">
-  <%= page_title("Minhas #{i18n_model(:event_request, plural: true)}") %>
+<div class="clearfix">
+  <div class="float-left">
+    <%= page_title("Minhas #{i18n_model(:event_request, plural: true)}") %>
+  </div>
+  <div class="float-right pt-2">
+    <%= icon_link i18n_word(:new_female), 'plus', new_event_request_path %>
+  </div>
+
+  <div class="float-right pt-2 mr-4">
+    <%= icon_link i18n_word(:filter), 'filter', "#collapseFilter", class: 'text-dark', data: { toggle: 'collapse' },
+                  aria: { expanded: "false", controls: "collapseFilter" } %>
+  </div>
 </div>
-<div class="float-right pt-2">
-  <%= icon_link i18n_word(:new_female), 'plus', new_event_request_path %>
-</div>
+
+<%= card_filter(params[:show_filter]) do %>
+  <%= form_with(model: @event_request, local: true, method: :get, id: 'new_filter') do |f| %>
+    <%= hidden_field_tag :show_filter, value: true %>
+    <div class="row">
+      <div class="col-md-auto nowrap">
+        <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple pull") do %>
+          <span><i class="fa fa-search"></i></span>
+        <% end %>
+        <%= clear_form_button %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
 
 <table class="table">
   <thead class="thead-light">

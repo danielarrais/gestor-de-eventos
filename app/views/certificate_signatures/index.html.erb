@@ -12,7 +12,7 @@
 </div>
 
 <%= card_filter(params[:show_filter]) do %>
-  <%= form_with(model: @certificate_signature, local: true, method: :get, id: 'form-filter') do |f| %>
+  <%= form_with(model: @certificate_signature, local: true, method: :get, id: 'new_filter') do |f| %>
     <%= hidden_field_tag :show_filter, value: true %>
     <div class="row">
       <div class="col-md-3">

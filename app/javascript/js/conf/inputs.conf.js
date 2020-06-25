@@ -118,8 +118,9 @@ function inicializeInputs(element = 'body') {
 
     parent.find('select.choices').each((i, element) => {
         new Choices(element, {
-            removeItemButton: true,
-            search: true,
+            // removeItemButton: true
+            placeholder: true,
+            searchPlaceholderValue: "Filtro",
         });
     })
 
