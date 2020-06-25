@@ -100,4 +100,10 @@ module FormHelper
     options[:class] = [] unless options[:class].present?
     options[:class] << " #{css_class}"
   end
+
+  def clear_form_button
+    button_tag(:class => "btn btn-light btn-icon btn-1 btn-simple pull", type: 'button', onclick: "clearForm('#form-filter')") do
+      '<span><i class="fa fa-refresh"></i></span>'.html_safe
+    end
+  end
 end
