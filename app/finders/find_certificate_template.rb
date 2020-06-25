@@ -1,34 +1,23 @@
-class FindCertificateTemplate
-  private_class_method :new
-  attr_accessor :initial_scope
-
-  def self.find(params, page_params = nil)
-    self.new.send(:filter, params, page_params)
-  end
-
+class FindCertificateTemplate < ApplicationFind
   private
 
   def filter(params, page_params)
     @scope = CertificateTemplate.all.distinct
 
-    scoped = filter_by_signatures(@scope, params[:certificate_signature_ids])
-    scoped = filter_by_category(scoped, params[:event_category_id])
+    filter_by_signatures(params[:certificate_signature_ids]) if params.present?
+    filter_by_category(params[:event_category_id]) if params.present?
 
-    paginate(scoped, page_params)
+    paginate(page_params)
   end
 
-  def filter_by_signatures(scoped, param)
-    return scoped if !param.present? || param.reject { |x| x.blank? }.empty?
-    scoped = scoped.joins(:certificate_signatures)
-    scoped.where('certificate_signatures.id in (?)', param.reject { |x| x.blank? })
+  def filter_by_signatures(param)
+    return if !param.present? || param.reject { |x| x.blank? }.empty?
+    @scope = @scope.joins(:certificate_signatures)
+    @scope = @scope.where('certificate_signatures.id in (?)', param.reject { |x| x.blank? })
   end
 
-  def filter_by_category(scoped, param)
-    return scoped unless param.present?
-    scoped.where(event_category_id: param)
-  end
-
-  def paginate(scoped, params)
-    scoped = scoped.page(params[:page]).per(10)
+  def filter_by_category(param)
+    return unless param.present?
+    @scope = @scope.where(event_category_id: param)
   end
 end

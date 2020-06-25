@@ -66,7 +66,8 @@ class CertificateTemplatesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def certificate_template_params
-    params.require(:certificate_template)&.permit(:body, :event_category_id, :default,
+    return nil unless params[:certificate_template].present?
+    params.require(:certificate_template).permit(:body, :event_category_id, :default,
                                                  image_attributes: [:file],
                                                  certificate_signature_ids: [])
   end

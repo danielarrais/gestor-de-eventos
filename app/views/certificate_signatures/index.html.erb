@@ -11,23 +11,25 @@
   </div>
 </div>
 
-<%= card_filter do %>
-  <%= form_with(model: @certificate_signature, local: true, method: :get) do |f| %>
+<%= card_filter(params[:show_filter]) do %>
+  <%= form_with(model: @certificate_signature, local: true, method: :get, id: 'form-filter') do |f| %>
+    <%= hidden_field_tag :show_filter, value: true %>
     <div class="row">
       <div class="col-md-3">
         <div class="form-group">
           <%= f.text_field :name, class: 'form-control', placeholder: true %>
         </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-5 mr-auto">
         <div class="form-group">
           <%= f.text_field :role, class: 'form-control', placeholder: true %>
         </div>
       </div>
-      <div class="col-md-auto">
+      <div class="col-md-auto nowrap">
         <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple pull") do %>
-          <span><i class="fa fa-search mr-1"></i></span>
+          <span><i class="fa fa-search"></i></span>
         <% end %>
+        <%= clear_form_button %>
       </div>
     </div>
   <% end %>
@@ -40,7 +42,7 @@
       Nome
     </th>
     <th class="bold">
-      Descrição
+      Cargo
     </th>
     <th style="width: 1%;" class="text-center bold">
       Ações
