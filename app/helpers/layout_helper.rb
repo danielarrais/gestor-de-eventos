@@ -63,7 +63,8 @@ module LayoutHelper
 
   def page_title(title)
     content_tag 'div', class: 'mb-4' do
-      content_tag 'h1', title, class: 'ct-title mt-0'
+      concat(content_tag 'span', title, class: 'd-none', id: 'title-page')
+      concat(content_tag 'h1', title, class: 'ct-title mt-0')
     end
   end
 

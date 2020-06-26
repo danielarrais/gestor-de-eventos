@@ -1,4 +1,6 @@
 class PeopleController < ApplicationController
+
+  load_and_authorize_resource
   def name
     @person = Person.select(:id, :name, :surname).find_by_cpf(params[:cpf])
 

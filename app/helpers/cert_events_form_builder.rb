@@ -32,6 +32,11 @@ class CertEventsFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def date_picker(method, options = {})
+    # object = JSON.parse(@object&.to_json)
+    #
+    # options[:value] = object[method.to_sym].to_time.iso8601 if object.present? && object[method.to_sym]
+    #                                                                                                                  .present?
+
     add_class options, 'flatpickr flatpickr-input form-control'
 
     content_tag('div', class: 'form-group') do

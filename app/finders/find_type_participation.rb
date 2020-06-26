@@ -13,5 +13,4 @@ class FindTypeParticipation < ApplicationFind
     return unless params.name.present?
     @scope = @scope.like_unaccent(:name, params.name)
   end
-
 end

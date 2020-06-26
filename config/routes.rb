@@ -62,6 +62,8 @@ Rails.application.routes.draw do
 # get 'users/:id/complete_registration', to: 'users#complete_registration'
 
   get 'people/name', to: 'people#name'
+  get 'validar/:certificate_hash', to: 'participants#validate_certificate'
+  get 'validar/', to: 'participants#validate_certificate'
   get 'people/autocomplete_by_cpf', to: 'people#autocomplete_by_cpf'
 
   root to: "home#index"

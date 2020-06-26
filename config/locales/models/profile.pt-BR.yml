@@ -12,6 +12,6 @@
   helpers:
     placeholder:
       profile:
-        name: "Ex. Professor"
-        description: "Ex.: Dar acesso as funções dedicadas aos docentes"
+        name: "Nome"
+        description: "Descrição"
         action_ids: "Escolha as ações permitidas para o perfil"

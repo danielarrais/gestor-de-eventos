@@ -9,8 +9,16 @@
         type_participation: "Tipo de Participação"
         event: "Evento/Atividade"
         workload: "Carga Horária"
-        status: "Status2"
+        status: "Status"
         status_enum:
           confirmed_subscription: "Inscrição Confirmada"
           awaiting_certificate: "Presença Confirmada"
           unsubscribed: "Incrição Cancelada"
+          type_participation: "Tipo de Participação"
+  helpers:
+    placeholder:
+      participant:
+        event: "Evento/Atividade"
+        workload: "Carga Horária"
+        event_category: "Categoria do Evento"
+        type_participation: "Tipo de Participação"

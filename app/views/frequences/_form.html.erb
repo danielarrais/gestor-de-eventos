@@ -24,14 +24,16 @@
       <%= output_tag :workload, frequence.event, "#{frequence.event.workload} Horas" %>
     </div>
   </div>
-  <div class="col-auto">
-    <div class="form-group">
-      <%= label_tag :image, i18n_model(:event, :image) %>
-      <div>
-        <%= view_image_button(frequence.event.image.url, i18n_model(:event, :image), button_text: 'Visualizar') %>
+  <% if frequence.event.image.present? %>
+    <div class="col-auto">
+      <div class="form-group">
+        <%= label_tag :image, i18n_model(:event, :image) %>
+        <div>
+          <%= view_image_button(frequence.event.image.url, i18n_model(:event, :image), button_text: 'Visualizar') %>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
   <div class="col-md-12">
     <%= render 'participants_form', frequence: frequence %>
   </div>
@@ -76,7 +78,7 @@
   <% end %>
 </div>
 
-<div class="clearfix">
+<div class="clearfix mt-3">
   <div class="float-right">
     <%= link_to span_icon(i18n_word(:come_back), 'arrow-left'), :back,
                 class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>

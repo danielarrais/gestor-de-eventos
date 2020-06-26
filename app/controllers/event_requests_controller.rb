@@ -94,6 +94,7 @@ class EventRequestsController < ApplicationController
                              start_date: @params[:start_date] || '',
                              closing_date: @params[:closing_date] || '',
                              show_filter: @params[:show_filter] || '',
+                             cpf_colicitante: @params[:cpf_colicitante] || '',
                          })
   end
 

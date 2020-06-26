@@ -51,4 +51,10 @@ class FindEventRequest < ApplicationFind
     return unless extras[:person].present?
     @scope = @scope.where(person_id: extras[:person])
   end
+
+  def filter_by_cpf
+    return unless params.cpf.present?
+    @scope = @scope.joins(:person)
+    @scope = @scope.like_unaccent('people.cpf', params.cpf_colicitante)
+  end
 end

@@ -1,12 +1,16 @@
+require "zlib"
+require 'securerandom'
+
 class Participant < ApplicationRecord
 #   belongs_to :person, required: false
   belongs_to :frequence, required: false
   belongs_to :type_participation, required: false
   belongs_to :event, required: false
 
-  # accepts_nested_attributes_for :person, allow_destroy: true
+  before_update :generate_hash
 
-  # before_validation :set_person
+  before_validation :format_cpf
+  validates_cpf_format_of :cpf
 
   enum status: { confirmed_subscription: 1,
                  awaiting_certificate: 2,
@@ -23,11 +27,16 @@ class Participant < ApplicationRecord
 
   private
 
-  # def set_person
-  #   return unless self.person.present?
-  #   if self.person.new_record? && self.person.cpf.present?
-  #     equal_person = Person.find_by_cpf(self.person.cpf)
-  #     self.person = equal_person if equal_person.present?
-  #   end
-  # end
+  def generate_hash
+    if certified? && !self.certificate_hash.present?
+      self.certificate_hash = Zlib.adler32(SecureRandom.uuid).to_s(16).upcase
+    end
+  end
+
+  def format_cpf
+    return unless self.cpf.present?
+
+    cpf_numbers = cpf.gsub(/\D/, '')
+    self.cpf = CPF.new(cpf_numbers).formatted
+  end
 end

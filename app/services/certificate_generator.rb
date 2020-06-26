@@ -22,6 +22,7 @@ class CertificateGenerator
           role: x.role,
       } }
       template[:text] = generate_template_text(participant, event, certificate_template)
+      template[:certificate_hash] = participant.certificate_hash
 
       @certificates << template
     end
@@ -30,7 +31,7 @@ class CertificateGenerator
   def generate_template_text(participant, event, certificate_template)
     values = { 'nome_aluno' => participant.full_name,
                'carga_horaria' => participant.workload_s,
-               'nome_evento_pai' => event.full_name,
+               'nome_completo_evento' => event.full_name,
                'nome_evento' => event.name,
                'tipo_participacao' => participant.type_participation.name,
                'data_inicio' => event.start_date.strftime('%d/%m/%Y'),

@@ -1,4 +1,6 @@
 class FrequencesController < ApplicationController
+
+  load_and_authorize_resource
   before_action :set_frequence, only: [:show, :edit, :update]
 
   # GET /frequences/1/edit

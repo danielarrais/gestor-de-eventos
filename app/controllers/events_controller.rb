@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+
+  load_and_authorize_resource
   before_action :set_event, only: [:show, :edit, :update, :destroy, :release_issuing_certificates]
   before_action :set_list_for_select, only: [:index, :new, :edit, :update, :create]
   before_action :verify_action, only: [:edit, :update, :destroy]

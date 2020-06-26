@@ -1,4 +1,6 @@
 class CertificateSignaturesController < ApplicationController
+
+  load_and_authorize_resource
   before_action :set_certificate_signature, only: [:show, :edit, :update, :destroy]
 
   # GET /certificate_signatures

@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_22_221921) do
+ActiveRecord::Schema.define(version: 2020_06_26_034325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "unaccent"
 
   create_table "archives", force: :cascade do |t|
     t.string "origin_type", null: false
@@ -86,7 +87,8 @@ ActiveRecord::Schema.define(version: 2020_06_22_221921) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "event_id"
-    t.bigint "certificate_template_id", null: false
+    t.boolean "own_certificate", default: false
+    t.bigint "certificate_template_id"
     t.bigint "situation_id"
     t.index ["certificate_template_id"], name: "index_events_on_certificate_template_id"
     t.index ["situation_id"], name: "index_events_on_situation_id"
@@ -159,6 +161,7 @@ ActiveRecord::Schema.define(version: 2020_06_22_221921) do
     t.integer "workload"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "certificate_hash", default: "f"
     t.index ["event_id"], name: "index_participants_on_event_id"
     t.index ["frequence_id"], name: "index_participants_on_frequence_id"
     t.index ["type_participation_id"], name: "index_participants_on_type_participation_id"

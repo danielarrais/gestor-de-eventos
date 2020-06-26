@@ -1,0 +1,55 @@
+<div class="clearfix">
+  <div class="float-left">
+    <%= page_title("Validar certificado") %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md mr-auto">
+    <%= text_field_tag :certificate_hash, params[:certificate_hash], class: 'form-control', placeholder: 'Código do certificado', hide_label: true %>
+  </div>
+  <div class="col-md-auto nowrap">
+    <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple pull", onclick: 'validar()') do %>
+      <span><i class="fa fa-search"></i></span>
+    <% end %>
+  </div>
+</div>
+<div id="success-message" class="row mt-3" style="display: none;">
+  <div class="col-sm-12">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <span class="alert-inner--icon"><i class="ni ni-like-2"></i></span>
+      <span class="alert-inner--text" style="font-size: 18pt">Certificado encontrado com sucesso!!!</span>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col">
+    <div id='preview-certificate'>
+      <%= render('participants/show_certificate', cert: @certificate) if @certificate.present? %>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(() => {
+        <% if @certificate.present? %>
+        $("#success-message").show();
+        loadPreview();
+        <% elsif params[:certificate_hash].present? %>
+        Swal.fire({
+            title: 'Certificado não encontrado!',
+            icon: 'error'
+        });
+        <% end %>
+    })
+
+    function validar() {
+        $.ajax({
+            data: {
+                certificate_hash: $('#certificate_hash').val()
+            },
+            type: "GET",
+            url: "<%= validar_path %>",
+            dataType: "script"
+        });
+    }
+</script>

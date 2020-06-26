@@ -1,4 +1,6 @@
 class CertificateTemplatesController < ApplicationController
+
+  load_and_authorize_resource
   before_action :set_list_for_select, only: [:index, :new, :edit, :update, :create]
   before_action :set_certificate_template, only: [:show, :edit, :update, :destroy]
 

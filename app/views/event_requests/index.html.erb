@@ -18,18 +18,23 @@
           <%= f.text_field :name, class: 'form-control', placeholder: i18n_placeholder(:event_request, :event_id) %>
         </div>
       </div>
-      <div class="col-md-3">
-        <% f.object.situation %>
-        <%= f.select(:situation, @key_situations,
-                     { include_blank: i18n_placeholder(:event_request, :situation) },
-                     { class: 'choices' }) %>
-      </div>
       <div class="col-md-5">
         <div class="form-group">
           <%= f.select(:event_category, @event_categories,
                        { include_blank: i18n_placeholder(:event, :event_category_id) },
                        { class: 'choices' }) %>
         </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <%= f.text_field :cpf_colicitante, class: 'form-control cpf-mask', placeholder: i18n_placeholder(:event_request, :cpf) %>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <% f.object.situation %>
+        <%= f.select(:situation, @key_situations,
+                     { include_blank: i18n_placeholder(:event_request, :situation) },
+                     { class: 'choices' }) %>
       </div>
       <div class="col-md-3">
         <%= f.date_picker :start_date, placeholder: i18n_placeholder(:event, :start_date), hide_label: true %>
@@ -53,6 +58,9 @@
     <th class="bold">
       <%= i18n_model(:event_request, :person_id) %>
     </th>
+    <th class="bold break-text">
+      <%= i18n_model(:event_request, :category) %>
+    </th>
     <th class="bold">
       <%= i18n_model(:event_request, :event_id) %>
     </th>
@@ -74,6 +82,9 @@
     <tr>
       <td>
         <%= event_request.person.full_name %>
+      </td>
+      <td>
+        <%= event_request.event.event_category.name%>
       </td>
       <td>
         <%= event_request.event.name %>

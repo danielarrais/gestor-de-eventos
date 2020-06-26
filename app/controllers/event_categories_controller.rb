@@ -1,4 +1,6 @@
 class EventCategoriesController < ApplicationController
+
+  load_and_authorize_resource
   before_action :set_event_category, only: [:show, :edit, :update, :destroy]
 
   # GET /event_categories

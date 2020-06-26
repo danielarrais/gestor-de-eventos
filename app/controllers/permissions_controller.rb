@@ -1,4 +1,6 @@
 class PermissionsController < ApplicationController
+
+  load_and_authorize_resource
   before_action :set_action, only: [:show, :edit, :update]
   before_action :set_filter_object, only: [:index]
 

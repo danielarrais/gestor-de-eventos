@@ -11,5 +11,5 @@
   helpers:
     placeholder:
       event_category:
-        name: "Categoria de evento"
+        name: "Nome"
         description: "Descrição"
