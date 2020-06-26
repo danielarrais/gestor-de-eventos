@@ -1,7 +1,7 @@
 class FindEvent < ApplicationFind
   private
 
-  def filter(params, page_params)
+  def filter
     @scope = Event.all.distinct
 
     filter_drafts
@@ -10,7 +10,7 @@ class FindEvent < ApplicationFind
     filter_by_start_date(params[:start_date]) if params.present?
     filter_by_closing_date(params[:closing_date]) if params.present?
 
-    paginate(page_params)
+    paginate
   end
 
   def filter_by_name(param)
