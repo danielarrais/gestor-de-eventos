@@ -3,11 +3,12 @@ class ProfilesController < ApplicationController
 
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
   before_action :set_permissions_for_select, only: [:edit, :new, :update]
+  before_action :set_filter_object, only: [:index]
 
   # GET /profiles
   # GET /profiles.json
   def index
-    @profiles = Profile.all.page(params[:page]).per(10)
+    @profiles = FindProfile.find(@filter, page_params)
   end
 
   # GET /profiles/1
@@ -65,6 +66,14 @@ class ProfilesController < ApplicationController
   end
 
   private
+
+  def set_filter_object
+    @params = params[:filter] || {}
+    @filter = Filter.new({
+                             name: @params[:name] || '',
+                             description: @params[:description] || ''
+                         })
+  end
 
   # Use callbacks to share common setup or constraints between permissions.
   def set_profile
