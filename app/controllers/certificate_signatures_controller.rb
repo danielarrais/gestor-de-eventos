@@ -4,7 +4,8 @@ class CertificateSignaturesController < ApplicationController
   # GET /certificate_signatures
   # GET /certificate_signatures.json
   def index
-    @certificate_signatures = CertificateSignature.all.page(params[:page]).per(10)
+    @certificate_signature = CertificateSignature.new(certificate_signature_params)
+    @certificate_signatures = FindCertificateSignature.find(certificate_signature_params, page_params)
   end
 
   # GET /certificate_signatures/1
@@ -39,11 +40,11 @@ class CertificateSignaturesController < ApplicationController
 
   def autocomplete_by_name_or_role
     @certificate_signatures = CertificateSignature.select(:id, :name, :role)
-                  .limit(10)
-                  .where("certificate_signatures.name like ? or certificate_signatures.role like ? ", "%#{params[:value]}%", "%#{params[:value]}%")
-                  .map { |v| { label: "#{v.name} - #{v.role}",
-                               value: v.id,
-                               id: v.id } }
+                                  .limit(10)
+                                  .where("certificate_signatures.name like ? or certificate_signatures.role like ? ", "%#{params[:value]}%", "%#{params[:value]}%")
+                                  .map { |v| { label: "#{v.name} - #{v.role}",
+                                               value: v.id,
+                                               id: v.id } }
 
     respond_to do |format|
       format.json { render json: @certificate_signatures }
@@ -83,6 +84,7 @@ class CertificateSignaturesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def certificate_signature_params
+    return nil unless params[:certificate_signature].present?
     params.require(:certificate_signature).permit(:name, :role, image_attributes: [:file])
   end
 end

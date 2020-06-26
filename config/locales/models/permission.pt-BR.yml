@@ -12,5 +12,5 @@
   helpers:
     placeholder:
       permission:
-        name: "Ex.: Excluir permissão"
-        description: "Ex.: Permite que o usuário excluar uma permissão de acesso"
+        name: "Nome"
+        description: "Descrição"

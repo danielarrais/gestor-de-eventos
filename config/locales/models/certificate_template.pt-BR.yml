@@ -9,6 +9,7 @@
         image: "Plano de fundo"
         image/file: "Plano de fundo"
         event_category: "Categoria de Evento"
+        event_category_id: "Categoria de Evento"
         certificate_signatures: "Assinaturas"
         body: "Texto"
         default: "Padrão"
@@ -17,3 +18,4 @@
       certificate_template:
         image_id: "Plano de fundo"
         body: "Texto"
+        event_category_id: "Categoria de Evento"

@@ -44,19 +44,35 @@ function inicializeInputs(element = 'body') {
 
     parent.find('select.choices-ajax').each((i, element) => {
         const choices_ajax = $(element)
-
+        // console.log(choices_ajax.attr("placeholder"))
         const search_mask = choices_ajax.attr('data-search-mask')
         const search_url = choices_ajax.attr('data-search-url')
         const search_text = choices_ajax.attr('data-search-text') || 'Digite o termo para busca'
         const search_min = choices_ajax.attr('data-search-min') || 2
+        const max_items = choices_ajax.attr('data-max-items') || -1
 
         const choices = new Choices(element, {
             removeItemButton: true,
             placeholder: true,
-            noChoicesText: search_text,
             duplicateItemsAllowed: false,
             searchEnabled: true,
+            placeholderValue: 'fvzxcvzxcv',
+            searchPlaceholderValue: 'xcvzxcvzxcvzxc',
+            maxItemCount: max_items,
+            loadingText: 'Buscando...',
+            noResultsText: 'Nenhum resultado encontrado',
+            noChoicesText: search_text,
+            itemSelectText: 'Clique para selecionar',
+            maxItemText: (maxItemCount) => {
+                return `Só ${maxItemCount} itens podem ser selecionados`;
+            },
         });
+
+        if (choices.getValue().length !== 0) {
+            addPlaceholderChoices(choices_ajax, '')
+        }
+
+        addPlaceholderChoices(choices_ajax, '')
 
         if (search_mask !== undefined) {
             choices_ajax.parent().find('.choices__input').mask(search_mask, {reverse: true});
@@ -79,12 +95,32 @@ function inicializeInputs(element = 'body') {
             },
             true,
         );
+
+        element.addEventListener(
+            'removeItem',
+            function () {
+                choices.clearChoices();
+                if (choices.getValue().length === 0) {
+                    addPlaceholderChoices(choices_ajax)
+                }
+            },
+            true,
+        );
+
+        element.addEventListener(
+            'choice',
+            function () {
+                addPlaceholderChoices(choices_ajax, ' ')
+            },
+            true,
+        );
     })
 
     parent.find('select.choices').each((i, element) => {
         new Choices(element, {
-            removeItemButton: true,
-            search: true,
+            // removeItemButton: true
+            placeholder: true,
+            searchPlaceholderValue: "Filtro",
         });
     })
 
@@ -101,6 +137,10 @@ function inicializeInputs(element = 'body') {
             dateFormat: "d/m/Y H:i",
         })
     })
+}
+
+function addPlaceholderChoices(element, value) {
+    element.closest('.choices__inner').find('.choices__input--cloned').attr('placeholder', value || element.attr("placeholder"))
 }
 
 function getDateOfInput(element) {

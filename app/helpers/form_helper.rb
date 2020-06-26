@@ -83,6 +83,11 @@ module FormHelper
     I18n.translate("words.#{word}", default: word.to_s.humanize)
   end
 
+  def i18n_placeholder(model, method)
+    i18n_key = "helpers.placeholder.#{model}.#{method}"
+    I18n.translate(i18n_key, default: method.to_s.humanize)
+  end
+
   # Retornar uma URL de imagem fake com base nos paramêtros
   def url_image_fake(resolution:, text: nil, image_color: '0a0c0d', text_color: 'fff', text_size: '15')
     "https://fakeimg.pl/#{resolution}/#{image_color},100/#{text_color},255?retina=1&font_size=#{text_size}&text=#{text ||= resolution}"
@@ -99,5 +104,12 @@ module FormHelper
   def add_class(options, css_class)
     options[:class] = [] unless options[:class].present?
     options[:class] << " #{css_class}"
+  end
+
+  def clear_form_button
+    button_tag(:class => "btn btn-light btn-icon btn-1 btn-simple pull", type: 'button',
+               onclick: "clearForm('#new_filter')") do
+      '<span><i class="fa fa-refresh"></i></span>'.html_safe
+    end
   end
 end

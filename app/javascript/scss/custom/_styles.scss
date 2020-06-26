@@ -6,6 +6,10 @@ $footer-heigth: 124px;
   font-weight: bold;
 }
 
+.table > tbody > tr > td {
+  vertical-align: middle;
+}
+
 // Empurra o footer para baixo
 body > .container {
   min-height: calc(100vh - #{$navbar-heigth} - #{$footer-heigth} - 1.5rem);
@@ -193,6 +197,13 @@ input {
 // Ajusta estilo do choices
 .choices[data-type*="select-multiple"] .choices__inner {
   padding: 5px .75rem 0;
+}
+
+// Exibe placeholder
+.choices[data-type*="select-multiple"] .choices__input--cloned {
+  width: auto !important;
+  max-width: 100% !important;
+  color: #8898aa !important;
 }
 
 // Ajusta estilos do summernote

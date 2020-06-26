@@ -23,14 +23,16 @@
     <%= output_tag :workload, event, "#{event.workload} Horas" %>
   </div>
 </div>
-<div class="col-auto">
-  <div class="form-group">
-    <%= label_tag :image, i18n_model(:event, :image) %>
-    <div>
-      <%= view_image_button(event.image.url, i18n_model(:event, :image), button_text: 'Visualizar') %>
+<% if event.image.present? %>
+  <div class="col-auto">
+    <div class="form-group">
+      <%= label_tag :image, i18n_model(:event, :image) %>
+      <div>
+        <%= view_image_button(event.image.url, i18n_model(:event, :image), button_text: 'Visualizar') %>
+      </div>
     </div>
   </div>
-</div>
+<% end %>
 
 <% if event.oriented_activities.any? %>
   <div class="col-sm-12">

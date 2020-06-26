@@ -71,11 +71,11 @@ module LayoutHelper
     link_to span_icon(text, icon, margin: 2).html_safe, path, options
   end
 
-  def card_filter(id = 'collapseFilter', &block)
+  def card_filter(show = false, id = 'collapseFilter', &block)
     content_tag('div', class: 'row') do
       content_tag('div', class: 'col') do
-        content_tag('div', class: 'collapse', id: 'collapseFilter') do
-          content_tag('div', class: 'card bg-secondary card-body shadow-none') do
+        content_tag('div', class: "collapse #{'show' if show}", id: 'collapseFilter') do
+          content_tag('div', class: 'card bg-secondary card-body shadow-none  pb-2') do
             capture(&block)
           end
         end

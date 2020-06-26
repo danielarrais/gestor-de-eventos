@@ -33,4 +33,10 @@ class ApplicationController < ActionController::Base
 
     send_data(pdf, filename: name_file.upcase, type: "application/pdf", :disposition => 'attachment')
   end
+
+  def page_params
+    {
+        page: params[:page] || 1
+    }
+  end
 end

@@ -32,13 +32,11 @@ class CertEventsFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def date_picker(method, options = {})
-    options[:value] = @object[method.to_sym].to_time.iso8601 if @object[method.to_sym].present?
-
     add_class options, 'flatpickr flatpickr-input form-control'
 
     content_tag('div', class: 'form-group') do
       concat(content_tag('div') do
-        label(method)
+        label(method) unless options[:hide_label]
       end)
       concat(content_tag('div', class: 'input-group') do
         concat(content_tag('div', class: 'input-group-prepend') do

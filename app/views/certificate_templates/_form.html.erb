@@ -36,7 +36,7 @@
                 <%= f.label :event_category %>
                 <%= f.select(:event_category_id, @event_categories,
                              { include_blank: true },
-                             { size: 5,
+                             { size: 5, 'max-items': 4,
                                class: 'form-control choices',
                                data: { trigger: '' }, }) %>
               </div>
@@ -97,7 +97,7 @@
         choices_signatures.addEventListener('removeItem', onChangeSignatures, true,);
         choices_signatures.addEventListener('addItem', onChangeSignatures, true,);
 
-        $("#preview-tab").on("click", function() {
+        $("#preview-tab").on("click", function () {
             changeText();
             changeImage();
         });

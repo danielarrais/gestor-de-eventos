@@ -1,11 +1,12 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy, :release_issuing_certificates]
-  before_action :set_list_for_select, only: [:new, :edit, :update, :create]
+  before_action :set_list_for_select, only: [:index, :new, :edit, :update, :create]
   before_action :verify_action, only: [:edit, :update, :destroy]
 
   # GET /events
   def index
-    @events = Event.all.no_draft.where(parent_event: nil).page(params[:page]).per(10)
+    @event = Event.new(event_params)
+    @events = FindEvent.find(event_params, page_params)
   end
 
   # GET /events/1
@@ -92,6 +93,12 @@ class EventsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
+    params.require(:event).permit(:name, :start_date, :closing_date, :event_category_id)
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def event_params
+    return unless params[:event].present?
     params.require(:event).permit(:name,
                                   :start_date,
                                   :closing_date,
