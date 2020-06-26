@@ -13,4 +13,6 @@
         justification_of_return: "Justificativa para devolução"
   helpers:
     placeholder:
-      event_category:
+      event_request:
+        situation: "Situação"
+        event_id: "Nome do Evento"

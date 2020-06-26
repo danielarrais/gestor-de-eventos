@@ -1,12 +1,12 @@
 class EventRequestsController < ApplicationController
   before_action :set_event_request, only: [:show, :edit, :update, :destroy, :forward_the_request, :generate_event, :return_for_changes]
-  before_action :set_list_for_select, only: [:index, :new, :edit, :update, :create]
+  before_action :set_list_for_select, only: [:index, :new, :edit, :update, :create, :my_requests]
   before_action :verify_action, only: [:edit, :update, :destroy]
-  before_action :set_filter_object, only: [:index]
+  before_action :set_filter_object, only: [:index, :my_requests]
 
   # GET /event_requests
   def my_requests
-    @event_requests = FindEventRequest.find(@filter.to_a, page_params, [current_user: current_user])
+    @event_requests = FindEventRequest.find(@filter, page_params, [person: current_user.person_id])
   end
 
   # GET /event_requests

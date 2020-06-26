@@ -12,10 +12,35 @@
   </div>
 </div>
 
+
 <%= card_filter(params[:show_filter]) do %>
-  <%= form_with(model: @event_request, local: true, method: :get, id: 'new_filter') do |f| %>
+  <%= form_for(@filter, url: event_requests_path, local: true, method: :get, id: 'new_filter') do |f| %>
     <%= hidden_field_tag :show_filter, value: true %>
     <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.text_field :name, class: 'form-control', placeholder: i18n_placeholder(:event_request, :event_id) %>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <% f.object.situation %>
+        <%= f.select(:situation, @key_situations,
+                     { include_blank: i18n_placeholder(:event_request, :situation) },
+                     { class: 'choices' }) %>
+      </div>
+      <div class="col-md-5">
+        <div class="form-group">
+          <%= f.select(:event_category, @event_categories,
+                       { include_blank: i18n_placeholder(:event, :event_category_id) },
+                       { class: 'choices' }) %>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <%= f.date_picker :start_date, placeholder: i18n_placeholder(:event, :start_date), hide_label: true %>
+      </div>
+      <div class="col-md-3 mr-auto">
+        <%= f.date_picker :closing_date, placeholder: i18n_placeholder(:event, :closing_date), hide_label: true %>
+      </div>
       <div class="col-md-auto nowrap">
         <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple pull") do %>
           <span><i class="fa fa-search"></i></span>
