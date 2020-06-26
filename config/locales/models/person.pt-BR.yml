@@ -15,9 +15,9 @@
   helpers:
     placeholder:
       person:
-        name: "Primeiro nome"
+        name: "Nome"
         registration: "Matrícula"
-        cellphone: "Telefone celular"
+        cellphone: "Celular"
         surname: "Sobrenome"
         date_of_birth: "Data de nascimento"
-        cpf: "Seu CPF"
+        cpf: "CPF"
