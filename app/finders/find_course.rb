@@ -1,10 +1,16 @@
 class FindCourse < ApplicationFind
   private
 
-  def filter(params, page_params)
-    @scope = CertificateTemplate.all.distinct
+  def filter
+    @scope = Course.all.distinct
 
-    paginate(page_params)
+    filter_by_name if params.present?
+
+    paginate
   end
 
+  def filter_by_name
+    return unless params.name.present?
+    @scope = @scope.like_unaccent(:name, params.name)
+  end
 end

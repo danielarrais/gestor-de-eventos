@@ -11,8 +11,23 @@
   </div>
 </div>
 
-<%= card_filter do %>
-  filtros
+<%= card_filter(params[:show_filter]) do %>
+  <%= form_for(@filter, url: courses_path, local: true, method: :get, id: 'new_filter') do |f| %>
+    <%= hidden_field_tag :show_filter, value: true %>
+    <div class="row">
+      <div class="col-md-5 mr-auto">
+        <div class="form-group">
+          <%= f.text_field :name, class: 'form-control', placeholder: i18n_placeholder(:course, :name) %>
+        </div>
+      </div>
+      <div class="col-md-auto nowrap">
+        <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple pull") do %>
+          <span><i class="fa fa-search"></i></span>
+        <% end %>
+        <%= clear_form_button %>
+      </div>
+    </div>
+  <% end %>
 <% end %>
 
 <table class="table">
