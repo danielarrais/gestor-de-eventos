@@ -1,9 +1,10 @@
 class TypeParticipationsController < ApplicationController
   before_action :set_type_participation, only: [:show, :edit, :update, :destroy]
+  before_action :set_filter_object, only: [:index]
 
   # GET /type_participations
   def index
-    @type_participations = TypeParticipation.all.page(params[:page]).per(10)
+    @type_participations = FindTypeParticipation.find(@filter, page_params)
   end
 
   # GET /type_participations/1
@@ -24,7 +25,7 @@ class TypeParticipationsController < ApplicationController
     @type_participation = TypeParticipation.new(type_participation_params)
 
     if @type_participation.save
-      redirect_to @type_participation, success:'Type participation was successfully created.'
+      redirect_to @type_participation, success: 'Type participation was successfully created.'
     else
       render :new
     end
@@ -33,7 +34,7 @@ class TypeParticipationsController < ApplicationController
   # PATCH/PUT /type_participations/1
   def update
     if @type_participation.update(type_participation_params)
-      redirect_to @type_participation, success:'Type participation was successfully updated.'
+      redirect_to @type_participation, success: 'Type participation was successfully updated.'
     else
       render :edit
     end
@@ -42,17 +43,25 @@ class TypeParticipationsController < ApplicationController
   # DELETE /type_participations/1
   def destroy
     @type_participation.destroy
-    redirect_to type_participations_url, success:'Type participation was successfully destroyed.'
+    redirect_to type_participations_url, success: 'Type participation was successfully destroyed.'
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_type_participation
-      @type_participation = TypeParticipation.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def type_participation_params
-      params.require(:type_participation).permit(:name)
-    end
+  def set_filter_object
+    @params = params[:filter] || {}
+    @filter = Filter.new({
+                             name: @params[:name] || ''
+                         })
+  end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_type_participation
+    @type_participation = TypeParticipation.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def type_participation_params
+    params.require(:type_participation).permit(:name)
+  end
 end
