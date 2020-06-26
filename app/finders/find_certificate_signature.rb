@@ -1,13 +1,13 @@
 class FindCertificateSignature < ApplicationFind
   private
 
-  def filter(params, page_params)
+  def filter
     @scope = CertificateSignature.all.distinct
 
     filter_by_name(params[:name]) if params.present?
     filter_by_role(params[:role]) if params.present?
 
-    paginate(page_params)
+    paginate
   end
 
   def filter_by_name(param)

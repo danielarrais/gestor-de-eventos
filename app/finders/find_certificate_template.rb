@@ -1,13 +1,13 @@
 class FindCertificateTemplate < ApplicationFind
   private
 
-  def filter(params, page_params)
+  def filter
     @scope = CertificateTemplate.all.distinct
 
     filter_by_signatures(params[:certificate_signature_ids]) if params.present?
     filter_by_category(params[:event_category_id]) if params.present?
 
-    paginate(page_params)
+    paginate
   end
 
   def filter_by_signatures(param)

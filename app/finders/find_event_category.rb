@@ -1,13 +1,13 @@
 class FindEventCategory < ApplicationFind
   private
 
-  def filter(params, page_params)
+  def filter
     @scope = EventCategory.all.distinct
 
     filter_by_name(params[:name]) if params.present?
     filter_by_description(params[:description]) if params.present?
 
-    paginate(page_params)
+    paginate
   end
 
   def filter_by_name(param)
