@@ -12,17 +12,17 @@
 </div>
 
 <%= card_filter(params[:show_filter]) do %>
-  <%= form_with(model: @certificate_signature, local: true, method: :get, id: 'new_filter') do |f| %>
+  <%= form_for(@filter, url: certificate_signatures_path, local: true, method: :get, id: 'new_filter') do |f| %>
     <%= hidden_field_tag :show_filter, value: true %>
     <div class="row">
       <div class="col-md-3">
         <div class="form-group">
-          <%= f.text_field :name, class: 'form-control', placeholder: true %>
+          <%= f.text_field :name, class: 'form-control', placeholder: i18n_placeholder(:certificate_signature, :name) %>
         </div>
       </div>
       <div class="col-sm-5 mr-auto">
         <div class="form-group">
-          <%= f.text_field :role, class: 'form-control', placeholder: true %>
+          <%= f.text_field :role, class: 'form-control', placeholder: i18n_placeholder(:certificate_signature, :role) %>
         </div>
       </div>
       <div class="col-md-auto nowrap">

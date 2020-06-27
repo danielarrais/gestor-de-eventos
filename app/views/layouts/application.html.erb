@@ -142,7 +142,7 @@
         <% end %>
 
         const title = $('#title-page')
-        if (title !== undefined) {
+        if (title.html() !== undefined) {
             window.document.title = title.html()
         }
     });

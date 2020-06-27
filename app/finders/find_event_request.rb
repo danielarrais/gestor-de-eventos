@@ -13,11 +13,13 @@ class FindEventRequest < ApplicationFind
     filter_by_start_date if params.present?
     filter_by_person if extras.present?
 
+    find_waiting_for_analysis
+
     paginate
   end
 
   def find_waiting_for_analysis
-    return unless extras[:waiting_for_analysis]
+    return unless extras[:waiting_for_analysis].present?
     @scope = @scope.waiting_for_analysis
   end
 
@@ -55,6 +57,6 @@ class FindEventRequest < ApplicationFind
   def filter_by_cpf
     return unless params.cpf.present?
     @scope = @scope.joins(:person)
-    @scope = @scope.like_unaccent('people.cpf', params.cpf_colicitante)
+    @scope = @scope.like_unaccent('people.cpf', params.cpf_solicitante)
   end
 end

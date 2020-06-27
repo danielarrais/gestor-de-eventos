@@ -10,4 +10,8 @@ class Filter
       self.class.send(:define_method, "#{k}=", proc { |v| self.instance_variable_set("@#{k}", v) })
     end
   end
+
+  def to_h
+
+  end
 end

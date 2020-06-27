@@ -52,8 +52,8 @@ class PermissionsController < ApplicationController
   def set_filter_object
     @params = params[:filter] || {}
     @filter = Filter.new({
-                             name: @params[:name] || '',
-                             description: @params[:description] || ''
+                             name: @params[:name],
+                             description: @params[:description]
                          })
   end
 

@@ -12,9 +12,8 @@
   </div>
 </div>
 
-
 <%= card_filter(params[:show_filter]) do %>
-  <%= form_for(@filter, url: event_requests_path, local: true, method: :get, id: 'new_filter') do |f| %>
+  <%= form_for(@filter, url: my_requests_event_requests_path, local: true, method: :get, id: 'new_filter') do |f| %>
     <%= hidden_field_tag :show_filter, value: true %>
     <div class="row">
       <div class="col-md-4">

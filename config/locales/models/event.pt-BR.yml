@@ -20,6 +20,7 @@
         start_date: "Início"
         closing_date: "Encerramento"
         event_category_id: "Categoria"
+        event_category: "Categoria"
         workload: "Carga Horária"
         image/file: "Fundo do Certificado"
         image: "Fundo do Certificado"

@@ -4,11 +4,11 @@ class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy, :release_issuing_certificates]
   before_action :set_list_for_select, only: [:index, :new, :edit, :update, :create]
   before_action :verify_action, only: [:edit, :update, :destroy]
+  before_action :set_filter_object, only: [:index]
 
   # GET /events
   def index
-    @event = Event.new(event_params)
-    @events = FindEvent.find(event_params, page_params)
+    @events = FindEvent.find(@filter, page_params)
   end
 
   # GET /events/1
@@ -82,6 +82,18 @@ class EventsController < ApplicationController
 
   private
 
+  def set_filter_object
+    @params = params[:filter] || {}
+    @filter = Filter.new({
+                             name: @params[:name],
+                             event_category: @params[:event_category],
+                             situation: @params[:situation],
+                             start_date: @params[:start_date],
+                             closing_date: @params[:closing_date],
+                             show_filter: @params[:show_filter],
+                         })
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_event
     @event = Event.find(params[:id])
@@ -91,6 +103,8 @@ class EventsController < ApplicationController
   def set_list_for_select
     @event_categories = EventCategory.select(:name, :id).map { |k, v| [k.name, k.id] }
     @courses = Course.select(:name, :id).map { |k, v| [k.name, k.id] }
+    @key_situations = Situation.where(origin_type: Event.to_s).select('key_situation_id').distinct
+                          .map { |k, v| [k.key_situation.description, k.key_situation.id] }
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

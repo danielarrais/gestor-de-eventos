@@ -105,9 +105,9 @@ class UsersController < ApplicationController
   def set_filter_object
     @params = params[:filter] || {}
     @filter = Filter.new({
-                             name: @params[:name] || '',
-                             email: @params[:email] || '',
-                             cpf: @params[:cpf] || ''
+                             name: @params[:name],
+                             email: @params[:email],
+                             cpf: @params[:cpf]
                          })
   end
 

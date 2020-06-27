@@ -12,27 +12,33 @@
 </div>
 
 <%= card_filter(params[:show_filter]) do %>
-  <%= form_with(model: @event, local: true, method: :get, id: 'new_filter') do |f| %>
+  <%= form_for(@filter, url: events_path, local: true, method: :get, id: 'new_filter') do |f| %>
     <%= hidden_field_tag :show_filter, value: true %>
     <div class="row">
       <div class="col-md-4">
         <div class="form-group">
-          <%= f.text_field :name, class: 'form-control', placeholder: true %>
+          <%= f.text_field :name, class: 'form-control', placeholder: i18n_placeholder(:event, :name) %>
         </div>
       </div>
       <div class="col-md-3">
         <div class="form-group">
-          <%= f.select(:event_category_id, @event_categories,
-                       { include_blank: true },
+          <%= f.select(:event_category, @event_categories,
+                       { include_blank: i18n_placeholder(:event, :event_category) },
                        { class: 'form-control choices',
                          data: { trigger: '' }, }) %>
         </div>
       </div>
-      <div class="col-md">
-        <%= f.date_picker :start_date, placeholder: true, hide_label: true %>
+      <div class="col-md-3">
+        <% f.object.situation %>
+        <%= f.select(:situation, @key_situations,
+                     { include_blank: i18n_placeholder(:event_request, :situation) },
+                     { class: 'choices' }) %>
       </div>
-      <div class="col-md mr-auto">
-        <%= f.date_picker :closing_date, placeholder: true, hide_label: true  %>
+      <div class="col-md-2">
+        <%= f.date_picker :start_date, placeholder: i18n_placeholder(:event, :start_date), hide_label: true %>
+      </div>
+      <div class="col-md-2 mr-auto">
+        <%= f.date_picker :closing_date, placeholder: i18n_placeholder(:event, :closing_date), hide_label: true  %>
       </div>
       <div class="col-md-auto nowrap">
         <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple pull") do %>

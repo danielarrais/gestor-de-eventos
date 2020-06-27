@@ -53,7 +53,7 @@ class TypeParticipationsController < ApplicationController
   def set_filter_object
     @params = params[:filter] || {}
     @filter = Filter.new({
-                             name: @params[:name] || ''
+                             name: @params[:name]
                          })
   end
 

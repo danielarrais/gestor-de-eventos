@@ -11,8 +11,7 @@ class EventRequestsController < ApplicationController
 
   # GET /event_requests
   def index
-    @event_requests = FindEventRequest.find(@filter, page_params,
-                                            [current_user: current_user, waiting_for_analysis: true])
+    @event_requests = FindEventRequest.find(@filter, page_params, [current_user: current_user, waiting_for_analysis: true])
   end
 
   # GET /event_requests/1
@@ -33,6 +32,7 @@ class EventRequestsController < ApplicationController
     @event_request = EventRequest.new(event_request_params)
     @event_request.person = current_user.person
     @event_request.event.current_user = current_user
+    @event_request.draft = true
     @event_request.event.draft = true
 
     if @event_request.save
@@ -51,7 +51,7 @@ class EventRequestsController < ApplicationController
   # GET /event_requests/1
   def generate_event
     @event_request.generate_event
-    redirect_to my_requests_event_requests_path, success: 'Evento gerado com sucesso'
+    redirect_to event_requests_path, success: 'Evento gerado com sucesso'
   end
 
   # GET /event_requests/1
@@ -88,13 +88,13 @@ class EventRequestsController < ApplicationController
   def set_filter_object
     @params = params[:filter] || {}
     @filter = Filter.new({
-                             name: @params[:name] || '',
-                             event_category: @params[:event_category] || '',
-                             situation: @params[:situation] || '',
-                             start_date: @params[:start_date] || '',
-                             closing_date: @params[:closing_date] || '',
-                             show_filter: @params[:show_filter] || '',
-                             cpf_colicitante: @params[:cpf_colicitante] || '',
+                             name: @params[:name],
+                             event_category: @params[:event_category],
+                             situation: @params[:situation],
+                             start_date: @params[:start_date],
+                             closing_date: @params[:closing_date],
+                             show_filter: @params[:show_filter],
+                             cpf_solicitante: @params[:cpf_solicitante],
                          })
   end
 

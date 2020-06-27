@@ -4,19 +4,19 @@ class FindCertificateSignature < ApplicationFind
   def filter
     @scope = CertificateSignature.all.distinct
 
-    filter_by_name(params[:name]) if params.present?
-    filter_by_role(params[:role]) if params.present?
+    filter_by_name if params.present?
+    filter_by_role if params.present?
 
     paginate
   end
 
-  def filter_by_name(param)
-    return if !param.present? || param.blank?
-    @scope = @scope.like_unaccent(:name, param)
+  def filter_by_name
+    return unless params.name.present?
+    @scope = @scope.like_unaccent(:name, params.name)
   end
 
-  def filter_by_role(param)
-    return if !param.present? || param.blank?
-    @scope = @scope.like_unaccent(:role, param)
+  def filter_by_role
+    return unless params.role.present?
+    @scope = @scope.like_unaccent(:role, params.role)
   end
 end

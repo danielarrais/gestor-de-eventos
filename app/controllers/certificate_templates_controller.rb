@@ -3,11 +3,11 @@ class CertificateTemplatesController < ApplicationController
   load_and_authorize_resource
   before_action :set_list_for_select, only: [:index, :new, :edit, :update, :create]
   before_action :set_certificate_template, only: [:show, :edit, :update, :destroy]
+  before_action :set_filter_object, only: [:index]
 
   # GET /certificate_templates
   def index
-    @certificate_template = CertificateTemplate.new(certificate_template_params)
-    @certificate_templates = FindCertificateTemplate.find(certificate_template_params, page_params)
+    @certificate_templates = FindCertificateTemplate.find(@filter, page_params)
   end
 
   # GET /certificate_templates/1
@@ -55,6 +55,18 @@ class CertificateTemplatesController < ApplicationController
   end
 
   private
+
+  def set_filter_object
+    @params = params[:filter] || {}
+    if @params[:certificate_signatures].present?
+      @certificate_signatures = CertificateSignature.where(id: @params[:certificate_signatures]).map { |v| ["#{v.name} - #{v.role}", v.id] }
+    end
+    @filter = Filter.new({
+                             name: @params[:name],
+                             event_category: @params[:event_category],
+                             certificate_signatures: @params[:certificate_signatures],
+                         })
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_certificate_template

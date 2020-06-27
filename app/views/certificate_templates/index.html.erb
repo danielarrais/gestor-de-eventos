@@ -12,13 +12,13 @@
 </div>
 
 <%= card_filter(params[:show_filter]) do %>
-  <%= form_with(model: @certificate_template, local: true, method: :get, id: 'new_filter') do |f| %>
+  <%= form_for( @filter, url: certificate_templates_path, method: :get, id: 'new_filter') do |f| %>
     <%= hidden_field_tag :show_filter, value: true %>
     <div class="row">
       <div class="col-md-4">
         <div class="form-group">
-          <%= f.select(:event_category_id, @event_categories,
-                       { include_blank: true },
+          <%= f.select(:event_category, @event_categories,
+                       { include_blank: i18n_placeholder(:certificate_template, :event_category) },
                        { class: 'form-control choices',
                          data: { trigger: '' }, }) %>
         </div>
@@ -26,7 +26,7 @@
       <div class="col-md-6 mr-auto ">
         <div class="form-group">
           <div class="form-group">
-            <%= f.select(:certificate_signature_ids, f.object.certificate_signatures.map { |v| ["#{v.name} - #{v.role}", v.id] },
+            <%= f.select(:certificate_signatures, @certificate_signatures || [],
                          { include_blank: true },
                          { multiple: true,
                            placeholder: 'Assinaturas',

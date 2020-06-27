@@ -123,12 +123,12 @@ class ParticipantsController < ApplicationController
   def set_filter_object
     @params = params[:filter] || {}
     @filter = Filter.new({
-                             name: @params[:name] || '',
-                             event_category: @params[:event_category] || '',
-                             type_participation: @params[:type_participation] || '',
-                             start_date: @params[:start_date] || '',
-                             closing_date: @params[:closing_date] || '',
-                             workload: @params[:workload] || ''
+                             name: @params[:name],
+                             event_category: @params[:event_category],
+                             type_participation: @params[:type_participation],
+                             start_date: @params[:start_date],
+                             closing_date: @params[:closing_date],
+                             workload: @params[:workload]
                          })
   end
 

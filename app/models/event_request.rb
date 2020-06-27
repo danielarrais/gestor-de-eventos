@@ -2,7 +2,7 @@ class EventRequest < ApplicationRecord
   after_create :create_initial_situation
   after_create :set_current_situation
 
-  attr_accessor :justification_of_return, :current_user
+  attr_accessor :justification_of_return, :current_user, :draft
 
   belongs_to :event
   belongs_to :person, required: false

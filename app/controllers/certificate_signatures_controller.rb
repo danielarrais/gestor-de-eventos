@@ -2,12 +2,12 @@ class CertificateSignaturesController < ApplicationController
 
   load_and_authorize_resource
   before_action :set_certificate_signature, only: [:show, :edit, :update, :destroy]
+  before_action :set_filter_object, only: [:index]
 
   # GET /certificate_signatures
   # GET /certificate_signatures.json
   def index
-    @certificate_signature = CertificateSignature.new(certificate_signature_params)
-    @certificate_signatures = FindCertificateSignature.find(certificate_signature_params, page_params)
+    @certificate_signatures = FindCertificateSignature.find(@filter, page_params)
   end
 
   # GET /certificate_signatures/1
@@ -78,6 +78,15 @@ class CertificateSignaturesController < ApplicationController
   end
 
   private
+
+  def set_filter_object
+    @params = params[:filter] || {}
+    @filter = Filter.new({
+                             name: @params[:name],
+                             role: @params[:role],
+                             certificate_signatures: @params[:certificate_signatures],
+                         })
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_certificate_signature

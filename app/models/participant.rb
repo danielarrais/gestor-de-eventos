@@ -29,7 +29,7 @@ class Participant < ApplicationRecord
 
   def generate_hash
     if certified? && !self.certificate_hash.present?
-      self.certificate_hash = Zlib.adler32(SecureRandom.uuid).to_s(16).upcase
+      self.certificate_hash = Zlib.adler32(SecureRandom.uuid).to_s(16)
     end
   end
 
