@@ -59,6 +59,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'rspec-rails', '~> 4.0.1'
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
 
@@ -74,6 +75,7 @@ end
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 3.32', '>= 3.32.2'
+  gem 'rspec-rails', '~> 4.0.1'
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
