@@ -68,6 +68,9 @@
         <%= link_to span_icon('', 'trash'), certificate_signature,
                     method: :delete, data: { confirm: 'Você tem certeza?', toggle: 'tooltip', placement: 'bottom' }, title: "Excluir",
                     class: 'btn btn-icon btn-sm btn-danger' %>
+        <%= link_to span_icon('', 'archive'), certificate_signature,
+                    method: :get, data: { confirm: 'Você tem certeza?', toggle: 'tooltip', placement: 'bottom' }, title: "Arquivar",
+                    class: 'btn btn-icon btn-sm btn-warning' %>
       </td>
     </tr>
 

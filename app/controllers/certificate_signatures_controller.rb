@@ -32,10 +32,8 @@ class CertificateSignaturesController < ApplicationController
     respond_to do |format|
       if @certificate_signature.save
         format.html { redirect_to @certificate_signature, success: 'Certificate signature was successfully created.' }
-        format.json { render :show, status: :created, location: @certificate_signature }
       else
         format.html { render :new }
-        format.json { render json: @certificate_signature.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -59,12 +57,14 @@ class CertificateSignaturesController < ApplicationController
     respond_to do |format|
       if @certificate_signature.update(certificate_signature_params)
         format.html { redirect_to @certificate_signature, success: 'Certificate signature was successfully updated.' }
-        format.json { render :show, status: :ok, location: @certificate_signature }
       else
         format.html { render :edit }
-        format.json { render json: @certificate_signature.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def arquive
+
   end
 
   # DELETE /certificate_signatures/1

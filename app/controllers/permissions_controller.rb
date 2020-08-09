@@ -39,10 +39,8 @@ class PermissionsController < ApplicationController
     respond_to do |format|
       if @permission.update(permission_params)
         format.html { redirect_to @permission, success: 'Action was successfully updated.' }
-        format.json { render :show, status: :ok, location: @permission }
       else
         format.html { render :edit }
-        format.json { render json: @permission.errors, status: :unprocessable_entity }
       end
     end
   end
