@@ -1,5 +1,5 @@
 class CertificateSignature < ApplicationRecord
-  validates_presence_of :name, :role
+  include CSituation
 
   belongs_to :image, required: true
   has_and_belongs_to_many :certificate_template
