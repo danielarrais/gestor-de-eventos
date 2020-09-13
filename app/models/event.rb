@@ -1,5 +1,6 @@
 class Event < ApplicationRecord
-  after_create :create_initial_situation
+  include CSituation
+
   before_validation :set_file_extensions
 
   attr_accessor :current_user, :draft
@@ -30,8 +31,6 @@ class Event < ApplicationRecord
 
     self.situations.create(person: current_user.person,
                            key_situation: KeySituation.find_by(key: :deferred))
-
-    set_current_situation
   end
 
   def approve_event
@@ -56,18 +55,6 @@ class Event < ApplicationRecord
                            key_situation: KeySituation.find_by(key: :released_certificates))
 
     set_current_situation
-  end
-
-  def last_situation
-    self.situations&.last
-  end
-
-  def draft?
-    situation&.key_situation&.key&.to_sym == :draft
-  end
-
-  def deferred?
-    situation&.key_situation&.key&.to_sym == :deferred
   end
 
   def can_action?(action)
@@ -114,11 +101,6 @@ class Event < ApplicationRecord
     message = "Não foi encontrado um template padrão para a(s) categoria(s)
                <b>#{categorias_sem_template.join('</b>, <b>')}</b>"
     self.errors.add(:base, message) if categorias_sem_template.any?
-  end
-
-  def set_current_situation
-    self.situations.reload
-    self.update_column(:situation_id, last_situation&.id)
   end
 
   # Defines the allowed image formats

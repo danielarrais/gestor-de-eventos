@@ -54,6 +54,22 @@ class CertificateTemplatesController < ApplicationController
     @certificate_signatures = CertificateSignature.where(id: params[:selecteds])
   end
 
+  def arquive
+    @certificate_template.current_user = current_user
+    @certificate_template.archive
+    respond_to do |format|
+      format.html { redirect_to certificate_templates_url, success: 'Template arquivado com sucesso.' }
+    end
+  end
+
+  def unarchive
+    @certificate_template.current_user = current_user
+    @certificate_template.unarchive
+    respond_to do |format|
+      format.html { redirect_to certificate_templates_url, success: 'Template desarquivado com sucesso.' }
+    end
+  end
+
   private
 
   def set_filter_object
@@ -64,6 +80,7 @@ class CertificateTemplatesController < ApplicationController
     @filter = Filter.new({
                              name: @params[:name],
                              event_category: @params[:event_category],
+                             archived: Util.to_boolean(@params[:archived]),
                              certificate_signatures: @params[:certificate_signatures],
                          })
   end
