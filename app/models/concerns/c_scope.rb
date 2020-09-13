@@ -1,4 +1,4 @@
-module Scope
+module CScope
   extend ActiveSupport::Concern
 
   def self.included(klass)
