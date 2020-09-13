@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_26_034325) do
+ActiveRecord::Schema.define(version: 2020_09_08_005648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,8 @@ ActiveRecord::Schema.define(version: 2020_06_26_034325) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "image_id", null: false
+    t.bigint "situation_id"
+    t.index ["situation_id"], name: "index_certificate_signatures_on_situation_id"
   end
 
   create_table "certificate_signatures_templates", id: false, force: :cascade do |t|
@@ -48,9 +50,11 @@ ActiveRecord::Schema.define(version: 2020_06_26_034325) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "default", default: false
+    t.bigint "situation_id"
     t.index ["event_category_id"], name: "index_certificate_templates_on_event_category_id"
     t.index ["image_id"], name: "index_certificate_templates_on_image_id"
     t.index ["person_id"], name: "index_certificate_templates_on_person_id"
+    t.index ["situation_id"], name: "index_certificate_templates_on_situation_id"
   end
 
   create_table "courses", force: :cascade do |t|
@@ -161,7 +165,7 @@ ActiveRecord::Schema.define(version: 2020_06_26_034325) do
     t.integer "workload"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "certificate_hash", default: "f"
+    t.string "certificate_hash"
     t.index ["event_id"], name: "index_participants_on_event_id"
     t.index ["frequence_id"], name: "index_participants_on_frequence_id"
     t.index ["type_participation_id"], name: "index_participants_on_type_participation_id"
@@ -249,11 +253,13 @@ ActiveRecord::Schema.define(version: 2020_06_26_034325) do
   end
 
   add_foreign_key "certificate_signatures", "images"
+  add_foreign_key "certificate_signatures", "situations"
   add_foreign_key "certificate_signatures_templates", "certificate_signatures"
   add_foreign_key "certificate_signatures_templates", "certificate_templates"
   add_foreign_key "certificate_templates", "event_categories"
   add_foreign_key "certificate_templates", "images"
   add_foreign_key "certificate_templates", "people"
+  add_foreign_key "certificate_templates", "situations"
   add_foreign_key "event_requests", "situations"
   add_foreign_key "events", "certificate_templates"
   add_foreign_key "events", "event_categories"
