@@ -23,7 +23,7 @@
                          data: { trigger: '' }, }) %>
         </div>
       </div>
-      <div class="col-md-6 mr-auto ">
+      <div class="col-md-5 mr-auto">
         <div class="form-group">
           <div class="form-group">
             <%= f.select(:certificate_signatures, @certificate_signatures || [],
@@ -33,6 +33,14 @@
                            class: 'form-control choices-ajax',
                            data: { 'search-text': 'Digite o nome da assinatura', 'search-min': 3,
                                    'search-url': autocomplete_by_name_or_role_certificate_signatures_path }, }) %>
+          </div>
+        </div>
+      </div>
+      <div class="mr-auto">
+        <div class="form-group">
+          <div class="custom-control mt-2">
+            <%= f.check_box :archived, { class: 'custom-control-input' }, true, false %>
+            <%= f.label :archived, 'Arquivado?', class: 'custom-control-label' %>
           </div>
         </div>
       </div>
@@ -54,6 +62,7 @@
         <th class="bold"><%= i18n_model(:certificate_template, :event_category) %></th>
         <th class="bold break-text"><%= i18n_model(:certificate_template, :body) %></th>
         <th class="bold"><%= i18n_model(:certificate_template, :certificate_signatures) %></th>
+        <th class="text-center">Arquivado?</th>
         <th class="text-center bold" colspan="3"><%= i18n_word(:actions) %></th>
       </tr>
       </thead>
@@ -73,6 +82,9 @@
             <% end %>
           </td>
           <td class="text-center">
+            <%= certificate_template.archived? ? 'SIM' : 'NÃO' %>
+          </td>
+          <td class="text-center">
             <%= link_to span_icon('', 'search'), certificate_template,
                         class: 'btn btn-primary btn-icon btn-sm btn-simple',
                         data: { toggle: 'tooltip', placement: 'bottom' }, title: "Visualizar" %>
@@ -82,6 +94,12 @@
             <%= link_to span_icon('', 'trash'), certificate_template,
                         method: :delete, data: { confirm: 'Você tem certeza?', toggle: 'tooltip', placement: 'bottom' }, title: "Excluir",
                         class: 'btn btn-icon btn-sm btn-danger' %>
+            <%= link_to span_icon('', 'archive'), arquive_certificate_template_path(certificate_template),
+                        method: :get, data: { confirm: 'Você tem certeza?', toggle: 'tooltip', placement: 'bottom' }, title: "Arquivar",
+                        class: 'btn btn-icon btn-sm btn-default' unless certificate_template.archived? %>
+            <%= link_to span_icon('', 'undo'), unarchive_certificate_template_path(certificate_template),
+                        method: :get, data: { confirm: 'Você tem certeza?', toggle: 'tooltip', placement: 'bottom' }, title: "Desarquivar",
+                        class: 'btn btn-icon btn-sm btn-default' if certificate_template.archived? %>
           </td>
         </tr>
       <% end %>

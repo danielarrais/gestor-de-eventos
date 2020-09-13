@@ -20,9 +20,17 @@
           <%= f.text_field :name, class: 'form-control', placeholder: i18n_placeholder(:certificate_signature, :name) %>
         </div>
       </div>
-      <div class="col-sm-5 mr-auto">
+      <div class="col-sm-5">
         <div class="form-group">
           <%= f.text_field :role, class: 'form-control', placeholder: i18n_placeholder(:certificate_signature, :role) %>
+        </div>
+      </div>
+      <div class="mr-auto">
+        <div class="form-group">
+          <div class="custom-control mt-2">
+            <%= f.check_box :archived, { class: 'custom-control-input' }, true, false %>
+            <%= f.label :archived, 'Arquivado?', class: 'custom-control-label' %>
+          </div>
         </div>
       </div>
       <div class="col-md-auto nowrap">
@@ -44,6 +52,9 @@
     <th class="bold">
       Cargo
     </th>
+    <th class="bold">
+      Arquivada?
+    </th>
     <th style="width: 1%;" class="text-center bold">
       Ações
     </th>
@@ -59,6 +70,9 @@
         <%= certificate_signature.role %>
       </td>
       <td class="text-center">
+        <%= certificate_signature.archived? ? 'SIM' : 'NÃO' %>
+      </td>
+      <td class="text-center">
         <%= link_to span_icon('', 'search'), certificate_signature,
                     class: 'btn btn-primary btn-icon btn-sm btn-simple',
                     data: { toggle: 'tooltip', placement: 'bottom' }, title: "Visualizar" %>
@@ -68,9 +82,12 @@
         <%= link_to span_icon('', 'trash'), certificate_signature,
                     method: :delete, data: { confirm: 'Você tem certeza?', toggle: 'tooltip', placement: 'bottom' }, title: "Excluir",
                     class: 'btn btn-icon btn-sm btn-danger' %>
-        <%= link_to span_icon('', 'archive'), certificate_signature,
+        <%= link_to span_icon('', 'archive'), arquive_certificate_signature_path(certificate_signature),
                     method: :get, data: { confirm: 'Você tem certeza?', toggle: 'tooltip', placement: 'bottom' }, title: "Arquivar",
-                    class: 'btn btn-icon btn-sm btn-warning' %>
+                    class: 'btn btn-icon btn-sm btn-default' unless certificate_signature.archived? %>
+        <%= link_to span_icon('', 'undo'), unarchive_certificate_template_path(certificate_signature),
+                    method: :get, data: { confirm: 'Você tem certeza?', toggle: 'tooltip', placement: 'bottom' }, title: "Desarquivar",
+                    class: 'btn btn-icon btn-sm btn-default' if certificate_signature.archived? %>
       </td>
     </tr>
 
