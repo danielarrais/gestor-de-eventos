@@ -1,0 +1,34 @@
+<table class="table" id="<%= id %>">
+  <thead class="thead-light">
+  <tr>
+    <th class="pt-3 pb-3 pl-2 pr2 bold">Nome Completo</th>
+    <th class="pt-3 pb-3 pl-2 pr2 bold">Email</th>
+    <th class="pt-3 pb-3 pl-2 pr2 bold">C. Horária</th>
+    <th class="pt-3 pb-3 pl-2 pr2 bold">Matrícula</th>
+    <th class="pt-3 pb-3 pl-2 pr2 bold">CPF</th>
+    <th class="pt-3 pb-3 pl-2 pr2 bold">Participação</th>
+    <th style="width: 1%;" class="pt-3 pb-3 pl-2 pr2 text-center bold">Ações</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% participants.each do |participant| %>
+    <tr id="<%= participant.id %>'">
+      <td class="p-2"><%= participant.name %> <%= participant.surname %></td>
+      <td class="p-2"><%= participant.email %></td>
+      <td class="p-2"><%= participant.workload %> Horas</td>
+      <td class="p-2"><%= participant.registration %></td>
+      <td class="p-2"><%= participant.cpf %></td>
+      <td class="p-2"><%= participant.type_participation.name %></td>
+      <td style="width: 1%" class="p-2" colspan="3">
+        <% url = participant.id.present? ? participant_path(id: participant.id) : '#' %>
+        <%= link_to span_icon('', 'edit'), edit_participant_path(participant),
+                    class: 'btn btn-primary btn-icon btn-sm', remote: true,
+                    data: { toggle: 'tooltip', placement: 'bottom' }, title: "Editar" %>
+        <%= link_to span_icon('', 'trash'), 'javascript:void(0)', onclick: 'remove(this)',
+                    class: 'btn btn-danger btn-icon btn-sm',
+                    data: { toggle: 'tooltip', placement: 'bottom', url: url }, title: "Excluir" unless participant.certified? %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

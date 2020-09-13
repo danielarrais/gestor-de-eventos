@@ -1,59 +1,34 @@
 # config valid for current version and patch releases of Capistrano
-lock '~> 3.13.0'
+lock '~> 3.14.1'
 
+# Nome da aplicação
 set :application, 'seu'
-set :puma_role, :app
+
+# URL do repositório
 set :repo_url, 'git@gitlab.com:danielarrais/seu.git'
 
+# Pasta onde ficará a aplicação no servidor
 set :deploy_to, '/var/www/seu'
 
 append :linked_files, 'config/database.yml', 'config/master.key'
 append :linked_dirs, 'log', 'tmp'
 
+# Quantidade de versões que devem ser mantidas no servidor
 set :keep_releases, 5
 set :migration_role, :app
 
+# Localização do arquivo com o PID do servidor em execução
 set :unicorn_pid, "#{shared_path}/tmp/pids/unicorn.pid"
 
-set :rvm_ruby_version, '2.7.0'
+# Versão do RUBY
+set :ruby_version, '2.7.1'
+set :rvm_ruby_version, '2.7.1'
+
 
 namespace :deploy do
-  desc 'Seed the database using the db: seed rake'
-  task seed: [:set_rails_env] do
-    on release_roles([:db]) do
-      within release_path do
-        with rails_env: fetch(:rails_env) do
-          execute :rake, 'db:seed'
-        end
-      end
-    end
-  end
-
-  desc 'Creates the database using the db: create rake'
-  task create: [:set_rails_env] do
-    on release_roles([:db]) do
-      within release_path do
-        with rails_env: fetch(:rails_env) do
-          # execute :rake, 'db:create' # descomentar caso esteja utilizando banco local
-        end
-      end
-    end
-  end
-
-  desc 'Restart Nginx'
-  task :nginx_restart do
-    on roles(:app) do
-      execute 'sudo service nginx restart'
-    end
-  end
-
-  task :restart do
-    invoke! 'unicorn:restart'
-  end
-
-  before :compile_assets, :create
-  after :migrate, :seed
-  after :publishing, :restart
-  after :restart, :nginx_restart
+  before :check, 'check:shared_files'
+  after :migrate, :rakes
+  after :rakes, :seed
+  after :publishing, 'app:restart'
+  after 'nginx:conf', 'app:restart'
 end
-

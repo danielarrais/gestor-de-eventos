@@ -6,19 +6,21 @@
         other: 'Eventos'
     attributes:
       event:
-        name: "Título"
+        name: "Nome"
         start_date: "Data de Início"
         closing_date: "Data de Encerramento"
         event_category_id: "Categoria"
         workload: "Carga Horária"
         image/file: "Fundo do Certificado"
         image: "Fundo do Certificado"
-        own_certificate: "Certificado Próprio"
   helpers:
     placeholder:
       event:
-        name: "Ex.: Curso de Flutter"
-        start_date: "Ex.: 25/05/1998"
-        closing_date: "Ex.: 26/05/1998"
-        event_category_id: "Selecione uma categoria"
-        workload: "Ex.: 10 Horas"
+        name: "Nome"
+        start_date: "Início"
+        closing_date: "Encerramento"
+        event_category_id: "Categoria"
+        event_category: "Categoria"
+        workload: "Carga Horária"
+        image/file: "Fundo do Certificado"
+        image: "Fundo do Certificado"

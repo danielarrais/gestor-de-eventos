@@ -1,20 +1,45 @@
-<div class="float-left">
-  <%= page_title('Cursos') %>
-</div>
-<div class="float-right pt-2">
-  <%= icon_link 'Cadastrar', 'plus', new_course_path %>
+<div class="clearfix">
+  <div class="float-left">
+    <%= page_title('Cursos') %>
+  </div>
+  <div class="float-right pt-2">
+    <%= icon_link 'Cadastrar', 'plus', new_course_path %>
+  </div>
+  <div class="float-right pt-2 mr-4">
+    <%= icon_link i18n_word(:filter), 'filter', "#collapseFilter", class: 'text-dark', data: { toggle: 'collapse' },
+                  aria: { expanded: "false", controls: "collapseFilter" } %>
+  </div>
 </div>
 
+<%= card_filter(params[:show_filter]) do %>
+  <%= form_for(@filter, url: courses_path, local: true, method: :get, id: 'new_filter') do |f| %>
+    <%= hidden_field_tag :show_filter, value: true %>
+    <div class="row">
+      <div class="col-md-5 mr-auto">
+        <div class="form-group">
+          <%= f.text_field :name, class: 'form-control', placeholder: i18n_placeholder(:course, :name) %>
+        </div>
+      </div>
+      <div class="col-md-auto nowrap">
+        <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple pull") do %>
+          <span><i class="fa fa-search"></i></span>
+        <% end %>
+        <%= clear_form_button %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
 <table class="table">
-  <thead>
+  <thead class="thead-light">
   <tr class="bg-primary">
-    <th class="text-white bold">
+    <th class="bold">
       Nome
     </th>
-    <th class="text-white bold">
+    <th class="bold">
       Quantidade de Semestres
     </th>
-    <th class="text-white text-center bold">
+    <th style="width: 1%;" class="text-center bold">
       Ações
     </th>
   </tr>
@@ -29,12 +54,14 @@
         <%= course.number_of_semesters %>
       </td>
       <td class="text-center">
-        <%= link_to '<span><i class="fa fa-search"></i></span>'.html_safe, course,
-                    class: 'btn btn-primary btn-icon btn-sm btn-simple' %>
-        <%= link_to '<span><i class="fa fa-edit"></i></span>'.html_safe, edit_course_path(course),
-                    class: 'btn btn-icon btn-sm btn-warning' %>
-        <%= link_to '<span><i class="fa fa-trash"></i></span>'.html_safe, course,
-                    method: :delete, data: {confirm: 'Are you sure?'},
+        <%= link_to span_icon('', 'search'), course,
+                    class: 'btn btn-primary btn-icon btn-sm btn-simple',
+                    data: { toggle: 'tooltip', placement: 'bottom' }, title: "Visualizar" %>
+        <%= link_to span_icon('', 'edit'), edit_course_path(course),
+                    class: 'btn btn-icon btn-sm btn-warning',
+                    data: { toggle: 'tooltip', placement: 'bottom' }, title: "Editar" %>
+        <%= link_to span_icon('', 'trash'), course,
+                    method: :delete, data: { confirm: 'Você tem certeza?', toggle: 'tooltip', placement: 'bottom' }, title: "Excluir",
                     class: 'btn btn-icon btn-sm btn-danger' %>
       </td>
     </tr>

@@ -1,0 +1,17 @@
+<%= page_title("#{i18n_word(:view)} #{i18n_model(:certificate_template)}") %>
+
+<div class="row">
+  <div class="col-sm-12">
+    <%= render 'show', certificate_template: @certificate_template %>
+  </div>
+</div>
+
+<div class="clearfix mt-4">
+  <div class="float-right">
+    <%= link_to span_icon(i18n_word(:come_back), 'arrow-left'), :back,
+                class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
+    <%= link_to span_icon(i18n_word(:edit), 'search'), edit_certificate_template_path(@certificate_template),
+                class: 'btn btn-primary btn-icon btn-1 btn-simple',
+                data: { toggle: 'tooltip', placement: 'bottom' }, title: "Editar" %>
+  </div>
+</div>

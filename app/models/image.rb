@@ -4,7 +4,12 @@ class Image < ApplicationRecord
 
   before_validation :extract_info_of_file
 
-  attr_accessor :file
+  attr_accessor :file, :allowed_extensions
+
+  def initialize(attributes = nil)
+    @allowed_extensions = [:png]
+    super
+  end
 
   def url
     "data:#{self.format};base64,#{Base64.strict_encode64(self.content)}" if content.present? and !self.new_record?
@@ -20,11 +25,9 @@ class Image < ApplicationRecord
   end
 
   def format_invalid
-    file_extensions = [:png]
     file_extension = file.content_type.split('/').last
+    menssage_params = [extension: file_extension, extensions: allowed_extensions.join(', ')]
 
-    menssage_params = [extension: file_extension, extensions: file_extensions.join(', ')]
-
-    self.errors.add(:format, :format_invalid, *menssage_params) unless file_extensions.include?(file_extension.to_sym)
+    self.errors.add(:format, :format_invalid, *menssage_params) unless allowed_extensions.include?(file_extension.to_sym)
   end
 end

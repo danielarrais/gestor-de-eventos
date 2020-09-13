@@ -1,0 +1,21 @@
+'pt-BR':
+  activerecord:
+    models:
+      certificate_template:
+        one: 'Template de Certificado'
+        other: 'Templates de Certificado'
+    attributes:
+      certificate_template:
+        image: "Plano de fundo"
+        image/file: "Plano de fundo"
+        event_category: "Categoria de Evento"
+        event_category_id: "Categoria de Evento"
+        certificate_signatures: "Assinaturas"
+        body: "Texto"
+        default: "Padrão"
+  helpers:
+    placeholder:
+      certificate_template:
+        image_id: "Plano de fundo"
+        body: "Texto"
+        event_category: "Categoria de Evento"

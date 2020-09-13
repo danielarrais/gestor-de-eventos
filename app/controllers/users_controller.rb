@@ -4,12 +4,13 @@ class UsersController < ApplicationController
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_profiles_for_select, only: [:edit, :new, :create]
+  before_action :set_filter_object, only: [:index]
   # before_action :verify_user_registration, except: [:complete_registration, :registration_save]
 
   # GET /users
   # GET /users.json
   def index
-    @users = User.all.page(params[:page]).per(10)
+    @users = FindUser.find(@filter, page_params)
   end
 
   # GET /users/1
@@ -67,10 +68,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, success:'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -81,10 +80,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, success:'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -100,6 +97,15 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def set_filter_object
+    @params = params[:filter] || {}
+    @filter = Filter.new({
+                             name: @params[:name],
+                             email: @params[:email],
+                             cpf: @params[:cpf]
+                         })
+  end
 
   # Use callbacks to share common setup or constraints between permissions.
   def set_user

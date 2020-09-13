@@ -1,4 +1,4 @@
-FROM ruby:2.7.0
+FROM ruby:2.7.1
 
 # Define o ambiente de produção
 ENV RAILS_ENV production

@@ -1,0 +1,113 @@
+<div class="clearfix">
+  <div class="float-left">
+    <%= page_title(i18n_model(:certificate_template, plural: true)) %>
+  </div>
+  <div class="float-right pt-2">
+    <%= icon_link i18n_word(:register), 'plus', new_certificate_template_path %>
+  </div>
+  <div class="float-right pt-2 mr-4">
+    <%= icon_link i18n_word(:filter), 'filter', "#collapseFilter", class: 'text-dark', data: { toggle: 'collapse' },
+                  aria: { expanded: "false", controls: "collapseFilter" } %>
+  </div>
+</div>
+
+<%= card_filter(params[:show_filter]) do %>
+  <%= form_for( @filter, url: certificate_templates_path, method: :get, id: 'new_filter') do |f| %>
+    <%= hidden_field_tag :show_filter, value: true %>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.select(:event_category, @event_categories,
+                       { include_blank: i18n_placeholder(:certificate_template, :event_category) },
+                       { class: 'form-control choices',
+                         data: { trigger: '' }, }) %>
+        </div>
+      </div>
+      <div class="col-md-5 mr-auto">
+        <div class="form-group">
+          <div class="form-group">
+            <%= f.select(:certificate_signatures, @certificate_signatures || [],
+                         { include_blank: true },
+                         { multiple: true,
+                           placeholder: 'Assinaturas',
+                           class: 'form-control choices-ajax',
+                           data: { 'search-text': 'Digite o nome da assinatura', 'search-min': 3,
+                                   'search-url': autocomplete_by_name_or_role_certificate_signatures_path }, }) %>
+          </div>
+        </div>
+      </div>
+      <div class="mr-auto">
+        <div class="form-group">
+          <div class="custom-control mt-2">
+            <%= f.check_box :archived, { class: 'custom-control-input' }, true, false %>
+            <%= f.label :archived, 'Arquivado?', class: 'custom-control-label' %>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-auto nowrap">
+        <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple pull") do %>
+          <span><i class="fa fa-search"></i></span>
+        <% end %>
+        <%= clear_form_button %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="row">
+  <DIV class="col-sm-12">
+    <table class="table">
+      <thead class="thead-light">
+      <tr class="bg-primary">
+        <th class="bold"><%= i18n_model(:certificate_template, :event_category) %></th>
+        <th class="bold break-text"><%= i18n_model(:certificate_template, :body) %></th>
+        <th class="bold"><%= i18n_model(:certificate_template, :certificate_signatures) %></th>
+        <th class="text-center">Arquivado?</th>
+        <th class="text-center bold" colspan="3"><%= i18n_word(:actions) %></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @certificate_templates.each do |certificate_template| %>
+        <tr>
+          <td>
+            <%= certificate_template.event_category.name %>
+          </td>
+          <td class="break-text">
+            <%= truncate(strip_tags(certificate_template.body), length: 170) %>
+          </td>
+          <td>
+            <% certificate_template.certificate_signatures.each do |certificate_signature| %>
+              <span class="badge badge-default"><%= certificate_signature.name %></span>
+            <% end %>
+          </td>
+          <td class="text-center">
+            <%= certificate_template.archived? ? 'SIM' : 'NÃO' %>
+          </td>
+          <td class="text-center">
+            <%= link_to span_icon('', 'search'), certificate_template,
+                        class: 'btn btn-primary btn-icon btn-sm btn-simple',
+                        data: { toggle: 'tooltip', placement: 'bottom' }, title: "Visualizar" %>
+            <%= link_to span_icon('', 'edit'), edit_certificate_template_path(certificate_template),
+                        class: 'btn btn-icon btn-sm btn-warning',
+                        data: { toggle: 'tooltip', placement: 'bottom' }, title: "Editar" %>
+            <%= link_to span_icon('', 'trash'), certificate_template,
+                        method: :delete, data: { confirm: 'Você tem certeza?', toggle: 'tooltip', placement: 'bottom' }, title: "Excluir",
+                        class: 'btn btn-icon btn-sm btn-danger' %>
+            <%= link_to span_icon('', 'archive'), arquive_certificate_template_path(certificate_template),
+                        method: :get, data: { confirm: 'Você tem certeza?', toggle: 'tooltip', placement: 'bottom' }, title: "Arquivar",
+                        class: 'btn btn-icon btn-sm btn-default' unless certificate_template.archived? %>
+            <%= link_to span_icon('', 'undo'), unarchive_certificate_template_path(certificate_template),
+                        method: :get, data: { confirm: 'Você tem certeza?', toggle: 'tooltip', placement: 'bottom' }, title: "Desarquivar",
+                        class: 'btn btn-icon btn-sm btn-default' if certificate_template.archived? %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </DIV>
+</div>
+
+<div class="row justify-content-center">
+  <%= paginate @certificate_templates %>
+</div>

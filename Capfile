@@ -7,4 +7,4 @@ require 'capistrano3/unicorn'
 
 install_plugin Capistrano::SCM::Git
 
-Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
+Dir.glob("lib/tasks/capistrano/*.rake").each { |r| import r }

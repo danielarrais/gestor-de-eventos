@@ -1,10 +1,13 @@
 class PermissionsController < ApplicationController
+
+  load_and_authorize_resource
   before_action :set_action, only: [:show, :edit, :update]
+  before_action :set_filter_object, only: [:index]
 
   # GET /permissions
   # GET /permissions.json
   def index
-    @permissions = Permission.all.page(params[:page]).per(10)
+    @permissions = FindPermission.find(@filter, page_params)
   end
 
   # GET /permissions/1
@@ -26,7 +29,7 @@ class PermissionsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to permissions_path, success:notice }
+      format.html { redirect_to permissions_path, success: notice }
     end
   end
 
@@ -35,16 +38,22 @@ class PermissionsController < ApplicationController
   def update
     respond_to do |format|
       if @permission.update(permission_params)
-        format.html { redirect_to @permission, success:'Action was successfully updated.' }
-        format.json { render :show, status: :ok, location: @permission }
+        format.html { redirect_to @permission, success: 'Action was successfully updated.' }
       else
         format.html { render :edit }
-        format.json { render json: @permission.errors, status: :unprocessable_entity }
       end
     end
   end
 
   private
+
+  def set_filter_object
+    @params = params[:filter] || {}
+    @filter = Filter.new({
+                             name: @params[:name],
+                             description: @params[:description]
+                         })
+  end
 
   # Use callbacks to share common setup or constraints between permissions.
   def set_action

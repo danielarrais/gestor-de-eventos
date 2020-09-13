@@ -1,0 +1,198 @@
+<div class="nav-wrapper">
+  <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link mb-sm-3 mb-md-0 active" id="form-tab" data-toggle="tab" href="#form" role="tab"
+         aria-controls="form" aria-selected="true">
+        <i class="ni ni-ruler-pencil mr-2"></i>
+        Criar
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link mb-sm-3 mb-md-0" id="preview-tab" data-toggle="tab" href="#preview" role="tab"
+         aria-controls="preview" aria-selected="false">
+        <i class="ni ni-image mr-2"></i>
+        Pré Visualizar
+      </a>
+    </li>
+  </ul>
+</div>
+<div class="card shadow">
+  <div class="card-body">
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="form" role="tabpanel" aria-labelledby="form-tab">
+        <%= form_with(model: certificate_template, local: true, html: { multipart: true }) do |f| %>
+          <%= validations_errors(f.object) %>
+          <div class="row">
+            <%= f.fields_for :image, f.object.image ||= f.object.build_image do |ff| %>
+              <div class="col-sm-auto">
+                <% url = ff.object.url %>
+
+                <%= ff.hidden_field :id %>
+                <%= ff.image_field(:file, 'Procurar', 'Alterar', id: 'fileinput', value: url) %>
+              </div>
+            <% end %>
+            <div class="col-md">
+              <div class="form-group">
+                <%= f.label :event_category %>
+                <%= f.select(:event_category_id, @event_categories,
+                             { include_blank: true },
+                             { size: 5, 'max-items': 4,
+                               class: 'form-control choices',
+                               data: { trigger: '' }, }) %>
+              </div>
+            </div>
+            <div class="col-sm-auto">
+              <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                  <%= f.check_box :default, class: 'custom-control-input' %>
+                  <%= f.label :default, class: 'custom-control-label' %>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <%= f.label :body %>
+                <%= f.summernote_area :body, class: 'form-control', placeholder: true, onchange: 'changeText(this)' %>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="form-group">
+                  <%= f.label :certificate_signatures %>
+                  <%= f.select(:certificate_signature_ids, f.object.certificate_signatures.map { |v| ["#{v.name} - #{v.role}", v.id] },
+                               { include_blank: true },
+                               { size: 5,
+                                 multiple: true,
+                                 class: 'form-control choices-ajax',
+                                 data: { 'search-text': 'Digite o nome da assinatura',
+                                         'search-min': 3,
+                                         'search-url': autocomplete_by_name_or_role_certificate_signatures_path }, }) %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="clearfix">
+            <div class="float-right">
+              <%= link_to span_icon(i18n_word(:come_back), 'arrow-left'), :back,
+                          class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
+              <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple") do %>
+                <span><i class="fa fa-floppy-o mr-1"></i> <%= i18n_word(:save) %></span>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="tab-pane fade" id="preview" role="tabpanel" aria-labelledby="preview-tab">
+        <%= render 'show', certificate_template: certificate_template %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(() => {
+        const choices_signatures = document.getElementById('certificate_template_certificate_signature_ids')
+
+        choices_signatures.addEventListener('removeItem', onChangeSignatures, true,);
+        choices_signatures.addEventListener('addItem', onChangeSignatures, true,);
+
+        $("#preview-tab").on("click", function () {
+            changeText();
+            changeImage();
+        });
+
+        createSummernoteWithCustomMenu();
+    })
+
+    // Creates a customized summernote for editing templates
+    function createSummernoteWithCustomMenu() {
+        const contents = '<%= j CertificateTemplate::TAGS_TEMPLATES.to_a.map{ |tag, descricao|
+                              content_tag(:li, descricao, class: 'pl-3 pr-3 cursor-pointer nowrap',  data: {tag: "#{tag}"},  style: '')
+                          }.join('').html_safe %>'
+
+        const hightlightButton = function (context) {
+            const ui = $.summernote.ui;
+
+            const pdfButton = ui.buttonGroup([
+                ui.button({
+                    className: "dropdown-toggle",
+                    contents: '<span class="fa fa-tag mr-1"></span> <span class="caret">Tags</span>',
+                    tooltip: "Escolha tags para serem substituídas por dados reais",
+                    callback: (button) => {
+                        button.click(function () {
+                            context.invoke('editor.saveRange');
+                        });
+                    },
+                    data: {
+                        toggle: "dropdown",
+                    },
+                }),
+                ui.dropdown({
+                    className: "drop-default summernote-list",
+                    style: 'width: 100px',
+                    contents: contents,
+                    callback: function ($dropdown) {
+                        $dropdown.find("li").click(function (target) {
+                            insertAtTemplate(`{{${$(target.currentTarget).data('tag')}}} `)
+                        });
+                    },
+                }),
+            ]);
+
+
+            return pdfButton.render();
+        }
+
+        $('#certificate_template_body').summernote({
+            height: 200,
+            fontSizes: ['8', '9', '10', '11', '12', '14', '18', '20', '22', '24', '26', '28', '30'],
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['fontname', 'strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['tags', ['tags']]
+            ],
+            buttons: {
+                tags: hightlightButton
+            },
+        })
+    }
+
+    // Insert text in summernote without losing formatting
+    function insertAtTemplate(text) {
+        const templateInput = $('#certificate_template_body')
+        let newRange = templateInput.summernote("getLastRange").deleteContents();
+
+        newRange.sc.textContent = newRange.sc.textContent.substring(0, newRange.so) + text + newRange.sc.textContent.substring(newRange.so, newRange.sc.textContent.length);
+        templateInput.summernote('setLastRange', $.summernote.range.create(newRange.sc, newRange.so + text.length).select());
+
+        $(".summernote").triggerHandler("summernote.change");
+    }
+
+    function changeImage() {
+        const url = $('#fileinput-image').attr('src')
+        $('#certificate-frame').css('background-image', `url(${url})`);
+    }
+
+    // Event that updates the text in the template preview
+    function changeText() {
+        const certificate_text_frame = $('#certificate-text-content');
+        certificate_text_frame.html($('#certificate_template_body').val());
+    }
+
+    // Event that updates the signatures of the template preview
+    function onChangeSignatures(event) {
+        $.ajax({
+            data: {
+                selecteds: $(event.target).val()
+            },
+            type: "GET",
+            url: "<%= load_selected_signatures_certificate_templates_path %>",
+            dataType: "script"
+        });
+    }
+</script>

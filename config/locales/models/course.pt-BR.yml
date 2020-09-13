@@ -7,9 +7,9 @@
     attributes:
       course:
         name: "Nome"
-        number_of_semesters: "Quantidade de semestres"
+        number_of_semesters: "Número de semestres"
   helpers:
     placeholder:
       course:
-        name: "Ex.: Sistemas de Informação"
-        number_of_semesters: "Ex.: 5"
+        name: "Nome"
+        number_of_semesters: "Número de Semestre"

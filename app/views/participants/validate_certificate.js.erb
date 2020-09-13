@@ -1,0 +1,20 @@
+showComponents();
+
+function showComponents() {
+    const preview_certificate = $("#preview-certificate")
+    const success_message = $("#success-message")
+
+    <% if @certificate.present? %>
+    preview_certificate.html('<%= j render('participants/show_certificate', cert: @certificate) %>')
+    preview_certificate.show();
+    success_message.show();
+    loadPreview();
+    <% else %>
+    Swal.fire({
+        title: 'Certificado não encontrado!',
+        icon: 'error'
+    });
+    preview_certificate.hide();
+    success_message.hide();
+    <% end %>
+}

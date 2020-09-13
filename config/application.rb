@@ -36,5 +36,8 @@ module Cert
 
     config.time_zone = 'Brasilia'
     config.active_record.default_timezone = :local
+
+    config.autoload_paths += Dir[Rails.root.join('app', 'finders')]
+    config.autoload_paths += Dir[Rails.root.join('app', 'utils')]
   end
 end

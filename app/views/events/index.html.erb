@@ -1,23 +1,74 @@
-<div class="float-left">
-  <%= page_title('Eventos') %>
-</div>
-<div class="float-right pt-2">
-  <%= icon_link 'Cadastrar', 'plus', new_event_path %>
+<div class="clearfix">
+  <div class="float-left">
+    <%= page_title('Eventos') %>
+  </div>
+  <div class="float-right pt-2 ">
+    <%= icon_link 'Cadastrar', 'plus', new_event_path %>
+  </div>
+  <div class="float-right pt-2 mr-4">
+    <%= icon_link i18n_word(:filter), 'filter', "#collapseFilter", class: 'text-dark', data: { toggle: 'collapse' },
+                  aria: { expanded: "false", controls: "collapseFilter" } %>
+  </div>
 </div>
 
+<%= card_filter(params[:show_filter]) do %>
+  <%= form_for(@filter, url: events_path, local: true, method: :get, id: 'new_filter') do |f| %>
+    <%= hidden_field_tag :show_filter, value: true %>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.text_field :name, class: 'form-control', placeholder: i18n_placeholder(:event, :name) %>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <%= f.select(:event_category, @event_categories,
+                       { include_blank: i18n_placeholder(:event, :event_category) },
+                       { class: 'form-control choices',
+                         data: { trigger: '' }, }) %>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <% f.object.situation %>
+        <%= f.select(:situation, @key_situations,
+                     { include_blank: i18n_placeholder(:event_request, :situation) },
+                     { class: 'choices' }) %>
+      </div>
+      <div class="col-md-2">
+        <%= f.date_picker :start_date, placeholder: i18n_placeholder(:event, :start_date), hide_label: true %>
+      </div>
+      <div class="col-md-2 mr-auto">
+        <%= f.date_picker :closing_date, placeholder: i18n_placeholder(:event, :closing_date), hide_label: true  %>
+      </div>
+      <div class="col-md-auto nowrap">
+        <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple pull") do %>
+          <span><i class="fa fa-search"></i></span>
+        <% end %>
+        <%= clear_form_button %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
 <table class="table">
-  <thead>
+  <thead class="thead-light">
   <tr class="bg-primary">
-    <th class="text-white bold">
+    <th class="bold break-text">
       Nome
     </th>
-    <th class="text-white bold">
+    <th class="bold break-text">
+      Categoria
+    </th>
+    <th class="bold">
+      Situação
+    </th>
+    <th class="bold">
       Data de Inicio
     </th>
-    <th class="text-white bold">
+    <th class="bold">
       Data de Encerramento
     </th>
-    <th class="text-white text-center bold">
+    <th style="width: 1%;" class="text-center bold">
       Ações
     </th>
   </tr>
@@ -25,8 +76,14 @@
   <tbody>
   <% @events.each do |event| %>
     <tr>
-      <td>
+      <td class="break-text">
         <%= event.name %>
+      </td>
+      <td>
+        <%= event.event_category.name%>
+      </td>
+      <td>
+        <%= event.situation.situation_description %>
       </td>
       <td>
         <%= event.start_date.strftime('%d/%m/%Y') %>
@@ -35,13 +92,22 @@
         <%= event.closing_date.strftime('%d/%m/%Y') %>
       </td>
       <td class="text-center">
-        <%= link_to '<span><i class="fa fa-search"></i></span>'.html_safe, event,
-                    class: 'btn btn-primary btn-icon btn-sm btn-simple' %>
-        <%= link_to '<span><i class="fa fa-edit"></i></span>'.html_safe, edit_event_path(event),
-                    class: 'btn btn-icon btn-sm btn-warning' %>
-        <%= link_to '<span><i class="fa fa-trash"></i></span>'.html_safe, event,
-                    method: :delete, data: { confirm: 'Are you sure?' },
-                    class: 'btn btn-icon btn-sm btn-danger' %>
+        <%= link_to span_icon('', 'search'), event,
+                    class: 'btn btn-primary btn-icon btn-sm btn-simple', title: "Visualizar",
+                    data: { toggle: 'tooltip', placement: 'bottom' } if event.can_action?(:show) %>
+        <%= link_to span_icon('', 'list'), edit_frequences_path(event: event),
+                    class: 'btn btn-icon btn-sm btn-default', title: "Visualizar ou preencher frequência",
+                    data: { toggle: 'tooltip', placement: 'bottom' } if event.can_action?(:edit_frequences) %>
+        <%= link_to span_icon('', 'certificate'), release_issuing_certificates_event_path(event),
+                    class: 'btn btn-icon btn-sm btn-success', remote: true,
+                    data: { toggle: 'tooltip', placement: 'bottom', confirm: 'Você tem certeza?' },
+                    title: "Liberar emissão de certificados" if event.can_action?(:release_issuing_certificates) %>
+        <%= link_to span_icon('', 'edit'), edit_event_path(event),
+                    class: 'btn btn-icon btn-sm btn-primary',
+                    data: { toggle: 'tooltip', placement: 'bottom' }, title: "Editar" if event.can_action?(:edit) %>
+        <%= link_to span_icon('', 'trash'), event,
+                    method: :delete, data: { confirm: 'Você tem certeza?', toggle: 'tooltip', placement: 'bottom' }, title: "Excluir",
+                    class: 'btn btn-icon btn-sm btn-danger' if event.can_action?(:destroy) %>
       </td>
     </tr>
 

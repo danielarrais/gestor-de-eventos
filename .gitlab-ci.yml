@@ -1,4 +1,4 @@
-image: ruby:2.7.0
+image: ruby:2.7.1
 stages:
   - deploy
 
@@ -13,10 +13,10 @@ deploy:
   environment: production
   stage: deploy
   script:
-    - gem install capistrano -v 3.13.0
-    - gem install capistrano-rails -v 1.4.0
-    - gem install capistrano3-unicorn -v 0.2.1
-    - gem install capistrano-rvm -v 0.1.2
+    - gem install capistrano -v 3.14.1
+    - gem install capistrano-rails
+    - gem install capistrano3-unicorn
+    - gem install capistrano-rbenv
     - cap production deploy
   only:
     - develop

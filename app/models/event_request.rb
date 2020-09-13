@@ -1,13 +1,10 @@
 class EventRequest < ApplicationRecord
-  after_create :create_initial_situation
-  after_create :set_current_situation
+  include CSituation
 
-  attr_accessor :justification_of_return, :current_user
+  attr_accessor :justification_of_return, :draft
 
   belongs_to :event
   belongs_to :person, required: false
-  belongs_to :situation, required: false
-  has_many :situations, -> { order('created_at asc') }, as: :origin
 
   accepts_nested_attributes_for :event, allow_destroy: false
 
@@ -17,8 +14,7 @@ class EventRequest < ApplicationRecord
 
   def create_initial_situation
     self.situations.create(person: person,
-                           key_situation: KeySituation.find_by(key: :draft))
-    set_current_situation
+                           key_situation: KeySituation.find_by(key: self.draft ? :draft : :deferred))
   end
 
   def forwarded
@@ -31,8 +27,8 @@ class EventRequest < ApplicationRecord
   def generate_event
     self.situations.create(person: current_user.person,
                            key_situation: KeySituation.find_by(key: :deferred)).save if forwarded?
-    self.event.draft = false
-    self.event.save
+
+    self.event.approve_event
 
     set_current_situation
   end
@@ -47,18 +43,6 @@ class EventRequest < ApplicationRecord
 
       set_current_situation
     end
-  end
-
-  def forwarded?
-    situation&.key_situation&.key&.to_sym == :forwarded
-  end
-
-  def deferred?
-    situation&.key_situation&.key&.to_sym == :deferred
-  end
-
-  def last_situation
-    self.situations&.last
   end
 
   def can_action?(action)
@@ -78,12 +62,5 @@ class EventRequest < ApplicationRecord
 
   def devolutions
     self.situations.to_a.select { |x| x.key_situation.key.to_sym == :returned_for_correction }
-  end
-
-  private
-
-  def set_current_situation
-    self.situations.reload
-    self.update_column(:situation_id, last_situation&.id)
   end
 end

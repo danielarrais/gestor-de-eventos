@@ -3,11 +3,12 @@ class ProfilesController < ApplicationController
 
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
   before_action :set_permissions_for_select, only: [:edit, :new, :update]
+  before_action :set_filter_object, only: [:index]
 
   # GET /profiles
   # GET /profiles.json
   def index
-    @profiles = Profile.all.page(params[:page]).per(10)
+    @profiles = FindProfile.find(@filter, page_params)
   end
 
   # GET /profiles/1
@@ -32,10 +33,8 @@ class ProfilesController < ApplicationController
     respond_to do |format|
       if @profile.save
         format.html { redirect_to @profile, success:'Profile was successfully created.' }
-        format.json { render :show, status: :created, location: @profile }
       else
         format.html { render :new }
-        format.json { render json: @profile.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -46,10 +45,8 @@ class ProfilesController < ApplicationController
     respond_to do |format|
       if @profile.update(profile_params)
         format.html { redirect_to @profile, success:'Profile was successfully updated.' }
-        format.json { render :show, status: :ok, location: @profile }
       else
         format.html { render :edit }
-        format.json { render json: @profile.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -65,6 +62,14 @@ class ProfilesController < ApplicationController
   end
 
   private
+
+  def set_filter_object
+    @params = params[:filter] || {}
+    @filter = Filter.new({
+                             name: @params[:name],
+                             description: @params[:description]
+                         })
+  end
 
   # Use callbacks to share common setup or constraints between permissions.
   def set_profile

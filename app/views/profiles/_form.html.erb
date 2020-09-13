@@ -29,7 +29,7 @@
   </div>
 
   <div class="float-right">
-    <%= link_to '<span><i class="fa fa-arrow-left mr-1"></i>Voltar</span>'.html_safe, :back,
+    <%= link_to span_icon(i18n_word(:come_back), 'arrow-left'), :back,
                 class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
     <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple") do %>
       <span><i class="fa fa-floppy-o mr-1"></i> Salvar</span>

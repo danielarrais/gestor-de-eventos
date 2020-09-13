@@ -11,5 +11,5 @@
   helpers:
     placeholder:
       event_category:
-        name: "Ex.: Curso"
-        description: "Ex.: É um evento on alguém ministra um conteúdo sobre determinado assunto"
+        name: "Nome"
+        description: "Descrição"

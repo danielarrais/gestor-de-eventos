@@ -11,6 +11,7 @@ gem 'pg', '~> 0.18.4'
 gem 'unicorn', '~> 5.5', '>= 5.5.5'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
+gem 'sassc', '~> 2.4.0'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 4.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -21,6 +22,10 @@ gem 'devise'
 
 # Gem de paginacao
 gem 'kaminari'
+gem 'pdfkit'
+
+# instalar o 'sudo apt install imagemagick'
+gem 'rmagick', '~> 2.15', '>= 2.15.4'
 
 # Gem para adicionar formulários nested
 gem 'nested_form_fields'
@@ -41,15 +46,20 @@ gem "validators"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
-
+gem 'rqrcode'
 # Gem do Sentry
 gem "sentry-raven"
+
+gem 'nokogiri', '~> 1.11.0.rc2'
+
+gem 'liquid'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
 group :development do
+  gem 'rspec-rails', '~> 4.0.1'
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
 
@@ -64,7 +74,8 @@ end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15'
+  gem 'capybara', '~> 3.32', '>= 3.32.2'
+  gem 'rspec-rails', '~> 4.0.1'
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'

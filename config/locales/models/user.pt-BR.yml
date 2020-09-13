@@ -14,7 +14,7 @@
   helpers:
     placeholder:
       user:
-        email: "Seu email"
-        password: "Sua senha"
-        profile_ids: "Escolha os perfis do usuário"
+        email: "Email"
+        password: "Senha"
+        profile_ids: "Perfis do usuário"
         password_confirmation: "Repita a sua senha"
