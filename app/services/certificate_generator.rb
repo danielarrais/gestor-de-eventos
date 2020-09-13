@@ -47,9 +47,5 @@ class CertificateGenerator
     process_participants
 
     @certificates
-
-    # view = ActionController::Base.new
-    # view.render_to_string(file: "#{ActionController::Base.view_paths[0]}/participants/_imprimir.html.erb",
-    #             layout: false, locals: { certificates: @certificates })
   end
 end

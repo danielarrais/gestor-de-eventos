@@ -15,9 +15,9 @@ services:
   web:
     build: .
     command: bash -c "bundle install &&
-                      bundle exec rails db:migrate &&
-                      bundle exec rails assets:precompile &&
-                      bundle exec rails server -b 0.0.0.0 -p 80"
+      bundle exec rails db:migrate &&
+      bundle exec rails assets:precompile &&
+      bundle exec rails server -b 0.0.0.0 -p 80"
     volumes:
       - '.:/app'
     expose:
