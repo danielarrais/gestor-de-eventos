@@ -18,6 +18,10 @@ Rails.application.routes.draw do
     collection do
       get :load_selected_signatures
     end
+    member do
+      get 'arquive'
+      get 'unarchive'
+    end
   end
   resources :event_requests, path: 'solicitacoes-eventos' do
     member do
@@ -39,6 +43,10 @@ Rails.application.routes.draw do
   resources :certificate_signatures, path: 'assinaturas-de-certificado' do
     collection do
       get 'autocomplete_by_name_or_role'
+    end
+    member do
+      get 'arquive'
+      get 'unarchive'
     end
   end
   resources :permissions, path: 'permissoes', except: [:new, :destroy] do
