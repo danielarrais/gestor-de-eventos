@@ -5,6 +5,8 @@ class CertificateSignature < ApplicationRecord
   has_and_belongs_to_many :certificate_template
   has_and_belongs_to_many :certificate_signature
 
+  validates_presence_of :role
+
   accepts_nested_attributes_for :image, allow_destroy: true, reject_if: -> (x) {x[:file].nil?}
 
   def archive

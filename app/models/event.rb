@@ -1,6 +1,8 @@
 class Event < ApplicationRecord
   include CSituation
 
+  initial_situation :deferred, -> (x) { !x.situation.present? || !x.parent_event.present? || !x.deferred? || x.current_user.present? }
+
   before_validation :set_file_extensions
 
   attr_accessor :current_user, :draft
@@ -25,13 +27,6 @@ class Event < ApplicationRecord
   scope :no_draft, -> {
     joins(situation: [:key_situation]).where('key_situations.key != ?', :draft).distinct
   }
-
-  def create_initial_situation
-    return if situation.present? || parent_event.present? || deferred? || !current_user.present?
-
-    self.situations.create(person: current_user.person,
-                           key_situation: KeySituation.find_by(key: :deferred))
-  end
 
   def approve_event
     return if deferred?

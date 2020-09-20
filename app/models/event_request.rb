@@ -1,6 +1,8 @@
 class EventRequest < ApplicationRecord
   include CSituation
 
+  initial_situation -> (x) { x.draft ? :draft : :deferred }
+
   attr_accessor :justification_of_return, :draft
 
   belongs_to :event
@@ -11,11 +13,6 @@ class EventRequest < ApplicationRecord
   scope :waiting_for_analysis, -> {
     joins(situation: [:key_situation]).where('key_situations.key = ?', :forwarded).distinct
   }
-
-  def create_initial_situation
-    self.situations.create(person: person,
-                           key_situation: KeySituation.find_by(key: self.draft ? :draft : :deferred))
-  end
 
   def forwarded
     return if forwarded?
