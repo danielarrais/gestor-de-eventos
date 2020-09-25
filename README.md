@@ -1,6 +1,6 @@
-# SEU
+# Gestor de Eventos
 
-O SEU foi desenvolvido no meu trabalho de conclusão de curso (Sistemas de Informação) e é um sistema para gestão de certificados de eventos que conta com recursos como a validação de certificados, emissão em formato PDF, cadastro de eventos, personalização de certificados e futuramente permitirá a inscrição dos usuários nestes eventos.
+OEsse sistema foi desenvolvido no meu trabalho de conclusão de curso (Sistemas de Informação) e é um voltado para gestão de eventos que conta com recursos como validação de certificados, personalização e emissão dos mesmos em formato PDF, cadastro de eventos e futuramente permitirá a inscrição dos usuários.
 
 ## Requisitos e instalação 
 
