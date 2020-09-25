@@ -2,13 +2,13 @@
 lock '~> 3.14.1'
 
 # Nome da aplicação
-set :application, 'seu'
+set :application, 'gestor-de-eventos'
 
 # URL do repositório
-set :repo_url, 'git@gitlab.com:danielarrais/seu.git'
+set :repo_url, 'git@gitlab.com:danielarrais/gestor-de-eventos.git'
 
 # Pasta onde ficará a aplicação no servidor
-set :deploy_to, '/var/www/seu'
+set :deploy_to, '/var/www/gestor-de-eventos'
 
 append :linked_files, 'config/database.yml', 'config/master.key'
 append :linked_dirs, 'log', 'tmp'

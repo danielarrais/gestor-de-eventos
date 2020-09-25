@@ -1,5 +1,5 @@
 upstream puma_seu_production {
-    server unix:/var/www/seu/shared/tmp/sockets/unicorn.socket fail_timeout=0;
+    server unix:/var/www/gestor-de-eventos/shared/tmp/sockets/unicorn.socket fail_timeout=0;
 }
 
 # Remove or comment if not using SSL
@@ -13,7 +13,7 @@ server {
     listen 443; # Change to 80 if you are not going to use SSL
 
     server_name {{site_address}} www.{{site_address}};
-    root /var/www/seu/current/public;
+    root /var/www/gestor-de-eventos/current/public;
     try_files $uri/index.html $uri @puma_seu_production;
 
     # Remove the four lines below if you are not going to use SSL
@@ -40,8 +40,8 @@ server {
         proxy_pass http://puma_seu_production;
 
         # limit_req zone=one;
-        access_log /var/www/seu/shared/log/nginx.access.log;
-        error_log /var/www/seu/shared/log/nginx.error.log;
+        access_log /var/www/gestor-de-eventos/shared/log/nginx.access.log;
+        error_log /var/www/gestor-de-eventos/shared/log/nginx.error.log;
     }
 
     location ^~ /assets/ {

@@ -20,7 +20,7 @@ for (const exposeLoaderKey in exposeLoaders['exposeLoaders']) {
     }
 }
 
-environment.config.set('output.library', 'seu')
+environment.config.set('output.library', 'gestor-de-eventos')
 environment.config.set('performance.hints', false)
 
 // resolve-url-loader must be used before sass-loader
