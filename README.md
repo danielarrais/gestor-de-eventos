@@ -1,6 +1,6 @@
 # Gestor de Eventos
 
-Esse sistema foi desenvolvido no meu trabalho de conclusão de curso (Sistemas de Informação do Centro Universitário Católica do Tocantins) com a finalidade de colaborar com a gestão de eventos da intituição de ensino (onde desenvolvi o trabalho) através de recursos como validação, personalização e emissão de certificados em formato PDF, cadastro de eventos e atividades orientadas. Futuramente também permitirá a inscrição dos usuários nos eventos.
+Esse sistema foi desenvolvido no meu trabalho de conclusão de curso (Sistemas de Informação do Centro Universitário Católica do Tocantins) com a finalidade de colaborar com a gestão de eventos da instituição de ensino (onde desenvolvi o trabalho) através de recursos como validação, personalização e emissão de certificados em formato PDF, cadastro de eventos e atividades orientadas. Futuramente também permitirá a inscrição de participantes nos eventos.
 
 ## Requisitos e instalação 
 
