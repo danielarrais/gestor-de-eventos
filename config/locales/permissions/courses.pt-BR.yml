@@ -1,0 +1,11 @@
+pt-BR:
+  permissions:
+    courses:
+      name: Cursos
+      actions:
+        show: Visualizar
+        new: Criar
+        edit: Editar
+        arquive: Arquivar
+        unarchive: Desarquivar
+        destroy: Excluir

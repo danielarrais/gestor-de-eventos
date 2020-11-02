@@ -1,0 +1,10 @@
+pt-BR:
+  permissions:
+    users:
+      name: Usuários
+      actions:
+        show: Visualizar
+        new: Criar
+        edit: Editar
+        destroy: Excluir
+        registration_update: Alterar Cadastro

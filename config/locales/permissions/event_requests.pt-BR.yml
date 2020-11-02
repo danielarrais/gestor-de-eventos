@@ -1,0 +1,15 @@
+pt-BR:
+  permissions:
+    event_requests:
+      name: Requisições de eventos
+      actions:
+        my_requests: Minhas Requisições
+        show: Visualizar
+        new: Criar
+        edit: Editar
+        arquive: Arquivar
+        unarchive: Desarquivar
+        destroy: Excluir
+        forward_the_request: Encaminhar Requisição
+        generate_event: Gerar Evento
+        return_for_changes: Retornar para alterações

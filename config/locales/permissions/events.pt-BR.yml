@@ -1,0 +1,10 @@
+pt-BR:
+  permissions:
+    events:
+      name: Eventos
+      actions:
+        show: Visualizar
+        new: Criar
+        edit: Editar
+        destroy: Excluir
+        release_issuing_certificates: Liberar Emissão de Certificados

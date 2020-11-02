@@ -1,0 +1,7 @@
+pt-BR:
+  permissions:
+    permissions:
+      name: Permissões
+      actions:
+        show: Visualizar
+        recreate_and_update_all: Atualizar Permissões

@@ -1,0 +1,7 @@
+pt-BR:
+  permissions:
+    frequences:
+      name: Frequência de Eventos
+      actions:
+        show: Visualizar
+        edit: Editar

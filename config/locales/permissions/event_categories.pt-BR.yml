@@ -1,0 +1,9 @@
+pt-BR:
+  permissions:
+    event_categories:
+      name: Categorias de eventos
+      actions:
+        show: Visualizar
+        new: Criar
+        edit: Editar
+        destroy: Excluir

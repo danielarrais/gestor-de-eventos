@@ -1,0 +1,11 @@
+pt-BR:
+  permissions:
+    certificate_templates:
+      name: Templates de Certificados
+      actions:
+        show: Visualizar
+        new: Criar
+        edit: Editar
+        arquive: Arquivar
+        unarchive: Desarquivar
+        destroy: Excluir

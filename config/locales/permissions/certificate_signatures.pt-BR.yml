@@ -1,0 +1,11 @@
+pt-BR:
+  permissions:
+    certificate_signatures:
+      name: Assinaturas de Certificados
+      actions:
+        show: Visualizar
+        new: Criar
+        edit: Editar
+        arquive: Arquivar
+        unarchive: Desarquivar
+        destroy: Excluir

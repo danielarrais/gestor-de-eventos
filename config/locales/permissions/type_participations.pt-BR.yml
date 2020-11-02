@@ -1,0 +1,9 @@
+pt-BR:
+  permissions:
+    type_participations:
+      name: Tipos de Participação
+      actions:
+        show: Visualizar
+        new: Criar
+        edit: Editar
+        arquive: Arquivar
