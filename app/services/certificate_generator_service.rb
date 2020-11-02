@@ -1,6 +1,6 @@
 require 'liquid'
 
-class CertificateGenerator
+class CertificateGeneratorService
   private_class_method :new
 
   def self.call(participants)
@@ -15,7 +15,7 @@ class CertificateGenerator
       event = participant.event
       certificate_template = event.certificate_template
 
-      template[:url_backgroud] = participant.event.parent_event&.image&.url || certificate_template.image&.url
+      template[:url_backgroud] = event.image&.url || event.parent_event&.image&.url || certificate_template.image&.url
       template[:certificate_signatures] = certificate_template.certificate_signatures.map { |x| {
           url: x.image.url,
           name: x.name,

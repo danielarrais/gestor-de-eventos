@@ -43,7 +43,7 @@ class ParticipantsController < ApplicationController
   def certificates_download
     participants = Participant.where(id: [@participant.id])
 
-    certificates = CertificateGenerator.call(participants)
+    certificates = CertificateGeneratorService.call(participants)
 
     s_certificates = render_to_string(partial: 'participants/reports/certificate', layout: false, locals: { certificates: certificates })
 
@@ -55,7 +55,7 @@ class ParticipantsController < ApplicationController
       participant = Participant.find_by(certificate_hash: params[:certificate_hash])
 
       if participant.present?
-        certificates = CertificateGenerator.call([participant])
+        certificates = CertificateGeneratorService.call([participant])
         @certificate = certificates.first
       end
     end
