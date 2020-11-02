@@ -1,7 +1,7 @@
 FROM ruby:2.7.1
 
 # Define o ambiente de produção
-ENV RAILS_ENV production
+ENV RAILS_ENV development
 
 # Substitui shell por bash para que possamos obter arquivos de origem
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh

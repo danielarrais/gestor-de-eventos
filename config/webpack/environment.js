@@ -2,17 +2,9 @@ const {environment} = require('@rails/webpacker');
 const webpack = require('webpack');
 const exposeLoaders = require('./expose-loaders/expose-loader');
 
-environment.plugins.append(
-    "Provide",
-    new webpack.ProvidePlugin({
-        '$': "jquery",
-        'jQuery': "jquery",
-        'window.jQuery': "jquery",
-        'window.$': "jquery",
-        'Popper': ["popper.js", "default"]
-    }),
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
-);
+environment.plugins.append("Provide", new webpack.ProvidePlugin({
+    '$': "jquery", 'jQuery': "jquery", 'window.jQuery': "jquery", 'window.$': "jquery", 'Popper': ["popper.js", "default"]
+}), new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/));
 
 for (const exposeLoaderKey in exposeLoaders['exposeLoaders']) {
     if (exposeLoaders['exposeLoaders'].hasOwnProperty(exposeLoaderKey)) {
@@ -20,7 +12,7 @@ for (const exposeLoaderKey in exposeLoaders['exposeLoaders']) {
     }
 }
 
-environment.config.set('output.library', 'gestor-de-eventos')
+environment.config.set('output.library', 'gestor_de_eventos')
 environment.config.set('performance.hints', false)
 
 // resolve-url-loader must be used before sass-loader

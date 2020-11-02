@@ -1,6 +1,6 @@
 # paths
-app_path = "/var/www/gestor-de-eventos"
-shared_path = "/var/www/gestor-de-eventos/shared"
+app_path = "/var/www/gestor-de-eventos"
+shared_path = "/var/www/gestor-de-eventos/shared"
 working_directory "#{app_path}/current"
 pid               "#{shared_path}/tmp/pids/unicorn.pid"
 

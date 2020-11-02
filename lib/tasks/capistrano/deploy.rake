@@ -25,12 +25,12 @@ namespace :deploy do
     desc 'Create folders and send necessary files'
     task :shared_files do
       on roles(:app) do
-        execute 'mkdir -p /var/www/gestor-de-eventos/shared/config/'
-        execute 'mkdir -p /var/www/gestor-de-eventos/shared/tmp/pids/'
-        execute 'mkdir -p /var/www/gestor-de-eventos/shared/tmp/sockets/'
+        execute 'mkdir -p /var/www/gestor-de-eventos/shared/config/'
+        execute 'mkdir -p /var/www/gestor-de-eventos/shared/tmp/pids/'
+        execute 'mkdir -p /var/www/gestor-de-eventos/shared/tmp/sockets/'
 
-        upload! 'config/database.yml', '/var/www/gestor-de-eventos/shared/config/database.yml'
-        execute 'echo $APP_MASTER_KEY | tee /var/www/gestor-de-eventos/shared/config/master.key &>/dev/null'
+        upload! 'config/database.yml', '/var/www/gestor-de-eventos/shared/config/database.yml'
+        execute 'echo $APP_MASTER_KEY | tee /var/www/gestor-de-eventos/shared/config/master.key &>/dev/null'
       end
     end
   end

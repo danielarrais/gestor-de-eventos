@@ -1,6 +1,6 @@
 # config/initializers/pdfkit.rb
 PDFKit.configure do |config|
-  config.wkhtmltopdf = '/usr/local/bin/wkhtmltopdf'
+  config.wkhtmltopdf = 'which wkhtmltopdf'
   config.default_options = {
       :encoding => "UTF-8",
       :page_size => "A5", #or "Letter" or whatever needed
