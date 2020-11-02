@@ -8,8 +8,6 @@ module CSituation
     belongs_to :situation, required: false
     has_many :situations, -> { order('created_at asc') }, as: :origin
 
-    validates_presence_of :name
-
     after_create :create_initial_situation
 
     def forwarded?
