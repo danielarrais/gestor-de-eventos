@@ -35,7 +35,7 @@ body {
 
 .page {
     width: 1240px;
-    height: 875.5px;
+    height: 875px;
     overflow: hidden;
     background: red;
     page-break-after: always;
