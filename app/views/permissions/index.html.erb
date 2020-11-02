@@ -38,27 +38,30 @@
 <table class="table">
   <thead class="thead-light">
   <tr class="bg-primary">
-    <th class="bold">
+    <th style="width: 30%;" class="bold">
       Grupo
     </th>
     <th class="bold">
       Nome
     </th>
-    <th style="width: 1%;" class="text-center bold">
-      Ações
-    </th>
   </tr>
   </thead>
   <tbody>
-  <% @permissions.each do |action| %>
-    <tr>
-      <td>
-        <%= action.controller %>
-      </td>
-      <td>
-        <%= action.action %>
-      </td>
-    </tr>
+  <% @permissions.group_by { |x| x.controller }.each do |controller_action| %>
+    <% exhibited_group = false %>
+    <% controller_action[1].each do |action| %>
+      <tr>
+        <% unless exhibited_group %>
+          <td rowspan="<%= controller_action[1].size %>">
+            <%= action.controller %>
+            <% exhibited_group = true %>
+          </td>
+        <% end %>
+        <td>
+          <%= action.action %>
+        </td>
+      </tr>
+    <% end %>
   <% end %>
   </tbody>
 </table>
