@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_08_005648) do
+ActiveRecord::Schema.define(version: 2020_11_02_194528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -183,13 +183,14 @@ ActiveRecord::Schema.define(version: 2020_09_08_005648) do
   end
 
   create_table "permissions", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "description", null: false
-    t.string "controller", null: false
     t.string "action", null: false
+    t.string "controller_key", null: false
+    t.string "action_key", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "public", default: false
+    t.string "controller", null: false
+    t.text "equivalent_actions"
   end
 
   create_table "permissions_profiles", id: false, force: :cascade do |t|
@@ -229,7 +230,7 @@ ActiveRecord::Schema.define(version: 2020_09_08_005648) do
 
   create_table "type_participations", force: :cascade do |t|
     t.string "name", null: false
-    t.string "key", null: false
+    t.string "key"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

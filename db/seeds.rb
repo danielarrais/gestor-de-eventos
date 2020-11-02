@@ -1,4 +1,4 @@
-Dir[Rails.root + 'app/controllers/*.rb'].each do |path|
+Dir[Rails.root + 'app/permissions/*.rb'].each do |path|
   require path
 end
 
@@ -20,7 +20,7 @@ user_default = User.create do |u|
 end unless user_default.present?
 
 # Importa permissões
-Permission::import_from_controllers(ApplicationController.subclasses)
+PermissionsGeneratorService.call(ApplicationController.subclasses)
 
 # Busca ou cria perfil admin
 admin_profile = Profile.find_or_create_by(name: 'Admin', description: 'Dar acessos a todas as funções do sistema')
