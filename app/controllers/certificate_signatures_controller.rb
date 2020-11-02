@@ -1,6 +1,6 @@
 class CertificateSignaturesController < ApplicationController
 
-  before_action :set_certificate_signature, only: [:show, :edit, :update, :destroy, :arquive]
+  before_action :set_certificate_signature, only: [:show, :edit, :update, :destroy, :arquive, :unarchive]
   before_action :set_filter_object, only: [:index]
 
   # GET /certificate_signatures

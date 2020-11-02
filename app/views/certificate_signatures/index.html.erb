@@ -85,7 +85,7 @@
         <%= link_to span_icon('', 'archive'), arquive_certificate_signature_path(certificate_signature),
                     method: :get, data: { confirm: 'Você tem certeza?', toggle: 'tooltip', placement: 'bottom' }, title: "Arquivar",
                     class: 'btn btn-icon btn-sm btn-default' unless certificate_signature.archived? %>
-        <%= link_to span_icon('', 'undo'), unarchive_certificate_template_path(certificate_signature),
+        <%= link_to span_icon('', 'undo'), unarchive_certificate_signature_path(certificate_signature),
                     method: :get, data: { confirm: 'Você tem certeza?', toggle: 'tooltip', placement: 'bottom' }, title: "Desarquivar",
                     class: 'btn btn-icon btn-sm btn-default' if certificate_signature.archived? %>
       </td>
