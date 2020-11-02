@@ -49,7 +49,7 @@ Rails.application.routes.draw do
       get 'unarchive'
     end
   end
-  resources :permissions, path: 'permissoes', except: [:new, :destroy] do
+  resources :permissions, path: 'permissoes', except: [:new, :destroy, :edit, :update, :create] do
     collection do
       get 'recreate_and_update_all'
     end
