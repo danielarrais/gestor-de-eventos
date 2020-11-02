@@ -4,19 +4,25 @@ class FindPermission < ApplicationFind
   def filter
     @scope = Permission.all.distinct
 
-    filter_by_name if params.present?
-    filter_by_description if params.present?
+    filter_by_action if params.present?
+    filter_by_controller if params.present?
+
+    order_by_action_controller
 
     paginate
   end
 
-  def filter_by_description
-    return unless params.description.present?
-    @scope = @scope.like_unaccent(:description, params.description)
+  def filter_by_controller
+    return unless params.controller.present?
+    @scope = @scope.like_unaccent(:controller, params.controller)
   end
 
-  def filter_by_name
-    return unless params.name.present?
-    @scope = @scope.like_unaccent(:name, params.name)
+  def filter_by_action
+    return unless params.action.present?
+    @scope = @scope.like_unaccent(:action, params.action)
+  end
+
+  def order_by_action_controller
+    @scope = @scope.order(:controller).order(:action)
   end
 end

@@ -1,6 +1,6 @@
 class PermissionsController < ApplicationController
-
   load_and_authorize_resource
+
   before_action :set_action, only: [:show, :edit, :update]
   before_action :set_filter_object, only: [:index]
 
@@ -20,9 +20,11 @@ class PermissionsController < ApplicationController
   end
 
   def recreate_and_update_all
+    Rails.application.eager_load!
+
     controllers = ApplicationController.subclasses
 
-    if Permission::import_from_controllers(controllers)
+    if PermissionsGeneratorService.call(controllers)
       notice = "Base de permissões atualizadas com sucesso."
     else
       notice = "Falha ao atualizar base de permissões."
@@ -50,8 +52,8 @@ class PermissionsController < ApplicationController
   def set_filter_object
     @params = params[:filter] || {}
     @filter = Filter.new({
-                             name: @params[:name],
-                             description: @params[:description]
+                           action: @params[:action],
+                           controller: @params[:controller]
                          })
   end
 
@@ -62,6 +64,6 @@ class PermissionsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def permission_params
-    params.require(:permission).permit(:name, :description)
+    params.require(:permission).permit(:action, :controller)
   end
 end

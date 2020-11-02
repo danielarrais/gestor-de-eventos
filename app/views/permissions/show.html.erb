@@ -3,22 +3,18 @@
 <div class="row">
   <div class="col-md-3">
     <div class="form-group">
-      <%= label_tag :name, 'Nome' %>
-      <%= label_tag :name, @permission.name, class: 'form-control' %>
+      <%= label_tag :action, 'Nome' %>
+      <%= label_tag :action, @permission.action, class: 'form-control' %>
     </div>
   </div>
   <div class="col-md-9">
     <div class="form-group">
-      <%= label_tag :description, 'Descrição' %>
-      <%= label_tag :description, @permission.description, class: 'form-control' %>
+      <%= label_tag :description, 'Grupo' %>
+      <%= label_tag :controller, @permission.controller, class: 'form-control' %>
     </div>
   </div>
 </div>
 
 <div class="float-right">
-  <%= link_to span_icon(i18n_word(:come_back), 'arrow-left'), :back,
-              class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
-  <%= link_to span_icon(i18n_word(:edit), 'edit'), edit_permission_path(@permission),
-              class: 'btn btn-primary btn-icon btn-1 btn-simple',
-              data: { toggle: 'tooltip', placement: 'bottom' }, title: "Editar" %>
+  <%= link_to span_icon(i18n_word(:come_back), 'arrow-left'), :back, class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
 </div>

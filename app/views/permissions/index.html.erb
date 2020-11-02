@@ -17,12 +17,12 @@
     <div class="row">
       <div class="col-md-4">
         <div class="form-group">
-          <%= f.text_field :name, class: 'form-control', placeholder: i18n_placeholder(:permission, :name) %>
+          <%= f.text_field :action, class: 'form-control', placeholder: i18n_placeholder(:permission, :action) %>
         </div>
       </div>
       <div class="col-md-5 mr-auto">
         <div class="form-group">
-          <%= f.text_field :description, class: 'form-control', placeholder: i18n_placeholder(:permission, :description) %>
+          <%= f.text_field :controller, class: 'form-control', placeholder: i18n_placeholder(:permission, :controller) %>
         </div>
       </div>
       <div class="col-md-auto nowrap">
@@ -39,10 +39,10 @@
   <thead class="thead-light">
   <tr class="bg-primary">
     <th class="bold">
-      Nome
+      Grupo
     </th>
     <th class="bold">
-      Descrição
+      Nome
     </th>
     <th style="width: 1%;" class="text-center bold">
       Ações
@@ -53,21 +53,12 @@
   <% @permissions.each do |action| %>
     <tr>
       <td>
-        <%= action.name %>
+        <%= action.controller %>
       </td>
       <td>
-        <%= action.description %>
-      </td>
-      <td class="text-center">
-        <%= link_to span_icon('', 'search'), action,
-                    class: 'btn btn-primary btn-icon btn-sm btn-simple',
-                    data: { toggle: 'tooltip', placement: 'bottom' }, title: "Visualizar" %>
-        <%= link_to span_icon('', 'edit'), edit_permission_path(action),
-                    class: 'btn btn-icon btn-sm btn-warning',
-                    data: { toggle: 'tooltip', placement: 'bottom' }, title: "Editar" %>
+        <%= action.action %>
       </td>
     </tr>
-
   <% end %>
   </tbody>
 </table>

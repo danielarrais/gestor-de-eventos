@@ -6,11 +6,11 @@
         other: 'Permissões'
     attributes:
       permission:
-        name: "Nome"
-        description: "Descrição"
+        action: "Nome"
+        controller: "Descrição"
         public: "Permissão pública"
   helpers:
     placeholder:
       permission:
-        name: "Nome"
-        description: "Descrição"
+        action: "Nome"
+        controller: "Descrição"
