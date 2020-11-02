@@ -73,29 +73,31 @@ class Event < ApplicationRecord
   private
 
   def load_and_select_templates
-    categorias_sem_template = []
+    @categorias_sem_template = []
 
-    if child_events.any?
-      child_events.each do |event|
-        template = CertificateTemplate::default_certificate(event.event_category_id)
-        if template.present?
-          event.update_attribute(:certificate_template_id, template.id)
-        else
-          categorias_sem_template << event.event_category.name
-        end
-      end
-    else
-      template = CertificateTemplate::default_certificate(self.event_category_id)
-      if template.present?
-        self.certificate_template = template
-      else
-        categorias_sem_template << self.event_category.name
-      end
+    set_template
+    set_template_for_child_events
+
+    message = "Não foi encontrado um template padrão para a(s) categoria(s) <b>#{@categorias_sem_template.join('</b>, <b>')}</b>"
+    self.errors.add(:base, message) if @categorias_sem_template.any?
+  end
+
+  def set_template_for_child_events
+    return child_events.any?
+
+    child_events.each do |event|
+      event.set_template
     end
+  end
 
-    message = "Não foi encontrado um template padrão para a(s) categoria(s)
-               <b>#{categorias_sem_template.join('</b>, <b>')}</b>"
-    self.errors.add(:base, message) if categorias_sem_template.any?
+  def set_template
+    template = CertificateTemplate::default_certificate(self.event_category_id)
+
+    if template.present?
+      self.update_attribute(:certificate_template_id, template.id)
+    else
+      @categorias_sem_template << self.event_category.name
+    end
   end
 
   # Defines the allowed image formats
