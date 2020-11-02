@@ -78,10 +78,10 @@ class CertificateTemplatesController < ApplicationController
       @certificate_signatures = CertificateSignature.where(id: @params[:certificate_signatures]).map { |v| ["#{v.name} - #{v.role}", v.id] }
     end
     @filter = Filter.new({
-                             name: @params[:name],
-                             event_category: @params[:event_category],
-                             archived: Util.to_boolean(@params[:archived]),
-                             certificate_signatures: @params[:certificate_signatures],
+                           name: @params[:name],
+                           event_category: @params[:event_category],
+                           archived: Util.to_boolean(@params[:archived]),
+                           certificate_signatures: @params[:certificate_signatures],
                          })
   end
 

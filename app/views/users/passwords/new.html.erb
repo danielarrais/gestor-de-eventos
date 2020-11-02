@@ -13,7 +13,7 @@
               <small>Informe o endereço de e-mail da sua conta para que possamos enviar as intruções de redefinição da
                 sua senha</small>
             </div>
-            <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :post}) do |f| %>
+            <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
               <%= f.hidden_field :reset_password_token %>
               <div class="form-group mb-3">
                 <div class="input-group input-group-alternative">

@@ -136,8 +136,7 @@
     $(function () {
         <% flash.each do |flash, message| %>
         Toast.fire({
-            icon: '<%= flash %>',
-            title: '<%= message %>'
+            icon: '<%= flash %>', title: '<%= message %>'
         })
         <% end %>
 

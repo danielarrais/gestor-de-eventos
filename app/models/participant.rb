@@ -2,7 +2,7 @@ require "zlib"
 require 'securerandom'
 
 class Participant < ApplicationRecord
-#   belongs_to :person, required: false
+  #   belongs_to :person, required: false
   belongs_to :frequence, required: false
   belongs_to :type_participation, required: false
   belongs_to :event, required: false

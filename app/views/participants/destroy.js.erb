@@ -1,11 +1,10 @@
 <% if @participant.present? %>
-  <% flash.each do |flash, message| %>
-    Toast.fire({
-        icon: '<%= flash %>',
-        title: '<%= message %>'
-    })
-  <% end %>
-  <% event_id = @participant.event.id %>
-  <% participants = @participant.frequence.participants&.select { |x| x.event_id == event_id } || [] %>
-  $('#<%= event_id %>').replaceWith('<%= j render 'participants/table', participants: participants, id: event_id %>');
+<% flash.each do |flash, message| %>
+Toast.fire({
+    icon: '<%= flash %>', title: '<%= message %>'
+})
+<% end %>
+<% event_id = @participant.event.id %>
+<% participants = @participant.frequence.participants&.select { |x| x.event_id == event_id } || [] %>
+$('#<%= event_id %>').replaceWith('<%= j render 'participants/table', participants: participants, id: event_id %>');
 <% end %>

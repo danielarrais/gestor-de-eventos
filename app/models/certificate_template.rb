@@ -12,13 +12,13 @@ class CertificateTemplate < ApplicationRecord
   accepts_nested_attributes_for :image, allow_destroy: true, reject_if: -> (x) { x[:file].nil? }
 
   TAGS_TEMPLATES = {
-      nome_aluno: 'Nome do Participante',
-      carga_horaria: 'Carga Horária',
-      nome_completo_evento: 'Nome Completo do Evento/Atividade',
-      nome_evento: 'Nome do Evento/Atividade',
-      tipo_participacao: 'Tipo de Participação',
-      data_inicio: 'Data de Inicío',
-      data_encerramento: 'Data de Encerramento',
+    nome_aluno: 'Nome do Participante',
+    carga_horaria: 'Carga Horária',
+    nome_completo_evento: 'Nome Completo do Evento/Atividade',
+    nome_evento: 'Nome do Evento/Atividade',
+    tipo_participacao: 'Tipo de Participação',
+    data_inicio: 'Data de Inicío',
+    data_encerramento: 'Data de Encerramento',
   }.freeze
 
   def self.default_certificate(event_category_id)

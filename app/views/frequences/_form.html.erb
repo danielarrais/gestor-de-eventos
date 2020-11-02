@@ -101,11 +101,7 @@
         }).then(function (result) {
             if (result.value === true) {
                 $.ajax({
-                    url: `${button.data('url')}`,
-                    type: "DELETE",
-                    processData: false,
-                    contentType: false,
-                    dataType: 'script'
+                    url: `${button.data('url')}`, type: "DELETE", processData: false, contentType: false, dataType: 'script'
                 });
             }
         })

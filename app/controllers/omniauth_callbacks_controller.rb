@@ -6,7 +6,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def google_oauth2
     auth = request.env["omniauth.auth"]
     user = User.where(provider: auth["provider"], uid: auth["uid"])
-               .first_or_initialize(email: auth["info"]["email"])
+             .first_or_initialize(email: auth["info"]["email"])
 
     first_login = user.new_record?
 

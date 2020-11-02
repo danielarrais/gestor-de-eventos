@@ -38,7 +38,7 @@
         <%= f.date_picker :start_date, placeholder: i18n_placeholder(:event, :start_date), hide_label: true %>
       </div>
       <div class="col-md-2 mr-auto">
-        <%= f.date_picker :closing_date, placeholder: i18n_placeholder(:event, :closing_date), hide_label: true  %>
+        <%= f.date_picker :closing_date, placeholder: i18n_placeholder(:event, :closing_date), hide_label: true %>
       </div>
       <div class="col-md-auto nowrap">
         <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple pull") do %>
@@ -80,7 +80,7 @@
         <%= event.name %>
       </td>
       <td>
-        <%= event.event_category.name%>
+        <%= event.event_category.name %>
       </td>
       <td>
         <%= event.situation.situation_description %>

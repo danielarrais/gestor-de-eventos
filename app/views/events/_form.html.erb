@@ -1,7 +1,7 @@
 <%= form_with(model: event, local: true, html: { multipart: true }) do |f| %>
   <%= validations_errors(f.object) %>
   <div class="row">
-    <%= render 'fields', f:f %>
+    <%= render 'fields', f: f %>
   </div>
 
   <div class="clearfix">
@@ -19,6 +19,7 @@
     $(document).on('fieldsadded', (event) => {
         $(event.target).find('.cpf-guided-field').bind('keyup', searchPersonName);
     })
+
     function searchPersonName(event) {
         const people_name_path = '<%= people_name_path %>'
         const input = $(event.target)

@@ -7,7 +7,7 @@ class CertificateSignature < ApplicationRecord
 
   validates_presence_of :role
 
-  accepts_nested_attributes_for :image, allow_destroy: true, reject_if: -> (x) {x[:file].nil?}
+  accepts_nested_attributes_for :image, allow_destroy: true, reject_if: -> (x) { x[:file].nil? }
 
   def archive
     return if archived?

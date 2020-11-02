@@ -36,8 +36,7 @@
         loadPreview();
         <% elsif params[:certificate_hash].present? %>
         Swal.fire({
-            title: 'Certificado não encontrado!',
-            icon: 'error'
+            title: 'Certificado não encontrado!', icon: 'error'
         });
         <% end %>
     })
@@ -46,10 +45,7 @@
         $.ajax({
             data: {
                 certificate_hash: $('#certificate_hash').val()
-            },
-            type: "GET",
-            url: "<%= validar_path %>",
-            dataType: "script"
+            }, type: "GET", url: "<%= validar_path %>", dataType: "script"
         });
     }
 </script>

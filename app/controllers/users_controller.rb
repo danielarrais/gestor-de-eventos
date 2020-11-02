@@ -42,7 +42,7 @@ class UsersController < ApplicationController
     @user = User.new(registers_user_params)
     respond_to do |format|
       if @user.save
-        format.html { redirect_to success_registration_users_path, success:'Cadastro concluído com sucesso!'  }
+        format.html { redirect_to success_registration_users_path, success: 'Cadastro concluído com sucesso!' }
       else
         format.html { render "new_registration" }
       end
@@ -53,7 +53,7 @@ class UsersController < ApplicationController
     @user = User.find(current_user.id)
     respond_to do |format|
       if @user.update(registers_user_params)
-        format.html { render "home/index", success:'Cadastro atualizado com sucesso!'  }
+        format.html { render "home/index", success: 'Cadastro atualizado com sucesso!' }
       else
         format.html { render "edit_registration" }
       end
@@ -67,7 +67,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, success:'User was successfully created.' }
+        format.html { redirect_to @user, success: 'User was successfully created.' }
       else
         format.html { render :new }
       end
@@ -79,7 +79,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, success:'User was successfully updated.' }
+        format.html { redirect_to @user, success: 'User was successfully updated.' }
       else
         format.html { render :edit }
       end
@@ -91,7 +91,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, success:'User was successfully destroyed.' }
+      format.html { redirect_to users_url, success: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -101,9 +101,9 @@ class UsersController < ApplicationController
   def set_filter_object
     @params = params[:filter] || {}
     @filter = Filter.new({
-                             name: @params[:name],
-                             email: @params[:email],
-                             cpf: @params[:cpf]
+                           name: @params[:name],
+                           email: @params[:email],
+                           cpf: @params[:cpf]
                          })
   end
 
@@ -121,10 +121,10 @@ class UsersController < ApplicationController
     params.require(:user).permit(:email,
                                  :encrypted_password,
                                  person_attributes: [:name,
-                                          :surname,
-                                          :registration,
-                                          :cpf,
-                                          :cellphone, :date_of_birth],
+                                                     :surname,
+                                                     :registration,
+                                                     :cpf,
+                                                     :cellphone, :date_of_birth],
                                  :profile_ids => [])
   end
 
@@ -133,9 +133,9 @@ class UsersController < ApplicationController
     params.require(:user).permit(:email,
                                  :encrypted_password,
                                  person_attributes: [:name,
-                                          :surname,
-                                          :registration,
-                                          :cpf,
-                                          :cellphone, :date_of_birth])
+                                                     :surname,
+                                                     :registration,
+                                                     :cpf,
+                                                     :cellphone, :date_of_birth])
   end
 end

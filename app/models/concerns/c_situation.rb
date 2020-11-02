@@ -3,7 +3,7 @@ module CSituation
 
   included do
     attr_accessor :current_user
-    cattr_accessor  :key_init_situation, :condition_init_situation
+    cattr_accessor :key_init_situation, :condition_init_situation
 
     belongs_to :situation, required: false
     has_many :situations, -> { order('created_at asc') }, as: :origin

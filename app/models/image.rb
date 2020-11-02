@@ -1,6 +1,6 @@
 class Image < ApplicationRecord
   validates_presence_of :format, :content
-  validate :format_invalid, if: -> (x) {x.file.present?}
+  validate :format_invalid, if: -> (x) { x.file.present? }
 
   before_validation :extract_info_of_file
 

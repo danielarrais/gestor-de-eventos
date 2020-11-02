@@ -3,7 +3,7 @@
   <%= validations_errors(f.object) %>
 
   <div class="row">
-    <%= f.fields_for :person, f.object.person ||= f.object.build_person  do |person_fields| %>
+    <%= f.fields_for :person, f.object.person ||= f.object.build_person do |person_fields| %>
       <div class="col-md-3">
         <div class="form-group">
           <%= person_fields.label :name %>
@@ -26,7 +26,7 @@
               <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
             </div>
             <%= person_fields.text_field :date_of_birth,
-                             class: 'flatpickr flatpickr-input form-control', placeholder: 'Ex: 22/02/1998' %>
+                                         class: 'flatpickr flatpickr-input form-control', placeholder: 'Ex: 22/02/1998' %>
           </div>
         </div>
       </div>

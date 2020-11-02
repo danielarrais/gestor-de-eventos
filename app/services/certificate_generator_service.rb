@@ -17,9 +17,9 @@ class CertificateGeneratorService
 
       template[:url_backgroud] = event.image&.url || event.parent_event&.image&.url || certificate_template.image&.url
       template[:certificate_signatures] = certificate_template.certificate_signatures.map { |x| {
-          url: x.image.url,
-          name: x.name,
-          role: x.role,
+        url: x.image.url,
+        name: x.name,
+        role: x.role,
       } }
       template[:text] = generate_template_text(participant, event, certificate_template)
       template[:certificate_hash] = participant.certificate_hash

@@ -81,12 +81,12 @@ class EventsController < ApplicationController
   def set_filter_object
     @params = params[:filter] || {}
     @filter = Filter.new({
-                             name: @params[:name],
-                             event_category: @params[:event_category],
-                             situation: @params[:situation],
-                             start_date: @params[:start_date],
-                             closing_date: @params[:closing_date],
-                             show_filter: @params[:show_filter],
+                           name: @params[:name],
+                           event_category: @params[:event_category],
+                           situation: @params[:situation],
+                           start_date: @params[:start_date],
+                           closing_date: @params[:closing_date],
+                           show_filter: @params[:show_filter],
                          })
   end
 
@@ -100,7 +100,7 @@ class EventsController < ApplicationController
     @event_categories = EventCategory.select(:name, :id).map { |k, v| [k.name, k.id] }
     @courses = Course.select(:name, :id).map { |k, v| [k.name, k.id] }
     @key_situations = Situation.where(origin_type: Event.to_s).select('key_situation_id').distinct
-                          .map { |k, v| [k.key_situation.description, k.key_situation.id] }
+                        .map { |k, v| [k.key_situation.description, k.key_situation.id] }
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

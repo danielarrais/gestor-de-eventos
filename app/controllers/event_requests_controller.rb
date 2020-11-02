@@ -88,13 +88,13 @@ class EventRequestsController < ApplicationController
   def set_filter_object
     @params = params[:filter] || {}
     @filter = Filter.new({
-                             name: @params[:name],
-                             event_category: @params[:event_category],
-                             situation: @params[:situation],
-                             start_date: @params[:start_date],
-                             closing_date: @params[:closing_date],
-                             show_filter: @params[:show_filter],
-                             cpf_solicitante: @params[:cpf_solicitante],
+                           name: @params[:name],
+                           event_category: @params[:event_category],
+                           situation: @params[:situation],
+                           start_date: @params[:start_date],
+                           closing_date: @params[:closing_date],
+                           show_filter: @params[:show_filter],
+                           cpf_solicitante: @params[:cpf_solicitante],
                          })
   end
 
@@ -102,7 +102,7 @@ class EventRequestsController < ApplicationController
   def set_list_for_select
     @event_categories = EventCategory.select(:name, :id).map { |k, v| [k.name, k.id] }
     @key_situations = Situation.where(origin_type: EventRequest.to_s).select('key_situation_id').distinct
-                          .map { |k, v| [k.key_situation.description_female, k.key_situation.id] }
+                        .map { |k, v| [k.key_situation.description_female, k.key_situation.id] }
     @courses = Course.select(:name, :id).map { |k, v| [k.name, k.id] }
   end
 

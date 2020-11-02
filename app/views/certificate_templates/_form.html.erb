@@ -114,31 +114,25 @@
         const hightlightButton = function (context) {
             const ui = $.summernote.ui;
 
-            const pdfButton = ui.buttonGroup([
-                ui.button({
-                    className: "dropdown-toggle",
-                    contents: '<span class="fa fa-tag mr-1"></span> <span class="caret">Tags</span>',
-                    tooltip: "Escolha tags para serem substituídas por dados reais",
-                    callback: (button) => {
-                        button.click(function () {
-                            context.invoke('editor.saveRange');
-                        });
-                    },
-                    data: {
-                        toggle: "dropdown",
-                    },
-                }),
-                ui.dropdown({
-                    className: "drop-default summernote-list",
-                    style: 'width: 100px',
-                    contents: contents,
-                    callback: function ($dropdown) {
-                        $dropdown.find("li").click(function (target) {
-                            insertAtTemplate(`{{${$(target.currentTarget).data('tag')}}} `)
-                        });
-                    },
-                }),
-            ]);
+            const pdfButton = ui.buttonGroup([ui.button({
+                className: "dropdown-toggle",
+                contents: '<span class="fa fa-tag mr-1"></span> <span class="caret">Tags</span>',
+                tooltip: "Escolha tags para serem substituídas por dados reais",
+                callback: (button) => {
+                    button.click(function () {
+                        context.invoke('editor.saveRange');
+                    });
+                },
+                data: {
+                    toggle: "dropdown",
+                },
+            }), ui.dropdown({
+                className: "drop-default summernote-list", style: 'width: 100px', contents: contents, callback: function ($dropdown) {
+                    $dropdown.find("li").click(function (target) {
+                        insertAtTemplate(`{{${$(target.currentTarget).data('tag')}}} `)
+                    });
+                },
+            }),]);
 
 
             return pdfButton.render();
@@ -147,15 +141,7 @@
         $('#certificate_template_body').summernote({
             height: 200,
             fontSizes: ['8', '9', '10', '11', '12', '14', '18', '20', '22', '24', '26', '28', '30'],
-            toolbar: [
-                ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['font', ['fontname', 'strikethrough', 'superscript', 'subscript']],
-                ['fontsize', ['fontsize']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['height', ['height']],
-                ['tags', ['tags']]
-            ],
+            toolbar: [['style', ['bold', 'italic', 'underline', 'clear']], ['font', ['fontname', 'strikethrough', 'superscript', 'subscript']], ['fontsize', ['fontsize']], ['color', ['color']], ['para', ['ul', 'ol', 'paragraph']], ['height', ['height']], ['tags', ['tags']]],
             buttons: {
                 tags: hightlightButton
             },
@@ -189,10 +175,7 @@
         $.ajax({
             data: {
                 selecteds: $(event.target).val()
-            },
-            type: "GET",
-            url: "<%= load_selected_signatures_certificate_templates_path %>",
-            dataType: "script"
+            }, type: "GET", url: "<%= load_selected_signatures_certificate_templates_path %>", dataType: "script"
         });
     }
 </script>

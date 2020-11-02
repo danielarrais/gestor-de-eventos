@@ -16,8 +16,8 @@
 
     function loadData() {
         <% unless certificate_template.new_record? %>
-          $('#certificate-frame').css('background-image', `url(<%= certificate_template.image.url %>)`)
-          $('#certificate-text-content').html('<%= j certificate_template.body.html_safe %>')
+        $('#certificate-frame').css('background-image', `url(<%= certificate_template.image.url %>)`)
+        $('#certificate-text-content').html('<%= j certificate_template.body.html_safe %>')
         <% end %>
     }
 
@@ -49,9 +49,7 @@
         const top_signatures = (parseInt(height) * 570 / heigth_a4_ref) - height_text;
 
         certificate_signatures_frame.css({
-            'top': `${top_signatures}px`,
-            'padding-left': '100px',
-            'padding-right': '100px',
+            'top': `${top_signatures}px`, 'padding-left': '100px', 'padding-right': '100px',
         });
 
     }

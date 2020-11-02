@@ -1,9 +1,9 @@
 <% if @event_request.errors.any? %>
-  $('#errors-return-for-changes').html('<%= validations_errors(@event_request, margin: 0) %>')
+$('#errors-return-for-changes').html('<%= validations_errors(@event_request, margin: 0) %>')
 <% else %>
-  $('#return-for-changes-modal').modal('hide')
+$('#return-for-changes-modal').modal('hide')
 
-  showSpinner()
+showSpinner()
 
-  window.location.href = '<%= event_requests_path %>';
+window.location.href = '<%= event_requests_path %>';
 <% end %>

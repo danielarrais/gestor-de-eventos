@@ -1,3 +1,0 @@
-class EventRequestDecorator < ApplicationDecorator
-
-end
