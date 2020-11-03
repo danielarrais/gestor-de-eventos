@@ -1,44 +1,150 @@
 <%= form_with(model: profile, local: true) do |f| %>
   <%= validations_errors(f.object) %>
 
+  <%= f.hidden_field :permission_ids, id: :input_permission_ids, value: f.object.permission_ids.join(',') %>
+
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-4">
       <div class="form-group">
         <%= f.label :name %>
         <%= f.text_field :name, class: 'form-control', placeholder: true %>
       </div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-8">
       <div class="form-group">
         <%= f.label :description %>
         <%= f.text_field :description, class: 'form-control', placeholder: true %>
       </div>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-4">
       <div class="form-group">
-        <%= f.label :action_ids %>
-        <%= f.select(:action_ids, @permissions,
-                     { include_blank: true },
-                     { multiple: true,
-                       size: 5,
-                       class: 'form-control',
-                       data: { trigger: '' },
-                       id: 'action_ids' }) %>
+        <%= f.label :permission_ids %>
+        <div id="tree">
+          <ul>
+            <% @permissions&.group_by { |x| x.controller }&.each_with_index do |controller_permissions, index| %>
+              <% controller = controller_permissions[0] %>
+              <% permissions = controller_permissions[1] %>
+              <li id="folder<%= index + 1 %>"><%= controller %>
+                <ul>
+                  <% permissions.each do |permission| %>
+                    <li id="<%= permission.id %>"><%= permission.action %></li>
+                  <% end %>
+                </ul>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="form-group">
+        <%= f.label 'Permissões selecionadas' %>
+        <table class="table borderless table-striped">
+          <% @permissions&.group_by { |x| x.controller }&.each_with_index do |controller_permissions, index| %>
+            <% controller = controller_permissions[0] %>
+            <% permissions = controller_permissions[1] %>
+            <tr id="tr<%= index + 1 %>" class="d-none">
+              <td style="width: 30%;">
+                <%= controller %>
+              </td>
+              <td class="break-text">
+                <% permissions.each do |permission| %>
+                  <span id="badge<%= permission.id %>" class="badge badge-primary d-none"><%= permission.action %></span>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
       </div>
     </div>
   </div>
-
-  <div class="float-right">
-    <%= link_to span_icon(i18n_word(:come_back), 'arrow-left'), :back,
-                class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
-    <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple") do %>
-      <span><i class="fa fa-floppy-o mr-1"></i> Salvar</span>
-    <% end %>
+  <div class="clearfix">
+    <div class="float-right">
+      <%= link_to span_icon(i18n_word(:come_back), 'arrow-left'), :back,
+                  class: 'btn btn-secondary btn-icon btn-1 btn-simple' %>
+      <%= button_tag(:class => "btn btn-primary btn-icon btn-1 btn-simple") do %>
+        <span><i class="fa fa-floppy-o mr-1"></i> Salvar</span>
+      <% end %>
+    </div>
   </div>
 <% end %>
 
 <script type="text/javascript" charset="utf-8">
-    new Choices('#action_ids', {
-        searchEnabled: true, searchChoices: true, search: true, delimiter: ',', editItems: true, removeItemButton: true,
+    $(function () {
+        $('form').one('submit', function (e) {
+            e.preventDefault();
+            debugger;
+            setSelectedPermissionsInInput();
+            debugger;
+            $(this).submit();
+        });
+
+        let jstree = $("#tree").jstree({
+            "checkbox": {
+                "keep_selected_style": false
+            }, "plugins": ["checkbox"], "core": {
+                "themes": {
+                    "icons": false
+                }
+            }
+        });
+
+        jstree.on('changed.jstree', function (e, data) {
+            if (data.action === 'ready') {
+                return;
+            }
+
+            const children = getChildrenForJsTree(data.node, data.instance);
+
+            for (let permission of children) {
+                const permission_state = data.instance.get_node(permission)
+                const badge = $(`#badge${permission_state.id}`);
+                const row = badge.closest('tr');
+
+                if (permission_state.state.selected === true) {
+                    badge.removeClass('d-none');
+                } else {
+                    badge.addClass('d-none');
+                }
+
+                if (row.find('.d-none').length === children.length) {
+                    row.addClass('d-none');
+                } else {
+                    row.removeClass('d-none');
+                }
+            }
+        })
+
+        setSelectedPermissionsInTree();
     });
+
+    function getChildrenForJsTree(node, instanceJstree) {
+        return node.children.length > 0 ? node.children : instanceJstree.get_node(node.parent).children
+    }
+
+    function setSelectedPermissionsInTree() {
+        const jsTree = $('#tree');
+        const selectedPermissions = $('#input_permission_ids').val().replace('[', '').replace(']', '').split(',');
+
+        for (let permission of selectedPermissions) {
+            jsTree.jstree('select_node', permission);
+        }
+    }
+
+    function setSelectedPermissionsInInput() {
+        const allNodes = $('#tree').jstree().get_json('#', {flat: true});
+        let selectedPermissions = [];
+
+        for (let treeNode of allNodes) {
+            if (treeNode.id.indexOf('folder') !== -1) {
+                continue;
+            }
+
+            if (treeNode.state.selected === true) {
+                selectedPermissions.push(treeNode.id)
+            }
+        }
+        debugger;
+        $('#input_permission_ids').val(selectedPermissions.join(','))
+    }
 </script>

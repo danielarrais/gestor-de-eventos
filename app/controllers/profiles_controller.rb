@@ -77,11 +77,20 @@ class ProfilesController < ApplicationController
   end
 
   def set_permissions_for_select
-    @permissions = Permission.all.select(:name, :id).map { |k, v| [k.name, k.id] }
+    @permissions = Permission.all.select(:id, :action, :controller).order(:controller).order(:action)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def profile_params
-    params.require(:profile).permit(:name, :description, :custom, permission_ids: [])
+    profile_params = params
+                       .require(:profile)
+                       .permit(:name,
+                               :description,
+                               :custom,
+                               :permission_ids)
+
+    profile_params[:permission_ids] = profile_params[:permission_ids].split(',') unless profile_params[:permission_ids].blank?
+
+    profile_params
   end
 end

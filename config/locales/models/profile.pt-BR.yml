@@ -8,7 +8,7 @@
       profile:
         name: "Nome"
         description: "Descrição"
-        action_ids: "Ações permitidas"
+        action_ids: "Permissões"
   helpers:
     placeholder:
       profile:
