@@ -19,6 +19,7 @@ import 'nouislider'
 import 'perfect-scrollbar'
 import 'headroom.js'
 import 'jquery-mask-plugin'
+import 'jstree'
 import 'summernote/dist/summernote.min'
 
 // Import Locais

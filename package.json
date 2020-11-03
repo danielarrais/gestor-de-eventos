@@ -27,6 +27,7 @@
     "jasny-bootstrap": "^4.0.0",
     "jquery": "^3.4.1",
     "jquery-mask-plugin": "^1.14.16",
+    "jstree": "^3.3.10",
     "moment": "2.18.1",
     "multi.js": "^0.5.1",
     "nouislider": "^14.2.0",

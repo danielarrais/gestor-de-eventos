@@ -35,6 +35,10 @@ body > .container-spinner {
   font-size: 0.9rem;
 }
 
+.borderless td, .borderless th {
+  border: none;
+}
+
 .breadcrumb {
   background: none;
   font-size: 0.82rem;
