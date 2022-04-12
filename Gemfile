@@ -47,7 +47,7 @@ gem 'rqrcode'
 # Gem do Sentry
 gem "sentry-raven"
 
-gem 'nokogiri', '~> 1.11.0.rc2'
+gem 'nokogiri', '~> 1.13.4'
 
 gem 'liquid'
 
